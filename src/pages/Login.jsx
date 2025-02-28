@@ -12,9 +12,9 @@ const Login = () => {
     };
     return (
         <section class='bg-white'>
-            <div className='lg:w-full xl:max-w-7xl mx-auto'>
+            <div className='lg:w-full xl:max-w-7xl m-auto'>
                 <div class='grid grid-cols-1 lg:grid-cols-2'>
-                    <div class='flex items-center justify-center px-4 py-10 bg-white sm:px-6 lg:px-8 sm:py-16 lg:py-24'>
+                    <div class='flex items-center justify-center px-4 bg-white'>
                         <div class=''>
                             <h2 class='text-3xl font-semibold leading-tight text-black sm:text-4xl'>
                                 Welcome to <span className='text-primary'>INTERVIEW AI</span>
@@ -68,15 +68,12 @@ const Login = () => {
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div class='relative flex items-end justify-center'>
-                            <img
-                                class='object-none w-full h-screen lg:rounded-l-2xl xl:rounded-r-3xl'
-                                src={SigninImage}
-                                alt=''
-                            />
-                            <div class='absolute inset-0 bg-gradient-to-t from-black to-transparent'></div>
-                        </div>
+                    <div className='my-auto flex py-5'>
+                        <img
+                            class='object-cover  w-full h-[94vh] ml-auto flex rounded-l-3xl '
+                            src={SigninImage}
+                            alt=''
+                        />
                     </div>
                 </div>
             </div>
