@@ -2,15 +2,26 @@
 
 @theme {
     --color-primary: #3e9ffb;
+    --color-primary-gray: #1e1e1e;
+    --color-primary-green: #34a853;
+    --color-blue-background: #3e9ffb1a;
     --color-shell: #faf6ef;
     --color-border: #e7e7e9;
     --color-neutralbg: #f3f3f6;
     --color-neutral: #6c6c6c;
     --color-text-primary: #3e9ffb;
     /* Border */
-
     --color-border-primary: #dbdbdb;
     --color-border-secondary: #e7e7e9;
+
+    /* Paragraph */
+    --color-subtext-primary: #2c2c2c;
+    --color-text-gray: #707070;
+    --color-text-neutral: #a4a4a4;
+    --color-paragraph: #5c5c5c;
+
+    /* Icon  */
+    --color-icon-primary: #929292;
 }
 @layer base {
     /* Custom Fonts */
@@ -95,7 +106,6 @@
         color: white;
         cursor: pointer;
         background-color: #3e9ffb;
-        width: 100%;
         transition: all 0.3s;
     }
 }

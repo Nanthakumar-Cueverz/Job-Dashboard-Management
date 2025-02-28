@@ -62,7 +62,7 @@ const Login = () => {
                                         </button>
                                     </div>
                                     <div className='pt-10'>
-                                        <button className='btn-fill'> Sign in</button>
+                                        <button className='btn-fill w-full'> Sign in</button>
                                     </div>
                                 </form>
                             </div>
