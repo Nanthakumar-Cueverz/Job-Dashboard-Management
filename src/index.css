@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+
+@theme {
+    --color-primary: #3e9ffb;
+    --color-shell: #faf6ef;
+    --color-border: #e7e7e9;
+    --color-neutralbg: #f3f3f6;
+    --color-neutral: #6c6c6c;
+    --color-text-primary: #3e9ffb;
+    /* Border */
+
+    --color-border-primary: #dbdbdb;
+    --color-border-secondary: #e7e7e9;
+}
+@layer base {
+    /* Custom Fonts */
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 400;
+        src: url('./assets/fonts/poppins/Poppins-Regular.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 300;
+        src: url('./assets/fonts/poppins/Poppins-Light.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 500;
+        src: url('./assets/fonts/poppins/Poppins-Medium.ttf') format('truetype');
+    }
+
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 600;
+        src: url('./assets/fonts/poppins/Poppins-SemiBold.ttf') format('truetype');
+    }
+    @font-face {
+        font-family: 'Poppins';
+        font-style: normal;
+        font-weight: 700;
+        src: url('./assets/fonts/poppins/Poppins-Bold.ttf') format('truetype');
+    }
+
+    /* Custom Variables */
+    :root {
+        --color-white: #ffffff;
+        --color-black: #000000;
+    }
+    body {
+        font-family: 'Poppins' !important;
+    }
+    a {
+        cursor: pointer !important;
+    }
+    button {
+        cursor: pointer !important;
+    }
+}
+
+@layer utilities {
+    .scrollbar-hidden {
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+}
+
+@layer components {
+    /* button */
+    .link-button {
+        font-weight: 500;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        color: #3e9ffb;
+        text-decoration: none;
+    }
+    .btn-fill {
+        padding: 1rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 1rem;
+        color: white;
+        cursor: pointer;
+        background-color: #3e9ffb;
+        width: 100%;
+        transition: all 0.3s;
+    }
+}
