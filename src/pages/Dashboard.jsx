@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Check from '@icons/check.svg?react';
 import empty from '../assets/images/empty-icon.png';
 import AddIcon from '@icons/plus.svg?react';
@@ -8,6 +8,9 @@ import TextArea from '../components/common/TextArea';
 import UploadBlack from '@icons/upload-black.svg?react';
 import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
+import ModalPopup from '../components/common/ModalPopup';
+import { Oval } from 'react-loader-spinner';
+import Loader from '../components/common/Loader';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(0);
     return (
@@ -139,29 +142,132 @@ const JobInfo = () => {
     );
 };
 const Questions = () => {
+    const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
+    const [selectedQuestions, setSelectedQuestions] = useState([]);
+    const [isQuestionsImported, setIsQuestionsImported] = useState(false);
+
+    useEffect(() => {
+        const storedQuestions = sessionStorage.getItem('selectedQuestions');
+        if (storedQuestions) {
+            setSelectedQuestions(JSON.parse(storedQuestions));
+            setIsQuestionsImported(true);
+        }
+    }, [generateQuestionsModal]); // Update when modal closes
+
     return (
         <div>
-            <div>
-                <label className='label'>Candidate Question</label>
+            {!isQuestionsImported && ( // Hide input section after import
                 <div className='flex items-center align-middle justify-between space-x-5'>
                     <div className='flex border border-border-secondary rounded-md w-full '>
                         <input
                             placeholder='Enter a topic'
                             className='w-full border-r border-border-secondary active:border-0 outline-0 pl-2 text-sm'
                         />
-                        <button className='flex align-middle items-center space-x-2 text-primary text-xs font-semibold whitespace-nowrap px-5 py-3'>
+                        <button
+                            onClick={() => setGenerateQuestionsModal(true)}
+                            className='flex align-middle items-center space-x-2 text-primary text-xs font-semibold whitespace-nowrap px-5 py-3'
+                        >
                             <Stars />
                             Generative AI <Aleart className='h-4 w-4 ml-2 fill-secondary' />
                         </button>
                     </div>
                     <div>
-                        <button className='outline-button gap-x-2 whitespace-nowrap flex'>
+                        <button
+                            onClick={() => setGenerateQuestionsModal(true)}
+                            className='outline-button gap-x-2 whitespace-nowrap flex'
+                        >
                             <UploadBlack /> Upload
                         </button>
                     </div>
                 </div>
+            )}
+
+            {/* Show Selected Questions List */}
+            {isQuestionsImported && (
+                <div className='bg-[#f6f6f6]'>
+                    <h1 className='text-lg font-bold mt-5'>List of Selected Questions</h1>
+                    <ul className='list-disc pl-5 space-y-2 mt-3'>
+                        {selectedQuestions.map((question, index) => (
+                            <li key={index} className='text-gray-700'>
+                                {question}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            <ModalPopup
+                isOpen={generateQuestionsModal}
+                onClose={() => setGenerateQuestionsModal(false)}
+            >
+                <ImportedQuestions onClose={() => setGenerateQuestionsModal(false)} />
+            </ModalPopup>
+        </div>
+    );
+};
+
+const Candidates = () => <div>Candidates</div>;
+
+const ImportedQuestions = ({ onClose }) => {
+    const questions = [
+        'What is the difference between supervised and unsupervised learning?',
+        'What is feature engineering and why is it important?',
+        'Explain the concepts of bias and variance in the context of machine learning.',
+        'What is cross-validation and why is it used?',
+        'How does regularization help in model building, and what are some common types?',
+        'What is the difference between precision and recall?',
+        'What is a confusion matrix, and what information does it provide?',
+        'Name a few common activation functions used in neural networks and mention one use case for each.',
+    ];
+
+    const [selectedQuestions, setSelectedQuestions] = useState(() => {
+        // Load previously selected questions from sessionStorage
+        const storedQuestions = sessionStorage.getItem('selectedQuestions');
+        return storedQuestions ? JSON.parse(storedQuestions) : [];
+    });
+
+    const handleSelect = (question) => {
+        setSelectedQuestions((prev) => {
+            const updatedSelection = prev.includes(question)
+                ? prev.filter((q) => q !== question) // Remove if already selected
+                : [...prev, question]; // Add if not selected
+
+            sessionStorage.setItem('selectedQuestions', JSON.stringify(updatedSelection));
+            return updatedSelection;
+        });
+    };
+
+    const handleImport = () => {
+        onClose(); // Close modal
+    };
+
+    return (
+        <div className='spave-y-10'>
+            <div className='border-b border-border-primary pb-5 mb-5'>
+                <h2 className='text-xl font-semibold'>AI Question For Data Scientist </h2>
+            </div>
+            <div className='space-y-2 border-b border-border-primary pb-5 mb-5'>
+                {questions.map((question, index) => (
+                    <label key={index} className='flex space-x-5 space-y-6'>
+                        <div className='w-fit'>
+                            <input
+                                type='checkbox'
+                                className='h-5 w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
+                                checked={selectedQuestions.includes(question)}
+                                onChange={() => handleSelect(question)}
+                            />
+                        </div>
+                        <div>
+                            <h6 className='para text-[16px]'>{question}</h6>
+                        </div>
+                    </label>
+                ))}
+            </div>
+            <div className='text-end'>
+                <button onClick={handleImport} className='btn-fill bg-neutral-500'>
+                    Import
+                </button>
             </div>
         </div>
     );
 };
-const Candidates = () => <div>Candidates</div>;
