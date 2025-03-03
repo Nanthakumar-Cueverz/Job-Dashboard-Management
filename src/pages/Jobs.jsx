@@ -1,83 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CircleDot from '../assets/icons/circle-dot.svg?react';
 import Location from '../assets/icons/map-pin.svg?react';
-const jobListings = [
-    {
-        id: 1,
-        icon: CircleDot,
-        color: 'gray',
-        title: 'Data Scientist',
-        location: 'Marina East, Singapore',
-        time: '5 hours ago',
-        jobType: 'Full Time',
-        postedDate: '2023-08-15',
-        descriptions: [
-            'Analyze large datasets to extract meaningful insights.',
-            'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged',
-            'Collaborate with engineers to deploy AI solutions into production.',
-        ],
-    },
-    {
-        id: 2,
-        icon: CircleDot,
-        color: 'green',
-        title: 'Software Engineer',
-        location: 'Marina West, Singapore',
-        time: '1 day ago',
-        jobType: 'Part Time',
-        postedDate: '2023-08-14',
-        descriptions: [
-            'Design and implement scalable software solutions.',
-            'Collaborate with designers to create user-friendly interfaces.',
-            'Write clean, efficient, and maintainable code.',
-        ],
-    },
-    {
-        id: 3,
-        icon: CircleDot,
-        color: 'yellow',
-        title: 'Product Manager',
-        location: 'Marina North, Singapore',
-        time: '2 days ago',
-        jobType: 'Contract',
-        postedDate: '2023-08-13',
-        descriptions: [
-            'Define product requirements and goals.',
-            'Manage product development lifecycle.',
-            'Communicate with stakeholders and clients.',
-        ],
-    },
-    {
-        id: 4,
-        icon: CircleDot,
-        title: 'UX Designer',
-        color: 'red',
-        location: 'Marina South, Singapore',
-        time: '3 days ago',
-        jobType: 'Full Time',
-        postedDate: '2023-08-12',
-        descriptions: [
-            'Create user-centered designs for web and mobile applications.',
-            'Conduct user research and usability testing.',
-            'Collaborate with development teams to implement designs.',
-        ],
-    },
-    {
-        id: 5,
-        icon: CircleDot,
-        color: 'orange',
-        title: 'Marketing Specialist',
-        location: 'Marina Central, Singapore',
-        time: '4 days ago',
-        jobType: 'Part Time',
-        postedDate: '2023-08-11',
-        descriptions: [
-            'Develop and execute marketing strategies.',
-            'Analyze market trends and competitor strategies.',
-            'Create and implement marketing campaigns.',
-        ],
-    },
-];
+import Pagination from '../components/common/Pagination';
+import jobListings from '../Content.jsx';
+import PostJobCommon from '../components/common/PostJobCommon.jsx';
+import { useNavigate } from 'react-router-dom';
+
 const colorClasses = {
     gray: 'bg-gray-800',
     green: 'bg-green-800',
@@ -86,14 +14,24 @@ const colorClasses = {
     orange: 'bg-orange-800',
 };
 const Jobs = () => {
+    const [currentPage, setCurrentPage] = useState(1);
+    const jobsPerPage = 3;
+    // Calculate the displayed jobs
+    const indexOfLastJob = currentPage * jobsPerPage;
+    const indexOfFirstJob = indexOfLastJob - jobsPerPage;
+    const currentJobs = jobListings.slice(indexOfFirstJob, indexOfLastJob);
+    const totalPages = Math.ceil(jobListings.length / jobsPerPage);
     return (
         <div className='py-10 px-10'>
             <div>
-                <div className='w-full flex justify-end items-center'>
-                    <button className='btn-fill px-10'>Post a Job</button>
-                </div>
+                <PostJobCommon />
                 <div>
-                    <JobsCard />
+                    <JobsCard jobs={currentJobs} />
+                    <Pagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                    />
                 </div>
             </div>
         </div>
@@ -102,19 +40,19 @@ const Jobs = () => {
 
 export default Jobs;
 
-const JobsCard = () => {
+const JobsCard = ({ jobs }) => {
     return (
         <div className='py-10'>
-            {jobListings.map((job) => (
+            {jobs.map((job) => (
                 <div
                     key={job.id}
                     className='p-4 border border-border-primary rounded-md mb-5 last:mb-0'
                 >
                     <div className='pb-4 border-b border-border-primary flex justify-between align-middle'>
                         <div className='flex items-center gap-x-4'>
-                            <job.icon
+                            <CircleDot
                                 className={`${
-                                    colorClasses[job.color] || 'bg-gray-800'
+                                    colorClasses[job.color]
                                 } text-white p-2 rounded-sm w-12 h-12`}
                             />
                             <div>
@@ -122,7 +60,9 @@ const JobsCard = () => {
                                     {job.title}
                                 </h2>
                                 <div className='flex align-middle gap-x-3 items-center'>
-                                    <h6 className='text-xs text-[#707070] font-medium'>Github</h6>
+                                    <h6 className='text-xs text-[#707070] font-medium'>
+                                        Company Name
+                                    </h6>
                                     <span className='text-[10px] px-3 py-[4px] bg-blue-background text-text-primary rounded-full'>
                                         {job.jobType}
                                     </span>
@@ -137,16 +77,34 @@ const JobsCard = () => {
                             </div>
                         </div>
                     </div>
-
                     <ul className='mt-2 list-disc pl-5 text-gray-700'>
-                        {job.descriptions.map((desc, index) => (
-                            <li key={index} className='text-sm text-paragraph font-light pb-2'>
-                                {desc}
-                            </li>
-                        ))}
+                        <JobDescription job={job} />
                     </ul>
                 </div>
             ))}
         </div>
+    );
+};
+const JobDescription = ({ job }) => {
+    const navigate = useNavigate();
+
+    return (
+        <>
+            {/* First description - Full text */}
+            <li className='text-sm text-paragraph font-light pb-2'>{job.descriptions[0]}</li>
+
+            {/* Second description - Truncated with "View More" */}
+            <li className='text-sm text-paragraph font-light pb-2 relative'>
+                <span className='line-clamp-2'>
+                    {job.descriptions[1].substring(0, 120)}...
+                    <button
+                        className='text-blue-500 font-normal ml-2  bg-white'
+                        onClick={() => navigate('/job-detail')}
+                    >
+                        View More
+                    </button>
+                </span>
+            </li>
+        </>
     );
 };

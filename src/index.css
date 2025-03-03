@@ -108,4 +108,13 @@
         background-color: #3e9ffb;
         transition: all 0.3s;
     }
+    .para {
+        font-size: 12px;
+        color: #5c5c5c;
+    }
+    .subheading {
+        font-size: 14px;
+        color: #5c5c5c;
+        font-weight: 600;
+    }
 }
