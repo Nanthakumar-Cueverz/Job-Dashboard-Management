@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import url('datatables.net-dt');
 
 @theme {
     --color-primary: #3e9ffb;
@@ -22,6 +23,10 @@
 
     /* Icon  */
     --color-icon-primary: #929292;
+
+    /* Table */
+    --color-table-background: #f9f9f9;
+    --color-table-text: #8f8f8f;
 }
 @layer base {
     /* Custom Fonts */
@@ -117,4 +122,66 @@
         color: #5c5c5c;
         font-weight: 600;
     }
+    #DataTables_Table_0_wrapper {
+        border-radius: 20px !important;
+    }
 }
+/* Data Table */
+#DataTables_Table_0_wrapper td {
+    text-align: center;
+}
+#DataTables_Table_0_wrapper tbody {
+    padding: 10px 10px;
+}
+
+#DataTables_Table_0_wrapper tbody tr {
+    color: #8f8f8f;
+    font-size: 14px;
+    border-bottom: 1px solid #dbdbdb;
+}
+#DataTables_Table_0_wrapper tbody tr td {
+    padding: 20px 10px;
+}
+#DataTables_Table_0_wrapper tbody,
+#DataTables_Table_0_wrapper table {
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#DataTables_Table_0_wrapper .dt-layout-row:first-child,
+#DataTables_Table_0_wrapper .dt-layout-row:nth-child(3) {
+    display: flex;
+    justify-content: space-between;
+    color: #5c5c5c;
+    padding: 20px 0px;
+}
+#DataTables_Table_0_wrapper .dt-paging button {
+    padding: 10px 17px;
+    border: 1px solid #dbdbdb;
+    border-radius: 100%;
+    margin: 0px 2px;
+    font-size: 12px;
+    font-weight: 600;
+}
+#DataTables_Table_0_wrapper .dt-paging-button.current {
+    background-color: #3e9ffb;
+    color: white;
+    border: #3e9ffb;
+}
+#DataTables_Table_0_wrapper .dt-paging-button.disabled {
+    background-color: #dbdbdb54;
+    color: #8080806e;
+}
+#DataTables_Table_0_wrapper .dt-search input {
+    border: 1px solid #dbdbdb;
+    color: #1e1e1e;
+    font-size: 14px;
+    border-radius: 6px;
+    padding: 10px 10px;
+    margin-left: 10px;
+}
+#DataTables_Table_0_wrapper .dt-search input::placeholder {
+    color: #8f8f8f;
+    font-size: 14px;
+}
+/* Data Table end */
