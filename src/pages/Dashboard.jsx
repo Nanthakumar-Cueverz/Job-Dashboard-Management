@@ -145,20 +145,31 @@ const Questions = () => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [isQuestionsImported, setIsQuestionsImported] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // Initially false
 
+    // Load questions from sessionStorage when component mounts
     useEffect(() => {
         const storedQuestions = sessionStorage.getItem('selectedQuestions');
         if (storedQuestions) {
             setSelectedQuestions(JSON.parse(storedQuestions));
             setIsQuestionsImported(true);
         }
-    }, [generateQuestionsModal]); // Update when modal closes
+    }, []); // Run only on initial render
+
+    // Show loading only when the modal opens
+    useEffect(() => {
+        if (generateQuestionsModal) {
+            setIsLoading(true);
+            setTimeout(() => setIsLoading(false), 1000); // Simulated loading time
+        }
+    }, [generateQuestionsModal]);
 
     return (
         <div>
-            {!isQuestionsImported && ( // Hide input section after import
+            {/* Hide input section after import */}
+            {!isQuestionsImported && (
                 <div className='flex items-center align-middle justify-between space-x-5'>
-                    <div className='flex border border-border-secondary rounded-md w-full '>
+                    <div className='flex border border-border-secondary rounded-md w-full'>
                         <input
                             placeholder='Enter a topic'
                             className='w-full border-r border-border-secondary active:border-0 outline-0 pl-2 text-sm'
@@ -182,25 +193,66 @@ const Questions = () => {
                 </div>
             )}
 
-            {/* Show Selected Questions List */}
+            {/* Display imported questions */}
             {isQuestionsImported && (
-                <div className='bg-[#f6f6f6]'>
-                    <h1 className='text-lg font-bold mt-5'>List of Selected Questions</h1>
-                    <ul className='list-disc pl-5 space-y-2 mt-3'>
-                        {selectedQuestions.map((question, index) => (
-                            <li key={index} className='text-gray-700'>
-                                {question}
-                            </li>
-                        ))}
-                    </ul>
+                <div>
+                    <div>
+                        <h1 className='text-md font-semibold'>Candidate Questions</h1>
+                    </div>
+                    <div className='bg-[#f6f6f6] p-5'>
+                        <div>
+                            <ul className='list-decimal pl-5 space-y-2 mt-3'>
+                                {selectedQuestions.map((question, index) => (
+                                    <li
+                                        key={index}
+                                        className='text-sm text-paragraph pb-3 last:pb-0'
+                                    >
+                                        {question}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className='flex gap-3 mt-3'>
+                            <button
+                                onClick={() => setGenerateQuestionsModal(true)}
+                                className='btn-primary'
+                            >
+                                Add More Questions
+                            </button>
+                            <button
+                                onClick={() => {
+                                    sessionStorage.removeItem('selectedQuestions');
+                                    setSelectedQuestions([]);
+                                    setIsQuestionsImported(false);
+                                }}
+                                className='btn-secondary'
+                            >
+                                Clear Questions
+                            </button>
+                        </div>
+                    </div>
                 </div>
             )}
 
+            {/* Modal Popup */}
             <ModalPopup
                 isOpen={generateQuestionsModal}
                 onClose={() => setGenerateQuestionsModal(false)}
             >
-                <ImportedQuestions onClose={() => setGenerateQuestionsModal(false)} />
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <ImportedQuestions
+                        onClose={() => {
+                            setGenerateQuestionsModal(false);
+                            const storedQuestions = sessionStorage.getItem('selectedQuestions');
+                            if (storedQuestions) {
+                                setSelectedQuestions(JSON.parse(storedQuestions));
+                                setIsQuestionsImported(true);
+                            }
+                        }}
+                    />
+                )}
             </ModalPopup>
         </div>
     );

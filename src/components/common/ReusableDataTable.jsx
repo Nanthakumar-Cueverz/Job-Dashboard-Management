@@ -14,10 +14,7 @@ const ReusableDataTable = ({ columns, data }) => {
                     // dom: 't',
                     // paging: true,
                     // ordering: true,
-                    lengthMenu: [
-                        [5, 10, 15, 20],
-                        [5, 10, 15, 20],
-                    ], // Custom entries
+                    lengthMenu: [[5, 10, 15, 20]],
                     pageLength: 10, // Default page length
                 }}
                 className='display w-full border border-border-primary rounded-lg'

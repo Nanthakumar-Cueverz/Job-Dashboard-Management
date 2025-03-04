@@ -16,6 +16,11 @@ const menuItems = [
 ];
 
 const SideBar = () => {
+    const handleLogout = () => {
+        sessionStorage.clear(); // Clears all session storage data
+        localStorage.removeItem('authToken'); // Optional: Clear auth token if stored in localStorage
+        window.location.href = '/login'; // Redirect to login page
+    };
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation(); // Get current page URL
 
@@ -63,13 +68,13 @@ const SideBar = () => {
             {/* Logout Button */}
             <div className='absolute bottom-0 w-full'>
                 <div className='w-full border-t border-neutral-200 p-4'>
-                    <a
-                        href=''
+                    <button
+                        onClick={handleLogout}
                         className='flex items-center space-x-5 p-3 text-primary-gray hover:bg-primary hover:text-white rounded'
                     >
                         <Logout />
                         <span>Logout</span>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
