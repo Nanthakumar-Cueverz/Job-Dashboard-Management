@@ -7,7 +7,13 @@ import 'react-calendar/dist/Calendar.css';
 import CloseIcon from '@icons/x.svg?react';
 const ScheduleCall = ({ selectedCandidate, onClose }) => {
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const [selectedTime, setSelectedTime] = useState('');
 
+    const timeSlots = ['08:30 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM'];
+
+    const handleTimeSelect = (time) => {
+        setSelectedTime(time);
+    };
     const handleDateChange = (newDate) => {
         setSelectedDate(newDate);
     };
@@ -68,21 +74,19 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
                         </h1>
                         <div>
                             <div className='grid grid-cols-3 gap-2'>
-                                <button className='bg-secondary text-xs w-full py-3  rounded-md text-primary font-normal'>
-                                    08:30 AM
-                                </button>
-                                <button className='bg-secondary text-xs w-full py-3 rounded-md text-primary font-normal'>
-                                    09:30 AM
-                                </button>
-                                <button className='bg-secondary text-xs w-full py-3 rounded-md text-primary font-normal'>
-                                    10:00 AM
-                                </button>
-                                <button className='bg-secondary text-xs w-full py-3 rounded-md text-primary font-normal'>
-                                    10:30 AM
-                                </button>
-                                <button className='bg-secondary text-xs w-full py-3 rounded-md text-primary font-normal'>
-                                    11:00 AM
-                                </button>
+                                {timeSlots.map((time) => (
+                                    <button
+                                        key={time}
+                                        className={`text-xs w-full py-3 rounded-md font-normal transition-all duration-200 ${
+                                            selectedTime === time
+                                                ? 'bg-primary text-white'
+                                                : 'bg-secondary text-primary'
+                                        }`}
+                                        onClick={() => handleTimeSelect(time)}
+                                    >
+                                        {time}
+                                    </button>
+                                ))}
                             </div>
                         </div>
                     </div>
