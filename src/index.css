@@ -123,6 +123,15 @@
         color: #3e9ffb;
         text-decoration: none;
     }
+    .back-button {
+        padding: 15px 50px;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 1rem;
+        color: #8f8f8f;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
     .outline-button {
         display: inline-flex;
         align-items: center;

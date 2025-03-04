@@ -5,11 +5,10 @@ import AddIcon from '@icons/plus.svg?react';
 import UploadFiles from '../components/common/UploadFiles';
 import Input from '../components/common/Input';
 import TextArea from '../components/common/TextArea';
-import UploadBlack from '@icons/upload-black.svg?react';
+import UploadBlack from '@icons/monitor-up.svg?react';
 import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
-import { Oval } from 'react-loader-spinner';
 import Loader from '../components/common/Loader';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(0);
@@ -105,7 +104,7 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
 
             <div className='flex justify-end mt-4'>
                 {currentStep > 1 && (
-                    <button className='btn-outline' onClick={() => setCurrentStep(currentStep - 1)}>
+                    <button className='back-button' onClick={() => setCurrentStep(currentStep - 1)}>
                         Back
                     </button>
                 )}
@@ -197,9 +196,9 @@ const Questions = () => {
             {isQuestionsImported && (
                 <div>
                     <div>
-                        <h1 className='text-md font-semibold'>Candidate Questions</h1>
+                        <h1 className='text-md font-semibold mb-5'>Candidate Questions</h1>
                     </div>
-                    <div className='bg-[#f6f6f6] p-5'>
+                    <div className='bg-[#f6f6f6] p-5 rounded-md'>
                         <div>
                             <ul className='list-decimal pl-5 space-y-2 mt-3'>
                                 {selectedQuestions.map((question, index) => (
@@ -212,22 +211,28 @@ const Questions = () => {
                                 ))}
                             </ul>
                         </div>
-                        <div className='flex gap-3 mt-3'>
+                        <div className='flex gap-3 mt-3 justify-evenly  items-center border-t border-border-primary pt-3'>
                             <button
                                 onClick={() => setGenerateQuestionsModal(true)}
-                                className='btn-primary'
+                                className='btn-primary text-sm'
                             >
                                 Add More Questions
                             </button>
+                            <hr className='w-0.5 h-6 border border-border-primary' />
                             <button
                                 onClick={() => {
                                     sessionStorage.removeItem('selectedQuestions');
                                     setSelectedQuestions([]);
                                     setIsQuestionsImported(false);
                                 }}
-                                className='btn-secondary'
+                                className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'
                             >
-                                Clear Questions
+                                <Stars className='mr-2' /> Generate AI
+                            </button>
+                            <hr className='w-0.5 h-6 border border-border-primary' />
+                            <button className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'>
+                                <UploadBlack className='text-primary mr-2 h-5 w-5' />
+                                Upload
                             </button>
                         </div>
                     </div>
