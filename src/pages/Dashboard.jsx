@@ -7,11 +7,12 @@ import TextArea from '../components/common/TextArea';
 import UploadBlack from '@icons/monitor-up.svg?react';
 import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
+import Eye from '@icons/eye.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
 import Loader from '../components/common/Loader';
 import { data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
-import CloseIcon from '../assets/icons/x.svg?react';
+import CloseIcon from '@icons/x.svg?react';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(1);
     return (
@@ -107,7 +108,11 @@ const JobInfo = () => {
     return (
         <div>
             <div>
-                <UploadFiles onFileSelect={handleFileSelect} />
+                <UploadFiles
+                    onFileSelect={handleFileSelect}
+                    label='Attachments'
+                    title=' Upload a Job Requirement'
+                />
             </div>
             <div className='py-5 space-y-5'>
                 <Input label='Job Title' placeholder='Data Scientist' />
@@ -122,6 +127,7 @@ const JobInfo = () => {
 // 📌 Step  2
 const Questions = () => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
+    const [uploadQuestion, setUploadQuestions] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [isQuestionsImported, setIsQuestionsImported] = useState(false);
     const [isLoading, setIsLoading] = useState(false); // Initially false
@@ -158,7 +164,7 @@ const Questions = () => {
                     </div>
                     <div>
                         <button
-                            onClick={() => setGenerateQuestionsModal(true)}
+                            onClick={() => setUploadQuestions(true)}
                             className='outline-button gap-x-2 whitespace-nowrap flex'
                         >
                             <UploadBlack className='h-4 w-4' /> Upload
@@ -234,6 +240,28 @@ const Questions = () => {
                         }}
                     />
                 )}
+            </ModalPopup>
+            <ModalPopup
+                width='500px'
+                isOpen={uploadQuestion}
+                onClose={() => setUploadQuestions(false)}
+            >
+                <div>
+                    <UploadFiles label='Upload Files' title=' Upload Questions' style='hidden' />
+                    <div className='py-5 flex justify-center align-middle space-x-10'>
+                        <button
+                            onClick={() => {
+                                setUploadQuestions(false);
+                                setGenerateQuestionsModal(true);
+                            }}
+                            className='modal-btn-outline'
+                        >
+                            <Eye className='w-4 h-4 mr-2' />
+                            Preview
+                        </button>
+                        <button className='modal-btn-fill '>Upload</button>
+                    </div>
+                </div>
             </ModalPopup>
         </div>
     );

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Upload from '@icons/upload.svg?react';
 import Pdf from '@icons/pdf.svg?react';
 import Cancel from '@icons/x.svg?react';
-const UploadFiles = ({ onFileSelect }) => {
+const UploadFiles = ({ onFileSelect, label, title, style }) => {
     const [selectedFile, setSelectedFile] = useState(null);
     const [error, setError] = useState('');
 
@@ -44,7 +44,7 @@ const UploadFiles = ({ onFileSelect }) => {
 
     return (
         <>
-            <label className='mb-2 block text-base font-medium text-black'>Attachments</label>
+            <label className='mb-2 block text-base font-medium text-black'>{label}</label>
             <div className='relative'>
                 <label
                     htmlFor='file'
@@ -63,9 +63,7 @@ const UploadFiles = ({ onFileSelect }) => {
                                 <Upload size={24} />
                             </span>
                             <div className='space-y-2 text-center'>
-                                <h6 className='text-black text-sm font-medium'>
-                                    Upload a Job Requirement
-                                </h6>
+                                <h6 className='text-black text-sm font-medium'>{title}</h6>
                                 <h6 className='text-xs text-text-neutral font-normal'>
                                     Support format : PDF or Word
                                 </h6>
@@ -98,18 +96,20 @@ const UploadFiles = ({ onFileSelect }) => {
                                             <div className='bg-primary absolute top-0 left-0 h-full w-1/2 rounded-2xl'></div>
                                         </div>
                                     </div>
-                                    <div>
-                                        <span className='text-text-neutral text-xs font-normal'>
-                                            Uploading.......
-                                        </span>
-                                        {error && (
-                                            <p className='text-red-500 text-sm mt-2'>{error}</p>
-                                        )}
-                                    </div>
-                                    <div className='text-center'>
-                                        <button className='btn-fill px-10 py-2 items-center text-center'>
-                                            Apply
-                                        </button>
+                                    <div className={` ${style}`}>
+                                        <div>
+                                            <span className='text-text-neutral text-xs font-normal'>
+                                                Uploading.......
+                                            </span>
+                                            {error && (
+                                                <p className='text-red-500 text-sm mt-2'>{error}</p>
+                                            )}
+                                        </div>
+                                        <div className='text-center'>
+                                            <button className='btn-fill px-10 py-2 items-center text-center'>
+                                                Apply
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             )}
