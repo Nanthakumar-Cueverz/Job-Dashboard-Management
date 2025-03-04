@@ -1,37 +1,66 @@
 import React from 'react';
-import DataTable from 'datatables.net-react';
-import DT from 'datatables.net-dt';
-DataTable.use(DT);
+import DataTable from 'react-data-table-component';
+const customStyles = {
+    rows: {
+        style: {
+            minHeight: '70px',
+            textAlign: 'center',
+        },
+    },
+    headCells: {
+        style: {
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            minHeight: '70px',
+            whiteSpace: 'nowrap',
+            textAlign: 'center',
+            justifyContent: 'center',
+            fontWeight: 'medium',
+            width: '100%',
+            fontSize: '14px',
+            backgroundColor: '#f8f8f8',
+        },
+    },
+    cells: {
+        style: {
+            paddingLeft: '8px',
+            paddingRight: '8px',
+            textAlign: 'center',
+            justifyContent: 'center',
+        },
+    },
+};
 
-const ReusableDataTable = ({ columns, data }) => {
+const ReusableDataTable = ({ columns = [], data = [] }) => {
+    if (!Array.isArray(data) || data.length === 0) {
+        console.error("🚨 DataTable Error: 'data' is empty or not an array", data);
+    }
+
+    if (!Array.isArray(columns) || columns.length === 0) {
+        console.error("🚨 DataTable Error: 'columns' is empty or not an array", columns);
+    }
+
     return (
         <div className='overflow-x-auto rounded-lg'>
-            <DataTable
-                data={data}
-                columns={columns}
-                striped={false}
-                options={{
-                    // dom: 't',
-                    // paging: true,
-                    // ordering: true,
-                    lengthMenu: [[5, 10, 15, 20]],
-                    pageLength: 10, // Default page length
-                }}
-                className='display w-full border border-border-primary rounded-lg'
-            >
-                <thead className='bg-table-background text-black rounded-lg'>
-                    <tr>
-                        {columns.map((col, index) => (
-                            <th
-                                key={index}
-                                className='px-4 py-5 text-center font-medium text-black rounded-t-lg'
-                            >
-                                {col.title}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-            </DataTable>
+            {data.length > 0 && columns.length > 0 ? (
+                <DataTable
+                    customStyles={customStyles}
+                    data={data}
+                    // pagination
+                    // paginationPerPage={5}
+                    // paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                    columns={columns}
+                    striped={false}
+                    highlightOnHover
+                    options={{
+                        lengthMenu: [[5, 10, 15, 20]],
+                        pageLength: 10,
+                    }}
+                    className='display w-full border border-border-primary rounded-lg text-center '
+                />
+            ) : (
+                <p className='text-center text-red-500'>No data available</p>
+            )}
         </div>
     );
 };

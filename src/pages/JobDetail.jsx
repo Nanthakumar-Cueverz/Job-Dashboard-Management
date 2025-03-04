@@ -3,94 +3,13 @@ import ReactDOMServer from 'react-dom/server';
 import PostJobCommon from '../components/common/PostJobCommon';
 import CircleDot from '@icons/circle-dot.svg?react';
 import Location from '@icons/map-pin.svg?react';
-import DotIcon from '@icons/ellipsis-vertical.svg?react';
 import ReusableDataTable from '../components/common/ReusableDataTable';
+import { columns, data } from '../Content';
 const JobDetail = () => {
-    const columns = [
-        { title: 'Candidate Name', data: 'name' },
-        { title: 'Email', data: 'email' },
-        { title: 'Phone Number', data: 'phone' },
-        {
-            title: 'Status',
-            data: 'status',
-            render: function (data) {
-                let colorClass = 'text-table-text';
-                if (data === 'In Progress') colorClass = 'text-yellow-500';
-                else if (data === 'Completed') colorClass = 'text-green-500';
-                else if (data === 'Invited') colorClass = 'text-primary';
-                return `<span class="${colorClass} font-normal">${data}</span>`;
-            },
-        },
-        {
-            title: 'Action',
-            data: null,
-            render: function () {
-                return ReactDOMServer.renderToString(
-                    <button className='px-3 py-1 rounded-md'>
-                        <DotIcon className='text-icon-primary w-5 h-5' />
-                    </button>,
-                );
-            },
-        },
-        {
-            title: 'Schedule',
-            data: null,
-            render: function (data, type, row) {
-                return `
-                    <button class='bg-primary text-white px-5 py-2 rounded-md mr-2'>Schedule</button>
-                `;
-            },
-        },
-    ];
-
-    const data = [
-        {
-            id: 1,
-            name: 'John Doe',
-            email: 'john@example.com',
-            phone: '9876543210',
-            status: 'Invited',
-        },
-        {
-            id: 2,
-            name: 'Jane Smith',
-            email: 'jane@example.com',
-            phone: '9876543220',
-            status: 'In Progress',
-        },
-        {
-            id: 3,
-            name: 'Alice Brown',
-            email: 'alice@example.com',
-            phone: '9876543230',
-            status: 'Completed',
-        },
-        {
-            id: 4,
-            name: 'Bob Williams',
-            email: 'bob@example.com',
-            phone: '9876543240',
-            status: 'Available',
-        },
-        {
-            id: 5,
-            name: 'Jhon snow',
-            email: 'Jhon snow@gmail.com',
-            phone: '9876543240',
-            status: 'Available',
-        },
-        {
-            id: 6,
-            name: 'Jhon snow',
-            email: 'Jhon snow@gmail.com',
-            phone: '9876543240',
-            status: 'Available',
-        },
-    ];
     return (
         <div className='py-10 px-10'>
             <div>
-                <PostJobCommon />
+                <PostJobCommon url='/create-job' />
             </div>
             <div className='pt-10'>
                 <div className='p-10 shadow rounded-md mb-5 last:mb-0'>

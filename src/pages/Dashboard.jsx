@@ -10,6 +10,9 @@ import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
 import Loader from '../components/common/Loader';
+import { data, Sectioncolumns } from '../Content';
+import ReusableDataTable from '../components/common/ReusableDataTable';
+import CloseIcon from '../assets/icons/x.svg?react';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(0);
     return (
@@ -75,29 +78,10 @@ const Steps = ({ currentStep }) => {
     );
 };
 
-// 📌 Empty Section (Initial State)
-const EmptySection = ({ setCurrentStep }) => {
-    return (
-        <div className='flex flex-col items-center justify-center'>
-            <div className='text-center flex flex-col items-center justify-center'>
-                <img src={empty} alt='No Jobs' className='mb-4' />
-                <p className='text-gray-700 font-medium'>NO JOB POST AVAILABLE</p>
-                <button
-                    className='btn-fill flex items-center gap-2 mt-3'
-                    onClick={() => setCurrentStep(1)}
-                >
-                    <AddIcon />
-                    Create One
-                </button>
-            </div>
-        </div>
-    );
-};
-
 // 📌 Step Content Component (Renders Step 1, 2, 3)
 const StepContent = ({ currentStep, setCurrentStep }) => {
     return (
-        <div className='max-w-2xl mx-auto mt-5 p-5 rounded-md'>
+        <div className='max-w-3xl mx-auto mt-10 rounded-md'>
             {currentStep === 1 && <JobInfo />}
             {currentStep === 2 && <Questions />}
             {currentStep === 3 && <Candidates />}
@@ -113,14 +97,15 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
                         Next
                     </button>
                 ) : (
-                    <button className='btn-primary'>Submit</button>
+                    <a href='/job-detail' className='btn-fill'>
+                        Submit
+                    </a>
                 )}
             </div>
         </div>
     );
 };
-
-// 📌 Step Components
+// 📌 Step  1
 const JobInfo = () => {
     const handleFileSelect = (file) => {
         console.log('Selected File:', file);
@@ -140,6 +125,7 @@ const JobInfo = () => {
         </div>
     );
 };
+// 📌 Step  2
 const Questions = () => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
@@ -154,20 +140,17 @@ const Questions = () => {
             setIsQuestionsImported(true);
         }
     }, []); // Run only on initial render
-
-    // Show loading only when the modal opens
     useEffect(() => {
         if (generateQuestionsModal) {
             setIsLoading(true);
-            setTimeout(() => setIsLoading(false), 1000); // Simulated loading time
+            setTimeout(() => setIsLoading(false), 1000);
         }
     }, [generateQuestionsModal]);
 
     return (
         <div>
-            {/* Hide input section after import */}
             {!isQuestionsImported && (
-                <div className='flex items-center align-middle justify-between space-x-5'>
+                <div className='flex items-center align-middle justify-between space-x-5 mb-10'>
                     <div className='flex border border-border-secondary rounded-md w-full'>
                         <input
                             placeholder='Enter a topic'
@@ -186,7 +169,7 @@ const Questions = () => {
                             onClick={() => setGenerateQuestionsModal(true)}
                             className='outline-button gap-x-2 whitespace-nowrap flex'
                         >
-                            <UploadBlack /> Upload
+                            <UploadBlack className='h-4 w-4' /> Upload
                         </button>
                     </div>
                 </div>
@@ -241,6 +224,7 @@ const Questions = () => {
 
             {/* Modal Popup */}
             <ModalPopup
+                width='600px'
                 isOpen={generateQuestionsModal}
                 onClose={() => setGenerateQuestionsModal(false)}
             >
@@ -262,9 +246,59 @@ const Questions = () => {
         </div>
     );
 };
-
-const Candidates = () => <div>Candidates</div>;
-
+// 📌 Step  3
+const Candidates = () => {
+    const [createCandidate, setCreateCandidate] = useState(false);
+    return (
+        <div>
+            <div className='flex justify-between items-center pb-5'>
+                <h1 className='text-md font-semibold'>Candidates List</h1>
+                <button className='outline-button px-3' onClick={() => setCreateCandidate(true)}>
+                    <AddIcon className='h-4 w-4 mr-1' />
+                    Add Candidates
+                </button>
+            </div>
+            <div>
+                <ReusableDataTable columns={Sectioncolumns} data={data} />
+            </div>
+            <ModalPopup
+                isOpen={createCandidate}
+                onClose={() => setCreateCandidate(false)}
+                width='400px'
+            >
+                <div>
+                    <div className='border-b border-border-primary flex align-middle justify-between pb-3 mb-3 '>
+                        <h2 className='modal-title text-primary '>Add Candidates</h2>
+                        <button className='bg-gray-200 hover:bg-gray-300 rounded-full p-2 flex items-center justify-center transition duration-200'>
+                            <CloseIcon
+                                className='w-4 h-4 text-gray-600'
+                                onClick={() => setCreateCandidate(false)}
+                            />
+                        </button>
+                    </div>
+                    <div className='space-y-5'>
+                        <Input label='Candidate Name' placeholder='Enter Name' type='name' />
+                        <Input label='Email' placeholder='Enter Email' type='email' />
+                        <Input label='Phone Number' placeholder='Enter Phone Number' type='phone' />
+                        <>
+                            <label className='label'>Default Select</label>
+                            <div className='relative z-20'>
+                                <select className='relative z-20 w-full appearance-none  outline-none input'>
+                                    <option value='invited'>Invited</option>
+                                    <option value='in-progress'>In Progress</option>
+                                    <option value='available'>Available</option>
+                                    <option value='completed'>Completed</option>
+                                </select>
+                                <span className='absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color'></span>
+                            </div>
+                        </>
+                    </div>
+                </div>
+            </ModalPopup>
+        </div>
+    );
+};
+// 📌 Reusable component for Questions
 const ImportedQuestions = ({ onClose }) => {
     const questions = [
         'What is the difference between supervised and unsupervised learning?',
@@ -323,6 +357,24 @@ const ImportedQuestions = ({ onClose }) => {
             <div className='text-end'>
                 <button onClick={handleImport} className='btn-fill bg-neutral-500'>
                     Import
+                </button>
+            </div>
+        </div>
+    );
+};
+// 📌 Empty Section (Initial State)
+const EmptySection = ({ setCurrentStep }) => {
+    return (
+        <div className='flex flex-col items-center justify-center'>
+            <div className='text-center flex flex-col items-center justify-center'>
+                <img src={empty} alt='No Jobs' className='mb-4' />
+                <p className='text-gray-700 font-medium'>NO JOB POST AVAILABLE</p>
+                <button
+                    className='btn-fill flex items-center gap-2 mt-3'
+                    onClick={() => setCurrentStep(1)}
+                >
+                    <AddIcon />
+                    Create One
                 </button>
             </div>
         </div>

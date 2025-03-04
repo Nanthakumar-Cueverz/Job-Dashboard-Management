@@ -9,7 +9,7 @@ import Logout from '@icons/log-out.svg?react';
 import profile from '@images/profile.jpg';
 
 const menuItems = [
-    { name: 'Jobs', icon: Jobs, link: '/jobs' },
+    { name: 'Jobs', icon: Jobs, link: '/' },
     { name: 'Questions', icon: Questions, link: '/questions' },
     { name: 'Candidates', icon: Candidates, link: '/candidates' },
     { name: 'Interviews', icon: Interviews, link: '/interviews' },

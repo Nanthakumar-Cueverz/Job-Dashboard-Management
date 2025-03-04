@@ -1,5 +1,5 @@
 import CircleDot from '@icons/circle-dot.svg?react';
-
+import DotIcon from '@icons/ellipsis-vertical.svg?react';
 const jobListings = [
     {
         id: 1,
@@ -80,6 +80,86 @@ const jobListings = [
             'Analyze market trends and competitor strategies.',
             'Create and implement marketing campaigns.',
         ],
+    },
+];
+export const columns = [
+    { name: 'Candidate Name', selector: (row) => row.name, sortable: true },
+    { name: 'Email', selector: (row) => row.email, sortable: true },
+    { name: 'Phone Number', selector: (row) => row.phone, sortable: true },
+    {
+        name: 'Status',
+        selector: (row) => row.status,
+        cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
+    },
+    {
+        name: 'Action',
+        cell: (row) => (
+            <button className='p-2 rounded-md hover:bg-gray-100'>
+                <DotIcon className='w-5 h-5 text-gray-600' />
+            </button>
+        ),
+    },
+    {
+        name: 'Schedule',
+        cell: (row) => (
+            <button className='bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark'>
+                Schedule
+            </button>
+        ),
+        // ignoreRowClick: true,
+        // button: true,
+    },
+];
+
+// Helper function for status colors
+const getStatusClass = (status) => {
+    if (status === 'In Progress') return 'text-yellow-500';
+    if (status === 'Completed') return 'text-green-500';
+    if (status === 'Invited') return 'text-primary';
+    return 'text-gray-500';
+};
+
+export const data = [
+    { id: 1, name: 'John Doe', email: 'john@example.com', phone: '9876543210', status: 'Invited' },
+    {
+        id: 2,
+        name: 'Jane Smith',
+        email: 'jane@example.com',
+        phone: '9876543220',
+        status: 'In Progress',
+    },
+    {
+        id: 3,
+        name: 'Alice Brown',
+        email: 'alice@example.com',
+        phone: '9876543230',
+        status: 'Completed',
+    },
+    {
+        id: 4,
+        name: 'Bob Williams',
+        email: 'bob@example.com',
+        phone: '9876543240',
+        status: 'Available',
+    },
+];
+
+export const Sectioncolumns = [
+    { name: 'Candidate Name', selector: (row) => row.name, sortable: true },
+    { name: 'Email', selector: (row) => row.email, sortable: true },
+    { name: 'Phone Number', selector: (row) => row.phone, sortable: true },
+    {
+        name: 'Status',
+        selector: (row) => row.status,
+        cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
+    },
+    {
+        name: 'Action',
+        cell: (row) => (
+            <button className='p-2 rounded-md hover:bg-gray-100'>
+                <DotIcon className='w-5 h-5 text-gray-600' />
+            </button>
+        ),
     },
 ];
 

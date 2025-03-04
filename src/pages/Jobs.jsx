@@ -24,7 +24,7 @@ const Jobs = () => {
     return (
         <div className='py-10 px-10'>
             <div>
-                <PostJobCommon />
+                <PostJobCommon url='/create-job' />
                 <div>
                     <JobsCard jobs={currentJobs} />
                     <Pagination

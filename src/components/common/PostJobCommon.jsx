@@ -1,9 +1,11 @@
 import React from 'react';
 
-const PostJobCommon = () => {
+const PostJobCommon = ({ url }) => {
     return (
         <div className='w-full flex justify-end items-center'>
-            <button className='btn-fill px-10'>Post a Job</button>
+            <a href={url} className='btn-fill px-10'>
+                Post a Job
+            </a>
         </div>
     );
 };

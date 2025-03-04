@@ -8,7 +8,7 @@ const Register = lazy(() => import('./pages/Register.jsx'));
 
 const routes = [
     {
-        path: '/',
+        path: '/create-job',
         element: (
             <DashboardLayout>
                 <Dashboard />
@@ -32,7 +32,7 @@ const routes = [
         ),
     },
     {
-        path: '/jobs',
+        path: '/',
         element: (
             <DashboardLayout>
                 <Jobs />
