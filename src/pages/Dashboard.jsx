@@ -13,6 +13,7 @@ import Loader from '../components/common/Loader';
 import { data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '@icons/x.svg?react';
+
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(1);
     return (

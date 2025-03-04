@@ -187,70 +187,44 @@
         color: #5c5c5c;
         font-weight: 600;
     }
-    #DataTables_Table_0_wrapper {
-        border-radius: 20px !important;
-    }
-}
-/* Data Table */
-#DataTables_Table_0_wrapper td {
-    text-align: center;
-}
-#DataTables_Table_0_wrapper tbody {
-    padding: 10px 10px;
 }
 
-#DataTables_Table_0_wrapper tbody tr {
-    color: #8f8f8f;
-    font-size: 14px;
-    border-bottom: 1px solid #dbdbdb;
-}
-#DataTables_Table_0_wrapper tbody tr td {
-    padding: 20px 10px;
-}
-#DataTables_Table_0_wrapper tbody,
-#DataTables_Table_0_wrapper table {
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
-}
-
-#DataTables_Table_0_wrapper .dt-layout-row:first-child,
-#DataTables_Table_0_wrapper .dt-layout-row:nth-child(3) {
-    display: flex;
-    justify-content: space-between;
-    color: #5c5c5c;
-    padding: 20px 0px;
-}
-#DataTables_Table_0_wrapper .dt-paging button {
-    padding: 10px 17px;
-    border: 1px solid #dbdbdb;
-    border-radius: 100%;
-    margin: 0px 2px;
-    font-size: 12px;
-    font-weight: 600;
-}
-#DataTables_Table_0_wrapper .dt-paging-button.current {
-    background-color: #3e9ffb;
-    color: white;
-    border: #3e9ffb;
-}
-#DataTables_Table_0_wrapper .dt-paging-button.disabled {
-    background-color: #dbdbdb54;
-    color: #8080806e;
-}
-#DataTables_Table_0_wrapper .dt-search input {
-    border: 1px solid #dbdbdb;
-    color: #1e1e1e;
-    font-size: 14px;
-    border-radius: 6px;
-    padding: 10px 10px;
-    margin-left: 10px;
-}
-#DataTables_Table_0_wrapper .dt-search input::placeholder {
-    color: #8f8f8f;
-    font-size: 14px;
-}
-/* Data Table end */
-/* Loader */
 .custome-loader circle {
     stroke: #3031401a;
+}
+
+/* Calender */
+.react-calendar {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    background-color: #fbfbfb;
+}
+.react-calendar abbr {
+    font-size: 12px;
+    text-decoration: none;
+    color: #8f8f8f;
+    font-weight: 500 !important;
+}
+.react-calendar__month-view__days abbr {
+    color: #5c5c5c;
+    font-size: 12px;
+    font-weight: 600 !important;
+}
+.react-calendar__tile--active {
+    background-color: #3e9ffb;
+    border-radius: 50%;
+    color: white;
+}
+.react-calendar__tile--active abbr {
+    color: white;
+}
+.react-calendar__tile--now {
+    background-color: #3e9ffb36;
+    color: #3e9ffb;
+    border-radius: 100%;
+}
+.react-calendar__navigation button {
+    color: #5c5c5c;
+    font-size: 14px;
+    font-weight: 600;
 }

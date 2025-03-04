@@ -112,7 +112,7 @@ export const columns = [
 ];
 
 // Helper function for status colors
-const getStatusClass = (status) => {
+export const getStatusClass = (status) => {
     if (status === 'In Progress') return 'text-yellow-500';
     if (status === 'Completed') return 'text-green-500';
     if (status === 'Invited') return 'text-primary';

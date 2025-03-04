@@ -14,7 +14,6 @@ const PasswordInput = ({
 }) => {
     const [showPassword, setShowPassword] = useState(false);
     const isPassword = type === 'password';
-
     return (
         <div className='relative w-full'>
             {label && (

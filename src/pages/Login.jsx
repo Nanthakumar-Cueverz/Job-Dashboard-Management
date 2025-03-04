@@ -62,7 +62,9 @@ const Login = () => {
                                         </button>
                                     </div>
                                     <div className='pt-10'>
-                                        <button className='btn-fill w-full'> Sign in</button>
+                                        <a href='/' className='btn-fill w-full'>
+                                            Sign in
+                                        </a>
                                     </div>
                                 </form>
                             </div>
@@ -72,7 +74,6 @@ const Login = () => {
                         <img
                             class='object-cover  w-full h-[94vh] ml-auto flex rounded-l-3xl '
                             src={SigninImage}
-                            alt=''
                         />
                     </div>
                 </div>
