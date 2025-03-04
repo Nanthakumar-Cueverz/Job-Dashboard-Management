@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Check from '@icons/check.svg?react';
-import empty from '../assets/images/empty-icon.png';
 import AddIcon from '@icons/plus.svg?react';
 import UploadFiles from '../components/common/UploadFiles';
 import Input from '../components/common/Input';
@@ -14,15 +13,11 @@ import { data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '../assets/icons/x.svg?react';
 const Dashboard = () => {
-    const [currentStep, setCurrentStep] = useState(0);
+    const [currentStep, setCurrentStep] = useState(1);
     return (
         <div className='py-10'>
             <Steps currentStep={currentStep} />
-            {currentStep === 0 ? (
-                <EmptySection setCurrentStep={setCurrentStep} />
-            ) : (
-                <StepContent currentStep={currentStep} setCurrentStep={setCurrentStep} />
-            )}
+            <StepContent currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </div>
     );
 };
@@ -32,7 +27,6 @@ export default Dashboard;
 // 📌 Step Indicator Component
 const Steps = ({ currentStep }) => {
     const stepsItems = ['Job Info', 'Questions', 'Candidates'];
-
     return (
         <div className='max-w-2xl mx-auto px-4 md:px-0'>
             <ul aria-label='Steps' className='flex items-center text-gray-600 font-medium'>
@@ -131,15 +125,13 @@ const Questions = () => {
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [isQuestionsImported, setIsQuestionsImported] = useState(false);
     const [isLoading, setIsLoading] = useState(false); // Initially false
-
-    // Load questions from sessionStorage when component mounts
     useEffect(() => {
         const storedQuestions = sessionStorage.getItem('selectedQuestions');
         if (storedQuestions) {
             setSelectedQuestions(JSON.parse(storedQuestions));
             setIsQuestionsImported(true);
         }
-    }, []); // Run only on initial render
+    }, []);
     useEffect(() => {
         if (generateQuestionsModal) {
             setIsLoading(true);
@@ -357,24 +349,6 @@ const ImportedQuestions = ({ onClose }) => {
             <div className='text-end'>
                 <button onClick={handleImport} className='btn-fill bg-neutral-500'>
                     Import
-                </button>
-            </div>
-        </div>
-    );
-};
-// 📌 Empty Section (Initial State)
-const EmptySection = ({ setCurrentStep }) => {
-    return (
-        <div className='flex flex-col items-center justify-center'>
-            <div className='text-center flex flex-col items-center justify-center'>
-                <img src={empty} alt='No Jobs' className='mb-4' />
-                <p className='text-gray-700 font-medium'>NO JOB POST AVAILABLE</p>
-                <button
-                    className='btn-fill flex items-center gap-2 mt-3'
-                    onClick={() => setCurrentStep(1)}
-                >
-                    <AddIcon />
-                    Create One
                 </button>
             </div>
         </div>

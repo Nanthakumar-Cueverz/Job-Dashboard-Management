@@ -5,6 +5,7 @@ import Pagination from '../components/common/Pagination';
 import jobListings from '../Content.jsx';
 import PostJobCommon from '../components/common/PostJobCommon.jsx';
 import { useNavigate } from 'react-router-dom';
+import EmptySection from '../components/common/EmptySection.jsx';
 
 const colorClasses = {
     gray: 'bg-gray-800',
@@ -23,17 +24,21 @@ const Jobs = () => {
     const totalPages = Math.ceil(jobListings.length / jobsPerPage);
     return (
         <div className='py-10 px-10'>
-            <div>
-                <PostJobCommon url='/create-job' />
+            {jobListings.length > 0 ? (
                 <div>
-                    <JobsCard jobs={currentJobs} />
-                    <Pagination
-                        currentPage={currentPage}
-                        totalPages={totalPages}
-                        onPageChange={setCurrentPage}
-                    />
+                    <PostJobCommon url='/create-job' />
+                    <div>
+                        <JobsCard jobs={currentJobs} />
+                        <Pagination
+                            currentPage={currentPage}
+                            totalPages={totalPages}
+                            onPageChange={setCurrentPage}
+                        />
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <EmptySection />
+            )}
         </div>
     );
 };
