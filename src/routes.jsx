@@ -5,7 +5,6 @@ import InterviewPage from './pages/InterviewPage.jsx';
 const Jobs = lazy(() => import('./pages/Jobs.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const Login = lazy(() => import('./pages/Login.jsx'));
-const Register = lazy(() => import('./pages/Register.jsx'));
 
 const routes = [
     {
@@ -24,10 +23,7 @@ const routes = [
         path: '/interview',
         element: <InterviewPage />,
     },
-    {
-        path: '/login',
-        element: <Register />,
-    },
+
     {
         path: '/job-detail',
         element: (

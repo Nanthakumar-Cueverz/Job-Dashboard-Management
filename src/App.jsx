@@ -4,7 +4,7 @@ import routes from './routes';
 import './index.css';
 function App() {
     return (
-        <Router basename='/interviewai/'>
+        <Router basename='/interviewai'>
             <Routes>
                 {routes.map((route, index) => (
                     <Route key={index} path={route.path} element={route.element} />
