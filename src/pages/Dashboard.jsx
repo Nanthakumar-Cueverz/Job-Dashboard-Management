@@ -76,9 +76,10 @@ const Steps = ({ currentStep }) => {
 
 // 📌 Step Content Component (Renders Step 1, 2, 3)
 const StepContent = ({ currentStep, setCurrentStep }) => {
+    const [isNextDisabled, setIsNextDisabled] = useState(true);
     return (
         <div className='max-w-3xl mx-auto mt-10 rounded-md'>
-            {currentStep === 1 && <JobInfo />}
+            {currentStep === 1 && <JobInfo setIsNextDisabled={setIsNextDisabled} />}
             {currentStep === 2 && <Questions />}
             {currentStep === 3 && <Candidates />}
 
@@ -89,7 +90,11 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
                     </button>
                 )}
                 {currentStep < 3 ? (
-                    <button className='btn-fill' onClick={() => setCurrentStep(currentStep + 1)}>
+                    <button
+                        className={`btn-fill ${isNextDisabled ? 'btn-disabled' : 'btn-fill'}`}
+                        onClick={() => setCurrentStep(currentStep + 1)}
+                        disabled={isNextDisabled}
+                    >
                         Next
                     </button>
                 ) : (
@@ -102,29 +107,35 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
     );
 };
 // 📌 Step  1
-const JobInfo = () => {
-    const handleFileSelect = (file) => {
-        console.log('Selected File:', file);
-    };
+const JobInfo = ({ setIsNextDisabled }) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+
+    useEffect(() => {
+        const isDisabled = !(title.trim() && description.trim());
+        console.log('Validating form: ', { title, description, isDisabled }); // Debugging log
+        setIsNextDisabled(isDisabled);
+    }, [title, description]); // ✅ Correct dependencies
+
     return (
         <div>
-            <div>
-                <UploadFiles
-                    onFileSelect={handleFileSelect}
-                    label='Attachments'
-                    title=' Upload a Job Requirement'
-                />
-            </div>
+            <UploadFiles
+                onFileSelect={() => {}} // No validation required for file upload
+                label='Attachments'
+                title='Upload a Job Requirement'
+            />
             <div className='py-5 space-y-5'>
-                <Input label='Job Title' placeholder='Data Scientist' />
+                <Input label='Job Title' value={title} onChange={(e) => setTitle(e.target.value)} />
                 <TextArea
                     label='Job Description'
-                    placeholder='As a Data Scientist, you will transform complex data into actionable insights that drive strategic decision-making. You will work closely with cross-functional teams to develop innovative solutions, build predictive models, and support data-driven business initiatives.'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
                 />
             </div>
         </div>
     );
 };
+
 // 📌 Step  2
 const Questions = () => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);

@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import SigninImage from '@images/smiling-young.png';
 import Input from '../components/common/Input';
 import PasswordInput from '../components/common/PasswordInput';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
     const handleForgotPassword = () => {
         alert('Redirect to Forgot Password page!');
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate('/');
     };
     return (
         <section class='bg-white'>
@@ -47,7 +53,7 @@ const Login = () => {
                                                 type='checkbox'
                                                 checked={remember}
                                                 onChange={() => setRemember(!remember)}
-                                                className='mr-2 h-4 w-4 accent-primary cursor-pointer'
+                                                className='mr-2 h-4 w-4 accent-primary cursor-pointer fill-white text-white'
                                             />
                                             Remember Me
                                         </label>
@@ -62,9 +68,16 @@ const Login = () => {
                                         </button>
                                     </div>
                                     <div className='pt-10'>
-                                        <a href='/' className='btn-fill w-full'>
+                                        <button
+                                            onClick={handleSubmit}
+                                            type='submit'
+                                            className={`btn-fill w-full ${
+                                                !email || !password ? 'btn-disabled' : ''
+                                            }`}
+                                            disabled={!email || !password}
+                                        >
                                             Sign in
-                                        </a>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
