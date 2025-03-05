@@ -6,6 +6,8 @@ import Mic from '../assets/icons/mic.svg?react';
 import Loader from '../assets/icons/audio-lines.svg?react';
 import profile from '../assets/images/profile.jpg';
 import aiicon from '../assets/images/ai-icon.png';
+import Check from '../assets/icons/check.svg?react';
+import { useNavigate } from 'react-router-dom';
 const content = [
     'Test Equipment: Ensure camera, mic, and internet work.',
     'Quiet Space: Choose a noise-free, professional setting.',
@@ -22,11 +24,11 @@ const questions = [
     'What are the different types of neural networks?',
     'How do you handle missing data in datasets?',
     'What is the difference between supervised and unsupervised learning?',
-    'Explain the concept of precision and recall.',
-    'What are hyperparameters in machine learning?',
-    'How do you evaluate a machine learning model?',
-    'What is feature engineering?',
-    'What is your experience with deep learning frameworks?',
+    // 'Explain the concept of precision and recall.',
+    // 'What are hyperparameters in machine learning?',
+    // 'How do you evaluate a machine learning model?',
+    // 'What is feature engineering?',
+    // 'What is your experience with deep learning frameworks?',
 ];
 
 const answers = [
@@ -35,11 +37,11 @@ const answers = [
     'Types of neural networks include Feedforward (FNN), Convolutional (CNN), Recurrent (RNN), LSTM, and Generative Adversarial Networks (GANs).',
     'Missing data can be handled by removing rows/columns, imputing values (mean, median, mode), or using models that handle missing values.',
     'Supervised learning uses labeled data for training, while unsupervised learning finds patterns in unlabeled data.',
-    'Precision measures the accuracy of positive predictions, while recall indicates how well actual positives are detected.',
-    'Hyperparameters are settings configured before training, such as learning rate, batch size, and number of hidden layers.',
-    'A machine learning model is evaluated using metrics like accuracy, precision, recall (classification), and MSE, R-squared (regression).',
-    'Feature engineering involves transforming raw data into meaningful features through scaling, encoding, and feature creation.',
-    'I have experience with deep learning frameworks like TensorFlow, Keras, and PyTorch for tasks like image classification and NLP.',
+    // 'Precision measures the accuracy of positive predictions, while recall indicates how well actual positives are detected.',
+    // 'Hyperparameters are settings configured before training, such as learning rate, batch size, and number of hidden layers.',
+    // 'A machine learning model is evaluated using metrics like accuracy, precision, recall (classification), and MSE, R-squared (regression).',
+    // 'Feature engineering involves transforming raw data into meaningful features through scaling, encoding, and feature creation.',
+    // 'I have experience with deep learning frameworks like TensorFlow, Keras, and PyTorch for tasks like image classification and NLP.',
 ];
 
 const InterviewPage = () => {
@@ -149,6 +151,8 @@ const ScreeningSession = () => {
 export default InterviewPage;
 
 const ChatBot = () => {
+    const navigate = useNavigate();
+    const [completed, setCompleted] = useState(false);
     const [messages, setMessages] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [listening, setListening] = useState(false);
@@ -175,7 +179,7 @@ const ChatBot = () => {
 
         setTimeout(() => {
             const userReply = {
-                text: `Answering: ${questions[currentQuestionIndex]}`,
+                text: `${answers[currentQuestionIndex]}`,
                 sender: 'user',
             };
             const updatedMessages = [...messages, userReply];
@@ -200,6 +204,7 @@ const ChatBot = () => {
     };
 
     const handleComplete = () => {
+        setCompleted(true);
         const completionMessage = {
             text: 'Interview session completed! Thank you.',
             sender: 'bot',
@@ -208,74 +213,95 @@ const ChatBot = () => {
 
         setMessages(updatedMessages);
         sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
+        navigate('/');
     };
     console.log(questions.length);
     return (
         <div className=''>
-            <div className='w-full max-w-lg h-[500px] bg-white  p-4 flex flex-col overflow-y-auto  scrollbar-hide'>
-                {/* Empty state */}
-                {messages.length === 0 ? (
-                    <div className='text-center text-gray-500 mt-auto'>No messages yet</div>
-                ) : (
-                    messages.map((msg, index) => (
-                        <div
-                            key={index}
-                            className={`flex ${
-                                msg.sender === 'user' ? 'justify-start' : 'justify-end'
-                            } mb-2`}
-                        >
-                            {msg.sender === 'user' && (
-                                <img
-                                    src={profile}
-                                    alt='User'
-                                    className='h-8 w-8 rounded-full mr-2'
-                                />
-                            )}
+            <div>
+                <div className='w-full max-w-lg h-[500px] bg-white  p-4 flex flex-col overflow-y-auto  scrollbar-hide'>
+                    {/* Empty state */}
+                    {messages.length === 0 ? (
+                        <div className='text-center text-gray-500 mt-auto'>No messages yet</div>
+                    ) : (
+                        messages.map((msg, index) => (
                             <div
-                                className={`p-3 rounded-lg max-w-xs text-sm text-white ${
-                                    msg.sender === 'user'
-                                        ? 'bg-gray-600 text-start'
-                                        : 'bg-blue-500 text-right'
-                                }`}
+                                key={index}
+                                className={`flex align-bottom items-end ${
+                                    msg.sender === 'user' ? 'justify-start' : 'justify-end'
+                                } mb-2`}
                             >
-                                {msg.text}
+                                {msg.sender === 'user' && (
+                                    <img
+                                        src={profile}
+                                        alt='User'
+                                        className='h-8 w-8 rounded-full mr-2'
+                                    />
+                                )}
+                                <div
+                                    className={`p-3  max-w-xs text-sm text-black mb-5  ${
+                                        msg.sender === 'user'
+                                            ? 'bg-[#F6F6F6] text-start rounded-t-lg rounded-br-lg '
+                                            : 'bg-secondary text-right rounded-t-lg rounded-bl-lg'
+                                    }`}
+                                >
+                                    {msg.text}
+                                </div>
+                                {msg.sender === 'bot' && (
+                                    <img
+                                        src={aiicon}
+                                        alt='Bot'
+                                        className='h-8 w-8 rounded-full ml-2'
+                                    />
+                                )}
                             </div>
-                            {msg.sender === 'bot' && (
-                                <img src={aiicon} alt='Bot' className='h-8 w-8 rounded-full ml-2' />
-                            )}
-                        </div>
-                    ))
-                )}
-            </div>
+                        ))
+                    )}
+                </div>
 
-            <div className='w-full max-w-lg flex justify-center border-t border-border-primary pt-5 pb-3'>
-                {currentQuestionIndex < questions.length ? (
-                    <div>
-                        <button
-                            className={`p-3 rounded-full ${
-                                listening ? 'bg-red-500' : 'bg-blue-500'
-                            } text-white`}
-                            onClick={handleMicClick}
-                            disabled={listening}
-                        >
-                            {listening ? (
-                                <Loader className='animate-spin h-5 w-5 stroke-2' />
-                            ) : (
-                                <Mic className='h-5 w-5 stroke-2' />
-                            )}
-                        </button>
-                        <div className='text-sm'>
-                            {listening ? <h6>Listening...</h6> : <h6>Start Answer</h6>}
+                <div className='w-full max-w-lg flex justify-center border-t border-border-primary pt-5 pb-3'>
+                    {currentQuestionIndex < questions.length ? (
+                        <div>
+                            <button
+                                className={`p-3 rounded-full ${
+                                    listening ? 'bg-red-500' : 'bg-blue-500'
+                                } text-white`}
+                                onClick={handleMicClick}
+                                disabled={listening}
+                            >
+                                {listening ? (
+                                    <Loader className='animate-spin h-5 w-5 stroke-2' />
+                                ) : (
+                                    <Mic className='h-5 w-5 stroke-2' />
+                                )}
+                            </button>
+                            <div className='text-sm'>
+                                {listening ? <h6>Listening...</h6> : <h6>Start Answer</h6>}
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <div className='flex justify-end w-full'>
-                        <button className='btn-fill' onClick={handleComplete}>
-                            Complete
-                        </button>
-                    </div>
-                )}
+                    ) : (
+                        <div className='flex justify-end w-full'>
+                            <button className='btn-fill' onClick={handleComplete}>
+                                Complete
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
+            <ModalPopup width='400px' isOpen={completed} onClose={() => setCompleted(false)}>
+                <div className='p-10 text-center space-y-3 align-middle justify-center flex flex-col'>
+                    <Check className='mx-auto text-white stroke-2 mb-5 bg-primary w-20 rounded-full h-20 p-5 shadow-[0_0_15px_theme(colors.secondary)] ring-8 ring-secondary' />
+
+                    <h2 className='text-xl font-semibold'>
+                        Your answers are submitted successfully!
+                    </h2>
+                    <p className='para'>
+                        Interview results will be emailed in
+                        <span className='text-subtext-primary font-semibold pl-2'>24 hours</span>.
+                        Thank you!
+                    </p>
+                </div>
+            </ModalPopup>
         </div>
     );
 };
