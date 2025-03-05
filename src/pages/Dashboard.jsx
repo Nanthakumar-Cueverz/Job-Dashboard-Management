@@ -80,7 +80,7 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
     return (
         <div className='max-w-3xl mx-auto mt-10 rounded-md'>
             {currentStep === 1 && <JobInfo setIsNextDisabled={setIsNextDisabled} />}
-            {currentStep === 2 && <Questions />}
+            {currentStep === 2 && <Questions setIsNextDisabled={setIsNextDisabled} />}
             {currentStep === 3 && <Candidates />}
 
             <div className='flex justify-end mt-4'>
@@ -137,7 +137,7 @@ const JobInfo = ({ setIsNextDisabled }) => {
 };
 
 // 📌 Step  2
-const Questions = () => {
+const Questions = ({ setIsNextDisabled }) => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
     const [uploadQuestion, setUploadQuestions] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
@@ -148,6 +148,9 @@ const Questions = () => {
         if (storedQuestions) {
             setSelectedQuestions(JSON.parse(storedQuestions));
             setIsQuestionsImported(true);
+            setIsNextDisabled(false);
+        } else {
+            setIsNextDisabled(true);
         }
     }, []);
     useEffect(() => {
@@ -251,6 +254,7 @@ const Questions = () => {
                             if (storedQuestions) {
                                 setSelectedQuestions(JSON.parse(storedQuestions));
                                 setIsQuestionsImported(true);
+                                setIsNextDisabled(false);
                             }
                         }}
                     />

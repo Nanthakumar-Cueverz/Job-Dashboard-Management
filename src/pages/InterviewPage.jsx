@@ -213,7 +213,10 @@ const ChatBot = () => {
 
         setMessages(updatedMessages);
         sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
-        navigate('/');
+        setTimeout(() => {
+            setCompleted(false);
+            navigate('/');
+        }, 5000);
     };
     console.log(questions.length);
     return (
