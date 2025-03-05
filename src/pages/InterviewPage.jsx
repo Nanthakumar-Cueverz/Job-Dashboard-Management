@@ -3,11 +3,12 @@ import AiElement from '../assets/images/ai-icon.png';
 import ModalPopup from '../components/common/ModalPopup';
 import session from '../assets/images/screening.jpg';
 import Mic from '../assets/icons/mic.svg?react';
-import Loader from '../assets/icons/audio-lines.svg?react';
+import StopIcon from '../assets/icons/circle-stop.svg?react';
 import profile from '../assets/images/profile.jpg';
 import aiicon from '../assets/images/ai-icon.png';
 import Check from '../assets/icons/check.svg?react';
 import { useNavigate } from 'react-router-dom';
+import LoaderIcon from '../assets/icons/audio-lines.svg?react';
 const content = [
     'Test Equipment: Ensure camera, mic, and internet work.',
     'Quiet Space: Choose a noise-free, professional setting.',
@@ -21,9 +22,9 @@ const content = [
 const questions = [
     'What is your experience with machine learning?',
     'Can you explain overfitting and underfitting?',
-    'What are the different types of neural networks?',
-    'How do you handle missing data in datasets?',
-    'What is the difference between supervised and unsupervised learning?',
+    // 'What are the different types of neural networks?',
+    // 'How do you handle missing data in datasets?',
+    // 'What is the difference between supervised and unsupervised learning?',
 ];
 
 const answers = [
@@ -147,13 +148,14 @@ const ChatBot = () => {
     const [messages, setMessages] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [listening, setListening] = useState(false);
+    const [waitingForAnswer, setWaitingForAnswer] = useState(false);
 
     useEffect(() => {
         const storedMessages = sessionStorage.getItem('chatHistory');
         if (storedMessages) {
             setMessages(JSON.parse(storedMessages));
         } else {
-            startChat(); // Start chat if no messages exist
+            startChat();
         }
     }, []);
 
@@ -167,31 +169,55 @@ const ChatBot = () => {
         if (listening || currentQuestionIndex >= questions.length) return;
 
         setListening(true);
+        setWaitingForAnswer(true);
+
+        // Check if the last message is not already "Listening..."
+        if (messages.length === 0 || messages[messages.length - 1].text !== 'Listening...') {
+            const listeningMessage = {
+                text: 'Listening...',
+                sender: 'user',
+                isListening: true, // 👈 New property to identify listening state
+            };
+            setMessages((prev) => [...prev, listeningMessage]);
+            sessionStorage.setItem('chatHistory', JSON.stringify([...messages, listeningMessage]));
+        }
+    };
+
+    const handleStopClick = () => {
+        if (!listening) return;
+
+        setListening(false);
+        setWaitingForAnswer(false);
+
+        let updatedMessages = [...messages];
+
+        // Remove "Listening..." message if it exists
+        if (updatedMessages[updatedMessages.length - 1].text === 'Listening...') {
+            updatedMessages.pop();
+        }
+
+        // Add the user's actual answer
+        updatedMessages.push({ text: answers[currentQuestionIndex], sender: 'user' });
+
+        setMessages(updatedMessages);
+        sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
 
         setTimeout(() => {
-            const userReply = {
-                text: `${answers[currentQuestionIndex]}`,
-                sender: 'user',
-            };
-            const updatedMessages = [...messages, userReply];
-
-            setMessages(updatedMessages);
-            sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
-
-            setListening(false);
-
-            setTimeout(() => {
-                const nextIndex = currentQuestionIndex + 1;
-                if (nextIndex < questions.length) {
-                    const botQuestion = { text: questions[nextIndex], sender: 'bot' };
-                    const newMessages = [...updatedMessages, botQuestion];
-
-                    setMessages(newMessages);
-                    sessionStorage.setItem('chatHistory', JSON.stringify(newMessages));
-                }
-                setCurrentQuestionIndex(nextIndex); // ✅ Move outside condition to update index correctly
-            }, 1000);
+            askNextQuestion();
         }, 2000);
+    };
+
+    const askNextQuestion = () => {
+        const nextIndex = currentQuestionIndex + 1;
+
+        if (nextIndex < questions.length) {
+            const botQuestion = { text: questions[nextIndex], sender: 'bot' };
+            setMessages((prev) => [...prev, botQuestion]);
+            setCurrentQuestionIndex(nextIndex);
+        } else {
+            // When last question is answered, update state to trigger "Complete" button
+            setCurrentQuestionIndex(questions.length);
+        }
     };
 
     const handleComplete = () => {
@@ -200,21 +226,18 @@ const ChatBot = () => {
             text: 'Interview session completed! Thank you.',
             sender: 'bot',
         };
-        const updatedMessages = [...messages, completionMessage];
-
-        setMessages(updatedMessages);
-        sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
+        setMessages((prev) => [...prev, completionMessage]);
+        sessionStorage.setItem('chatHistory', JSON.stringify([...messages, completionMessage]));
         setTimeout(() => {
             setCompleted(false);
             navigate('/');
         }, 5000);
     };
-    console.log(questions.length);
+
     return (
         <div className=''>
             <div>
-                <div className='w-full max-w-lg h-[500px] bg-white  p-4 flex flex-col overflow-y-auto  scrollbar-hide'>
-                    {/* Empty state */}
+                <div className='w-full max-w-lg h-[500px] bg-white p-4 flex flex-col overflow-y-auto scrollbar-hide'>
                     {messages.length === 0 ? (
                         <div className='text-center text-gray-500 mt-auto'>No messages yet</div>
                     ) : (
@@ -233,14 +256,28 @@ const ChatBot = () => {
                                     />
                                 )}
                                 <div
-                                    className={`p-3  max-w-xs text-sm text-black mb-5  ${
+                                    className={`p-3 max-w-xs text-sm text-black mb-5 ${
                                         msg.sender === 'user'
                                             ? 'bg-[#F6F6F6] text-start rounded-t-lg rounded-br-lg '
                                             : 'bg-secondary text-right rounded-t-lg rounded-bl-lg'
                                     }`}
                                 >
-                                    {msg.text}
+                                    {msg.isListening ? (
+                                        <div className='flex items-center gap-2'>
+                                            <div className='audio-wave'>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                                <span></span>
+                                            </div>
+                                            {msg.text}
+                                        </div>
+                                    ) : (
+                                        msg.text
+                                    )}
                                 </div>
+
                                 {msg.sender === 'bot' && (
                                     <img
                                         src={aiicon}
@@ -260,17 +297,16 @@ const ChatBot = () => {
                                 className={`p-3 rounded-full ${
                                     listening ? 'bg-red-500' : 'bg-blue-500'
                                 } text-white`}
-                                onClick={handleMicClick}
-                                disabled={listening}
+                                onClick={listening ? handleStopClick : handleMicClick}
                             >
                                 {listening ? (
-                                    <Loader className='animate-spin h-5 w-5 stroke-2' />
+                                    <StopIcon className='h-5 w-5 stroke-2' />
                                 ) : (
                                     <Mic className='h-5 w-5 stroke-2' />
                                 )}
                             </button>
                             <div className='text-sm'>
-                                {listening ? <h6>Listening...</h6> : <h6>Start Answer</h6>}
+                                {listening ? <h6>Stop</h6> : <h6>Start Answer</h6>}
                             </div>
                         </div>
                     ) : (
@@ -285,7 +321,6 @@ const ChatBot = () => {
             <ModalPopup width='400px' isOpen={completed} onClose={() => setCompleted(false)}>
                 <div className='p-10 text-center space-y-3 align-middle justify-center flex flex-col'>
                     <Check className='mx-auto text-white stroke-2 mb-5 bg-primary w-20 rounded-full h-20 p-5 shadow-[0_0_15px_theme(colors.secondary)] ring-8 ring-secondary' />
-
                     <h2 className='text-xl font-semibold'>
                         Your answers are submitted successfully!
                     </h2>
