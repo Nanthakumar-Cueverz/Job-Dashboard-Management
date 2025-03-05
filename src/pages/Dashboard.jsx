@@ -93,7 +93,7 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
                         Next
                     </button>
                 ) : (
-                    <a href='/job-detail' className='btn-fill'>
+                    <a href='/interview' className='btn-fill'>
                         Submit
                     </a>
                 )}
@@ -212,7 +212,10 @@ const Questions = () => {
                                 <Stars className='mr-2' /> Generate AI
                             </button>
                             <hr className='w-0.5 h-6 border border-border-primary' />
-                            <button className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'>
+                            <button
+                                onClick={() => setUploadQuestions(true)}
+                                className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'
+                            >
                                 <UploadBlack className='text-primary mr-2 h-5 w-5' />
                                 Upload
                             </button>
@@ -260,7 +263,12 @@ const Questions = () => {
                             <Eye className='w-4 h-4 mr-2' />
                             Preview
                         </button>
-                        <button className='modal-btn-fill '>Upload</button>
+                        <button
+                            className='modal-btn-fill '
+                            onClick={() => setUploadQuestions(false)}
+                        >
+                            Upload
+                        </button>
                     </div>
                 </div>
             </ModalPopup>
@@ -376,7 +384,13 @@ const ImportedQuestions = ({ onClose }) => {
                 ))}
             </div>
             <div className='text-end'>
-                <button onClick={handleImport} className='btn-fill bg-neutral-500'>
+                <button
+                    onClick={handleImport}
+                    className={`btn-fill text-sm  ${
+                        selectedQuestions.length === 0 ? 'btn-disabled' : 'btn-fill'
+                    }`}
+                    disabled={selectedQuestions.length === 0}
+                >
                     Import
                 </button>
             </div>

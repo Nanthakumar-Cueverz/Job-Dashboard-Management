@@ -85,6 +85,16 @@
     input:-webkit-autofill:active {
         -webkit-box-shadow: 0 0 0 30px white inset !important;
     }
+    /* Hide scrollbar */
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none; /* IE and Edge */
+        scrollbar-width: none; /* Firefox */
+    }
+
     .label {
         margin-bottom: 5px !important;
         display: block;
@@ -156,6 +166,11 @@
         cursor: pointer;
         background-color: #3e9ffb;
         transition: all 0.3s;
+    }
+    .btn-disabled {
+        background-color: #dbdbdb;
+        color: white;
+        cursor: not-allowed;
     }
     .modal-btn-fill {
         padding: 10px 30px;
