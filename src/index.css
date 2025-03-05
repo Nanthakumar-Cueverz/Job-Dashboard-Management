@@ -1,5 +1,4 @@
 @import 'tailwindcss';
-@import url('datatables.net-dt');
 
 @theme {
     --color-primary: #3e9ffb;

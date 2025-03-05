@@ -24,11 +24,6 @@ const questions = [
     'What are the different types of neural networks?',
     'How do you handle missing data in datasets?',
     'What is the difference between supervised and unsupervised learning?',
-    // 'Explain the concept of precision and recall.',
-    // 'What are hyperparameters in machine learning?',
-    // 'How do you evaluate a machine learning model?',
-    // 'What is feature engineering?',
-    // 'What is your experience with deep learning frameworks?',
 ];
 
 const answers = [
@@ -37,11 +32,6 @@ const answers = [
     'Types of neural networks include Feedforward (FNN), Convolutional (CNN), Recurrent (RNN), LSTM, and Generative Adversarial Networks (GANs).',
     'Missing data can be handled by removing rows/columns, imputing values (mean, median, mode), or using models that handle missing values.',
     'Supervised learning uses labeled data for training, while unsupervised learning finds patterns in unlabeled data.',
-    // 'Precision measures the accuracy of positive predictions, while recall indicates how well actual positives are detected.',
-    // 'Hyperparameters are settings configured before training, such as learning rate, batch size, and number of hidden layers.',
-    // 'A machine learning model is evaluated using metrics like accuracy, precision, recall (classification), and MSE, R-squared (regression).',
-    // 'Feature engineering involves transforming raw data into meaningful features through scaling, encoding, and feature creation.',
-    // 'I have experience with deep learning frameworks like TensorFlow, Keras, and PyTorch for tasks like image classification and NLP.',
 ];
 
 const InterviewPage = () => {
@@ -50,16 +40,17 @@ const InterviewPage = () => {
     const [isScreening, setIsScreening] = useState(false);
 
     // Load session state on mount
-    useEffect(() => {
-        const storedAcceptance = sessionStorage.getItem('termsAccepted');
-        if (storedAcceptance === 'true') {
-            setIsScreening(true);
-        }
-    }, []);
+    // useEffect(() => {
+    //     const storedAcceptance = sessionStorage.getItem('termsAccepted');
+    //     if (storedAcceptance === 'true') {
+    //         setIsScreening(true);
+    //     }
+    // }, []);
 
     // Handle acceptance and transition to ScreeningSession
     const handleStart = () => {
-        sessionStorage.setItem('termsAccepted', 'true');
+        // sessionStorage.setItem('termsAccepted', 'true');
+        sessionStorage.clear();
         setIsScreening(true);
         setShowConditions(false);
     };
