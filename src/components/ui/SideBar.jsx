@@ -10,9 +10,9 @@ import profile from '@images/profile.jpg';
 
 const menuItems = [
     { name: 'Jobs', icon: Jobs, link: '/' },
-    { name: 'Questions', icon: Questions, link: '/questions' },
-    { name: 'Candidates', icon: Candidates, link: '/candidates' },
-    { name: 'Interviews', icon: Interviews, link: '/interviews' },
+    { name: 'Questions', icon: Questions, link: '/' },
+    { name: 'Candidates', icon: Candidates, link: '/' },
+    { name: 'Interviews', icon: Interviews, link: '/interviewai/interview' },
 ];
 
 const SideBar = () => {

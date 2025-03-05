@@ -26,7 +26,7 @@ const Jobs = () => {
         <div className='py-10 px-10'>
             {jobListings.length > 0 ? (
                 <div>
-                    <PostJobCommon url='/create-job' />
+                    <PostJobCommon url='/interviewai/create-job' />
                     <div>
                         <JobsCard jobs={currentJobs} />
                         <Pagination

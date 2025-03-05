@@ -98,7 +98,7 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
                         Next
                     </button>
                 ) : (
-                    <a href='/interview' className='btn-fill'>
+                    <a href='/interviewai/interview' className='btn-fill'>
                         Submit
                     </a>
                 )}

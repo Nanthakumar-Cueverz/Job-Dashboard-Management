@@ -82,7 +82,7 @@ const JobDetail = () => {
     return (
         <div className='py-10 px-10'>
             <div>
-                <PostJobCommon url='/create-job' />
+                <PostJobCommon url='/interviewai/create-job' />
             </div>
             <div className='pt-10'>
                 <div className='p-10 shadow rounded-md mb-5 last:mb-0'>
