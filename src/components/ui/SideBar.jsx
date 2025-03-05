@@ -9,17 +9,17 @@ import Logout from '@icons/log-out.svg?react';
 import profile from '@images/profile.jpg';
 
 const menuItems = [
-    { name: 'Jobs', icon: Jobs, link: '/' },
-    { name: 'Questions', icon: Questions, link: '/' },
-    { name: 'Candidates', icon: Candidates, link: '/' },
+    { name: 'Jobs', icon: Jobs, link: '/interviewai' },
+    { name: 'Questions', icon: Questions, link: '/interviewai/questions' },
+    { name: 'Candidates', icon: Candidates, link: '/interviewai/candidates' },
     { name: 'Interviews', icon: Interviews, link: '/interviewai/interview' },
 ];
 
 const SideBar = () => {
     const handleLogout = () => {
-        sessionStorage.clear(); // Clears all session storage data
-        localStorage.removeItem('authToken'); // Optional: Clear auth token if stored in localStorage
-        window.location.href = '/login'; // Redirect to login page
+        sessionStorage.clear();
+        localStorage.removeItem('authToken');
+        window.location.href = '/interviewai/login';
     };
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation(); // Get current page URL
@@ -46,7 +46,7 @@ const SideBar = () => {
             {/* Sidebar Links */}
             <nav className='p-4 space-y-4'>
                 {menuItems.map((item, index) => {
-                    const isActive = location.pathname === item.link; // Check if it's the active page
+                    const isActive = location.pathname === item.link;
 
                     return (
                         <a
