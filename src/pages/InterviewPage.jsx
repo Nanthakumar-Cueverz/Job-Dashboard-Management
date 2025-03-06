@@ -211,11 +211,14 @@ const ChatBot = () => {
         const nextIndex = currentQuestionIndex + 1;
 
         if (nextIndex < questions.length) {
-            const botQuestion = { text: questions[nextIndex], sender: 'bot' };
+            const botQuestion = {
+                text: questions[nextIndex],
+                sender: 'bot',
+                isMcq: nextIndex === 1,
+            }; // Mark 2nd question as MCQ
             setMessages((prev) => [...prev, botQuestion]);
             setCurrentQuestionIndex(nextIndex);
         } else {
-            // When last question is answered, update state to trigger "Complete" button
             setCurrentQuestionIndex(questions.length);
         }
     };
@@ -238,56 +241,54 @@ const ChatBot = () => {
         <div className=''>
             <div>
                 <div className='w-full max-w-lg h-[500px] bg-white p-4 flex flex-col overflow-y-auto scrollbar-hide'>
-                    {messages.length === 0 ? (
-                        <div className='text-center text-gray-500 mt-auto'>No messages yet</div>
-                    ) : (
-                        messages.map((msg, index) => (
+                    {messages.map((msg, index) => (
+                        <div
+                            key={index}
+                            className={`flex align-bottom items-end ${
+                                msg.sender === 'user' ? 'justify-start' : 'justify-end'
+                            } mb-2`}
+                        >
+                            {msg.sender === 'user' && (
+                                <img
+                                    src={profile}
+                                    alt='User'
+                                    className='h-8 w-8 rounded-full mr-2'
+                                />
+                            )}
                             <div
-                                key={index}
-                                className={`flex align-bottom items-end ${
-                                    msg.sender === 'user' ? 'justify-start' : 'justify-end'
-                                } mb-2`}
+                                className={`p-3 max-w-xs text-sm text-black mb-5 ${
+                                    msg.sender === 'user'
+                                        ? 'bg-[#F6F6F6] text-start rounded-t-lg rounded-br-lg'
+                                        : 'bg-secondary text-right rounded-t-lg rounded-bl-lg'
+                                }`}
                             >
-                                {msg.sender === 'user' && (
-                                    <img
-                                        src={profile}
-                                        alt='User'
-                                        className='h-8 w-8 rounded-full mr-2'
-                                    />
-                                )}
-                                <div
-                                    className={`p-3 max-w-xs text-sm text-black mb-5 ${
-                                        msg.sender === 'user'
-                                            ? 'bg-[#F6F6F6] text-start rounded-t-lg rounded-br-lg '
-                                            : 'bg-secondary text-right rounded-t-lg rounded-bl-lg'
-                                    }`}
-                                >
-                                    {msg.isListening ? (
-                                        <div className='flex items-center gap-2'>
-                                            <div className='audio-wave'>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                                <span></span>
-                                            </div>
-                                            {msg.text}
+                                {msg.isListening ? (
+                                    <div className='flex items-center gap-2'>
+                                        <div className='audio-wave'>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
                                         </div>
-                                    ) : (
-                                        msg.text
-                                    )}
-                                </div>
-
-                                {msg.sender === 'bot' && (
-                                    <img
-                                        src={aiicon}
-                                        alt='Bot'
-                                        className='h-8 w-8 rounded-full ml-2'
+                                        {msg.text}
+                                    </div>
+                                ) : msg.isMcq ? (
+                                    <McqQuestions
+                                        onAnswerSelected={askNextQuestion}
+                                        setMessages={setMessages}
+                                        messages={messages}
                                     />
+                                ) : (
+                                    msg.text
                                 )}
                             </div>
-                        ))
-                    )}
+
+                            {msg.sender === 'bot' && (
+                                <img src={aiicon} alt='Bot' className='h-8 w-8 rounded-full ml-2' />
+                            )}
+                        </div>
+                    ))}
                 </div>
 
                 <div className='w-full max-w-lg flex justify-center border-t border-border-primary pt-5 pb-3'>
@@ -331,6 +332,57 @@ const ChatBot = () => {
                     </p>
                 </div>
             </ModalPopup>
+        </div>
+    );
+};
+
+const McqQuestions = ({ onAnswerSelected, setMessages, messages }) => {
+    const [selectedOption, setSelectedOption] = useState(null);
+    const options = ['A. Pandas', 'B. scikit-learn', 'C. TensorFlow'];
+
+    const handleOptionSelect = (option) => {
+        setSelectedOption(option);
+
+        // Add selected answer to chat history
+        const userResponse = { text: option, sender: 'user' };
+        const updatedMessages = [...messages, userResponse];
+        setMessages(updatedMessages);
+        sessionStorage.setItem('chatHistory', JSON.stringify(updatedMessages));
+
+        setTimeout(() => {
+            onAnswerSelected(); // Move to the next question
+        }, 1000);
+    };
+
+    return (
+        <div className='w-64'>
+            <h1 className=' text-sm pb-2 border-b border-white'>
+                Can you explain overfitting and underfitting?
+            </h1>
+            <div className='space-y-2 mt-3'>
+                {options.map((option, index) => (
+                    <label
+                        key={index}
+                        className='flex items-center cursor-pointer select-none  para rounded-lg transition'
+                    >
+                        <input
+                            type='radio'
+                            name='mcq'
+                            checked={selectedOption === option}
+                            onChange={() => handleOptionSelect(option)}
+                            className='sr-only'
+                        />
+                        <div
+                            className={`box mr-4 flex h-3 w-3 items-center justify-center rounded-full border ${
+                                selectedOption === option
+                                    ? 'bg-primary '
+                                    : 'border-stroke dark:border-dark-3'
+                            }`}
+                        ></div>
+                        {option}
+                    </label>
+                ))}
+            </div>
         </div>
     );
 };

@@ -11,7 +11,7 @@ const Loader = () => {
                 ariaLabel='oval-loading'
                 strokeWidth='2'
                 wrapperStyle={{}}
-                wrapperClass='custome-loader'
+                wrapperclassName='custome-loader'
             />
             <span className='absolute text-text-gray text-xs font-normal'>
                 Generating Questions...

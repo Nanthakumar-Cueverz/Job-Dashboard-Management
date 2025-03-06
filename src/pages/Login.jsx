@@ -17,15 +17,17 @@ const Login = () => {
         navigate('/');
     };
     return (
-        <section class='bg-white'>
+        <section className='bg-white'>
             <div className='lg:w-full xl:max-w-7xl m-auto'>
-                <div class='grid grid-cols-1 lg:grid-cols-2'>
-                    <div class='flex items-center justify-center px-4 bg-white'>
-                        <div class=''>
-                            <h2 class='text-3xl font-semibold leading-tight text-black sm:text-4xl'>
+                <div className='grid grid-cols-1 lg:grid-cols-2'>
+                    <div className='flex items-center justify-center px-4 bg-white'>
+                        <div className=''>
+                            <h2 className='text-3xl font-semibold leading-tight text-black sm:text-4xl'>
                                 Welcome to <span className='text-primary'>INTERVIEW AI</span>
                             </h2>
-                            <p class='mt-2 text-base text-gray-600'>Please enter your details.</p>
+                            <p className='mt-2 text-base text-gray-600'>
+                                Please enter your details.
+                            </p>
                             <div className='py-10'>
                                 <form className='space-y-5'>
                                     <Input
@@ -85,7 +87,7 @@ const Login = () => {
                     </div>
                     <div className='my-auto flex py-5'>
                         <img
-                            class='object-cover  w-full h-[94vh] ml-auto flex rounded-l-3xl '
+                            className='object-cover  w-full h-[94vh] ml-auto flex rounded-l-3xl '
                             src={SigninImage}
                         />
                     </div>

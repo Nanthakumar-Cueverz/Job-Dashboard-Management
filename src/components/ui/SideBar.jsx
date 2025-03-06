@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Import useLocation for active menu detection
+import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
 import X from '@icons/x.svg?react';
 import Jobs from '@icons/briefcase-business.svg?react';
 import Questions from '@icons/circle-help.svg?react';
@@ -9,24 +9,26 @@ import Logout from '@icons/log-out.svg?react';
 import profile from '@images/profile.jpg';
 
 const menuItems = [
-    { name: 'Jobs', icon: Jobs, link: '/interviewai' },
-    { name: 'Questions', icon: Questions, link: '/interviewai/questions' },
-    { name: 'Candidates', icon: Candidates, link: '/interviewai/candidates' },
-    { name: 'Interviews', icon: Interviews, link: '/interviewai/interview' },
+    { name: 'Jobs', icon: Jobs, path: '/' },
+    { name: 'Questions', icon: Questions, path: '/questions' },
+    { name: 'Candidates', icon: Candidates, path: '/candidates' },
+    { name: 'Interviews', icon: Interviews, path: '/interview' },
 ];
 
-const SideBar = () => {
+const SideBar = ({ isOpen, setIsOpen }) => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    // const [isOpen, setIsOpen] = useState(false);
+
     const handleLogout = () => {
         sessionStorage.clear();
         localStorage.removeItem('authToken');
-        window.location.href = '/interviewai/login';
+        navigate('/login');
     };
-    const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation(); // Get current page URL
 
     return (
         <div
-            className={`fixed inset-y-0 left-0 w-64 bg-white border-r border-neutral-200 h-screen transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 
+            className={`fixed inset-y-0 z-50 left-0 w-64 bg-white border-r border-neutral-200 h-screen transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
             {/* Sidebar Header */}
@@ -46,13 +48,13 @@ const SideBar = () => {
             {/* Sidebar Links */}
             <nav className='p-4 space-y-4'>
                 {menuItems.map((item, index) => {
-                    const isActive = location.pathname === item.link;
+                    const isActive = location.pathname === item.path;
 
                     return (
-                        <a
+                        <button
                             key={index}
-                            href={item.link}
-                            className={`flex items-center border-l-4 space-x-5 p-3 transition-colors border-y-transparent hover:border-y-transparent  ${
+                            onClick={() => navigate(item.path)} // Use navigate() instead of href
+                            className={`flex items-center border-l-4 space-x-5 p-3 transition-colors border-y-transparent hover:border-y-transparent w-full  ${
                                 isActive
                                     ? 'bg-blue-background text-primary border-y-2 border-y-white' // Active Page
                                     : 'text-primary-gray hover:bg-blue-background border-y-2 hover:text-primary border-transparent hover:border-l-primary'
@@ -60,7 +62,7 @@ const SideBar = () => {
                         >
                             <item.icon size={20} className='stroke-1' />
                             <span>{item.name}</span>
-                        </a>
+                        </button>
                     );
                 })}
             </nav>
@@ -70,7 +72,7 @@ const SideBar = () => {
                 <div className='w-full border-t border-neutral-200 p-4'>
                     <button
                         onClick={handleLogout}
-                        className='flex items-center space-x-5 p-3 text-primary-gray hover:bg-primary hover:text-white rounded'
+                        className='flex items-center space-x-5 p-3 w-full text-primary-gray hover:bg-primary hover:text-white rounded'
                     >
                         <Logout />
                         <span>Logout</span>
