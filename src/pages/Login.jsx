@@ -9,9 +9,7 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [remember, setRemember] = useState(false);
-    const handleForgotPassword = () => {
-        alert('Redirect to Forgot Password page!');
-    };
+    const handleForgotPassword = () => {};
     const handleSubmit = (e) => {
         e.preventDefault();
         navigate('/');
@@ -20,14 +18,29 @@ const Login = () => {
         <section className='bg-white'>
             <div className='lg:w-full xl:max-w-7xl m-auto'>
                 <div className='grid grid-cols-1 lg:grid-cols-2'>
-                    <div className='flex items-center justify-center px-4 bg-white'>
-                        <div className=''>
-                            <h2 className='text-3xl font-semibold leading-tight text-black sm:text-4xl'>
+                    <div className='my-auto block lg:hidden relative'>
+                        <img
+                            className='object-cover w-full h-96 ml-auto flex rounded-b-4xl'
+                            src={SigninImage}
+                        />
+                        {/* <div className='absolute bottom-0 w-full h-full bg-black/30 rounded-b-4xl'></div> */}
+                        <div className='absolute bottom-0 w-full px-5 py-5'>
+                            <h2 className='text-2xl font-semibold leading-tight text-white sm:text-4xl'>
                                 Welcome to <span className='text-primary'>INTERVIEW AI</span>
                             </h2>
-                            <p className='mt-2 text-base text-gray-600'>
-                                Please enter your details.
-                            </p>
+                            <p className='mt-2 text-base text-white'>Please enter your details.</p>
+                        </div>
+                    </div>
+                    <div className='flex items-center justify-center px-4 bg-white w-full'>
+                        <div className=''>
+                            <div className='hidden md:block lg:block'>
+                                <h2 className='text-3xl font-semibold leading-tight text-black sm:text-4xl'>
+                                    Welcome to <span className='text-primary'>INTERVIEW AI</span>
+                                </h2>
+                                <p className='mt-2 text-base text-gray-600'>
+                                    Please enter your details.
+                                </p>
+                            </div>
                             <div className='py-10'>
                                 <form className='space-y-5'>
                                     <Input
@@ -85,7 +98,7 @@ const Login = () => {
                             </div>
                         </div>
                     </div>
-                    <div className='my-auto flex py-5'>
+                    <div className='my-auto py-5 hidden lg:block'>
                         <img
                             className='object-cover  w-full h-[94vh] ml-auto flex rounded-l-3xl '
                             src={SigninImage}

@@ -23,7 +23,7 @@ const DashboardLayout = ({ children }) => {
                         <MenuIcon />
                     </button>
                 </header>
-                <main className='p-6'>{children}</main>
+                <main className='p-2 lg:p-6'>{children}</main>
             </div>
         </div>
     );

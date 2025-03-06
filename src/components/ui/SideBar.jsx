@@ -68,7 +68,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </nav>
 
             {/* Logout Button */}
-            <div className='absolute bottom-0 w-full'>
+            <div className='absolute bottom-10 lg:bottom-0 w-full'>
                 <div className='w-full border-t border-neutral-200 p-4'>
                     <button
                         onClick={handleLogout}

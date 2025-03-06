@@ -67,7 +67,7 @@ const JobDetail = () => {
                 const isScheduled = scheduledStatus[row.email];
                 return (
                     <button
-                        className={`px-4 py-2 rounded-md ${
+                        className={`px-4 py-2 rounded-md whitespace-nowrap ${
                             isScheduled ? 'bg-green-500 text-white' : 'bg-primary text-white'
                         }`}
                         onClick={() => handleScheduleClick(row)}
@@ -80,38 +80,50 @@ const JobDetail = () => {
     ];
 
     return (
-        <div className='py-10 px-10'>
-            <div>
-                <PostJobCommon url='/interviewai/create-job' />
-            </div>
-            <div className='pt-10'>
-                <div className='p-10 shadow rounded-md mb-5 last:mb-0'>
-                    <div className='pb-4 border-b border-border-primary flex justify-between align-middle items-center'>
-                        <div className='flex items-center gap-x-4'>
-                            <CircleDot className='bg-black text-white p-2 rounded-sm w-12 h-12' />
+        <div className='p-0 lg:p-10'>
+            <div className=''>
+                <div className='p-5 lg:p-10 shadow rounded-md mb-5 last:mb-0'>
+                    <div className='p-0 lg:pb-4 border-b pb-4 lg:border-b border-border-primary block lg:flex justify-between align-middle'>
+                        <div className='flex items-start lg:items-center gap-x-4'>
+                            <CircleDot className='bg-black text-white p-2 rounded-sm w-12 h-12 mt-1 lg:mt-0' />
                             <div>
-                                <h2 className='text-[16px] font-semibold text-subtext-primary leading-8'>
+                                <a
+                                    href='/interviewai/job-detail'
+                                    className='lg:text-md font-medium text-lg lg:font-semibold text-subtext-primary'
+                                >
                                     Data Scientist
-                                </h2>
+                                </a>
                                 <div className='flex align-middle gap-x-3 items-center'>
-                                    <h6 className='text-xs text-[#707070] font-medium'>Github</h6>
-                                    <span className='text-[10px] px-3 py-[4px] bg-blue-background text-text-primary rounded-full'>
+                                    <h6 className='text-xs text-black lg:text-[#707070] font-medium'>
+                                        Company Name
+                                    </h6>
+                                    <span className='text-[10px] px-3 py-[4px] bg-blue-background text-text-primary rounded-full hidden lg:block '>
                                         Full Time
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div className='flex gap-x-2'>
-                            <Location className='text-icon-primary' />
-                            <div className='text-end'>
-                                <h2 className='text-subtext-primary text-[12px] font-medium'>
+                        <div className='flex gap-x-2 pl-16'>
+                            <Location className='text-icon-primary lg:block w-4 h-4 hidden' />
+                            <div className='text-start lg:text-end'>
+                                <h2 className='text-neutral lg:text-subtext-primary text-sm lg:text-md font-normal lg:font-medium'>
                                     Marina East, Singapore
                                 </h2>
-                                <p className='text-text-neutral font-medium text-xs'>5 hours ago</p>
+                                <div className='space-x-2 pt-2'>
+                                    <p className='inline-block py-1 px-2.5 text-[10px] font-medium lg:hidden bg-green-100 text-green-900 rounded-md'>
+                                        5 hours ago
+                                    </p>
+                                    <span className='text-[10px] px-3 py-[4px] bg-blue-background lg:hidden inline-block w-fit text-text-primary rounded-md'>
+                                        Full Time
+                                    </span>
+                                </div>
+                                <p className='text-text-neutral font-medium text-sm lg:block hidden'>
+                                    5 hours ago
+                                </p>
                             </div>
                         </div>
                     </div>
-                    <div className='pt-10'>
+                    <div className='pt-5 lg:pt-10'>
                         <div className='pb-5'>
                             <h2 className='subheading'>About this role</h2>
                             <p className='para py-2'>
