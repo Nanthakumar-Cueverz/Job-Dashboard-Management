@@ -22,7 +22,7 @@ const content = [
 const questions = [
     'What is your experience with machine learning?',
     'Can you explain overfitting and underfitting?',
-    // 'What are the different types of neural networks?',
+    'What are the different types of neural networks?',
     // 'How do you handle missing data in datasets?',
     // 'What is the difference between supervised and unsupervised learning?',
 ];

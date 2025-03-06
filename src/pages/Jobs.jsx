@@ -51,7 +51,7 @@ const JobsCard = ({ jobs }) => {
             {jobs.map((job) => (
                 <div
                     key={job.id}
-                    className='p-4 lg:border border-border-primary rounded-2xl lg:rounded-md  mb-5 last:mb-0'
+                    className='p-4 border border-border-primary rounded-2xl lg:shadow-none  shadow-[0px_0px_50px_0px_rgba(204,204,204,0.26)] lg:rounded-md  mb-5 last:mb-0'
                 >
                     <div className='p-0 lg:pb-4 border-0 lg:border-b border-border-primary block lg:flex justify-between align-middle'>
                         <div className='flex items-start lg:items-center gap-x-4'>
