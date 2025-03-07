@@ -24,6 +24,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         sessionStorage.clear();
         localStorage.removeItem('authToken');
         navigate('/login');
+        setIsOpen(false);
     };
 
     return (
@@ -53,10 +54,13 @@ const SideBar = ({ isOpen, setIsOpen }) => {
                     return (
                         <button
                             key={index}
-                            onClick={() => navigate(item.path)} // Use navigate() instead of href
+                            onClick={() => {
+                                navigate(item.path);
+                                setIsOpen(false);
+                            }}
                             className={`flex items-center border-l-4 space-x-5 p-3 transition-colors border-y-transparent hover:border-y-transparent w-full  ${
                                 isActive
-                                    ? 'bg-blue-background text-primary border-y-2 border-y-white' // Active Page
+                                    ? 'bg-blue-background text-primary border-y-2 border-y-white'
                                     : 'text-primary-gray hover:bg-blue-background border-y-2 hover:text-primary border-transparent hover:border-l-primary'
                             }`}
                         >

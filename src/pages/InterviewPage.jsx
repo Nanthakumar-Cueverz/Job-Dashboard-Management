@@ -8,7 +8,6 @@ import profile from '../assets/images/profile.jpg';
 import aiicon from '../assets/images/ai-icon.png';
 import Check from '../assets/icons/check.svg?react';
 import { useNavigate } from 'react-router-dom';
-import LoaderIcon from '../assets/icons/audio-lines.svg?react';
 const content = [
     'Test Equipment: Ensure camera, mic, and internet work.',
     'Quiet Space: Choose a noise-free, professional setting.',
@@ -23,8 +22,6 @@ const questions = [
     'What is your experience with machine learning?',
     'Can you explain overfitting and underfitting?',
     'What are the different types of neural networks?',
-    // 'How do you handle missing data in datasets?',
-    // 'What is the difference between supervised and unsupervised learning?',
 ];
 
 const answers = [
@@ -128,7 +125,7 @@ const ScreeningSession = () => {
     return (
         <div className='h-screen w-full flex items-center justify-center'>
             <div className='max-w-lg text-center'>
-                <h1 className='text-lg font-bold pb-5'>
+                <h1 className='text-sm lg:text-lg font-bold pb-5 lg:px-0 px-5 '>
                     Hi Joseph, Welcome to screening session - I
                 </h1>
                 <div className='border rounded-md border-border-primary p-2'>
