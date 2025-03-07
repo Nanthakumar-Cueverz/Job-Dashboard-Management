@@ -17,7 +17,7 @@ import CloseIcon from '@icons/x.svg?react';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(1);
     return (
-        <div className='py-10'>
+        <div className='py-5 lg:py-10'>
             <Steps currentStep={currentStep} />
             <StepContent currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </div>
@@ -30,39 +30,39 @@ export default Dashboard;
 const Steps = ({ currentStep }) => {
     const stepsItems = ['Job Info', 'Questions', 'Candidates'];
     return (
-        <div className='max-w-2xl mx-auto px-4 md:px-0'>
-            <ul aria-label='Steps' className='flex items-center text-gray-600 font-medium'>
+        <div className='max-w-2xl mx-auto lg:px-4 md:px-0 md:bg-white bg-gray-100 rounded-md py-3 px-2'>
+            <ul aria-label='Steps' className='flex items-center text-gray-600  font-medium'>
                 {stepsItems.map((item, idx) => {
                     const isCompleted = currentStep > idx + 1;
                     const isActive = currentStep === idx + 1;
 
                     return (
-                        <li key={idx} className='flex-1 last:flex-none flex md:items-center'>
+                        <li
+                            key={idx}
+                            className='flex-1 last:flex-none flex items-center md:items-center'
+                        >
                             <div className='h-8 flex items-center md:h-auto'>
                                 <h3
-                                    className={`text-sm border-2 py-4 px-10 rounded-full w-fit whitespace-nowrap flex items-center gap-2
+                                    className={`text-sm border-0 md:border-2 py-2 px-2 lg:py-4 lg:px-10 rounded-full w-fit whitespace-nowrap flex items-center gap-2
                                     ${
                                         isCompleted
-                                            ? 'bg-primary-green text-white border-primary-green'
-                                            : ''
+                                            ? 'bg-none lg:bg-primary-green text-primary-green font-semibold  lg:text-white border-primary-green'
+                                            : 'text-gray-300'
                                     }
                                     ${
                                         isActive
-                                            ? 'border-blue-500 text-primary'
+                                            ? ' lg:border-blue-500 text-primary'
                                             : 'border-gray-300'
                                     }`}
                                 >
                                     {isCompleted && (
-                                        <Check
-                                            size={16}
-                                            className='text-primary-green bg-white rounded-full p-1 stroke-2'
-                                        />
+                                        <Check className='text-white lg:text-primary-green bg-primary-green lg:bg-white rounded-full p-1 stroke-2 h-5 w-5 lg:h-6 lg:w-6 ' />
                                     )}
                                     {item}
                                 </h3>
                             </div>
                             <hr
-                                className={`hidden w-full border md:block ${
+                                className={`w-full border md:block ${
                                     isCompleted ? 'border-green-500' : 'border-gray-300'
                                 }`}
                             />
@@ -113,9 +113,8 @@ const JobInfo = ({ setIsNextDisabled }) => {
 
     useEffect(() => {
         const isDisabled = !(title.trim() && description.trim());
-        console.log('Validating form: ', { title, description, isDisabled }); // Debugging log
         setIsNextDisabled(isDisabled);
-    }, [title, description]); // ✅ Correct dependencies
+    }, [title, description]);
 
     return (
         <div>
@@ -171,18 +170,20 @@ const Questions = ({ setIsNextDisabled }) => {
                         />
                         <button
                             onClick={() => setGenerateQuestionsModal(true)}
-                            className='flex align-middle items-center space-x-2 text-primary text-xs font-semibold whitespace-nowrap px-5 py-3'
+                            className='flex align-middle items-center space-x-2 text-primary text-xs font-semibold whitespace-nowrap p-3 lg:px-5 py-3'
                         >
-                            <Stars />
-                            Generative AI <Aleart className='h-4 w-4 ml-2 fill-secondary' />
+                            <Stars className='m-0' />
+                            <span className='hidden lg:block'> Generative AI</span>
+                            <Aleart className='h-4 w-4 ml-2 fill-secondary hidden lg:block' />
                         </button>
                     </div>
                     <div>
                         <button
                             onClick={() => setUploadQuestions(true)}
-                            className='outline-button gap-x-2 whitespace-nowrap flex'
+                            className='outline-button px-3 gap-x-2 whitespace-nowrap flex'
                         >
-                            <UploadBlack className='h-4 w-4' /> Upload
+                            <UploadBlack className='h-4 w-4' />
+                            <span className='hidden lg:block'>Upload</span>
                         </button>
                     </div>
                 </div>
@@ -196,11 +197,11 @@ const Questions = ({ setIsNextDisabled }) => {
                     </div>
                     <div className='bg-[#f6f6f6] p-5 rounded-md'>
                         <div>
-                            <ul className='list-decimal pl-5 space-y-2 mt-3'>
+                            <ul className='list-decimal pl-5 space-y-0 lg:space-y-2 mt-3'>
                                 {selectedQuestions.map((question, index) => (
                                     <li
                                         key={index}
-                                        className='text-sm text-paragraph pb-3 last:pb-0'
+                                        className='text-xs lg:text-sm text-paragraph pb-3 last:pb-0'
                                     >
                                         {question}
                                     </li>
@@ -210,7 +211,7 @@ const Questions = ({ setIsNextDisabled }) => {
                         <div className='flex gap-3 mt-3 justify-evenly  items-center border-t border-border-primary pt-3'>
                             <button
                                 onClick={() => setGenerateQuestionsModal(true)}
-                                className='btn-primary text-sm'
+                                className='btn-primary text-xs whitespace-nowrap lg:text-sm'
                             >
                                 Add More Questions
                             </button>
@@ -223,7 +224,7 @@ const Questions = ({ setIsNextDisabled }) => {
                                 }}
                                 className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'
                             >
-                                <Stars className='mr-2' /> Generate AI
+                                <Stars className='mr-2 hidden md:block' /> <span>Generate AI</span>
                             </button>
                             <hr className='w-0.5 h-6 border border-border-primary' />
                             <button
@@ -231,7 +232,7 @@ const Questions = ({ setIsNextDisabled }) => {
                                 className='flex align-middle items-center space-x-3 text-primary text-sm font-normal whitespace-nowrap px-5 py-3'
                             >
                                 <UploadBlack className='text-primary mr-2 h-5 w-5' />
-                                Upload
+                                <span className='hidden md:block'>Upload</span>
                             </button>
                         </div>
                     </div>
@@ -378,22 +379,22 @@ const ImportedQuestions = ({ onClose }) => {
 
     return (
         <div className='spave-y-10'>
-            <div className='border-b border-border-primary pb-5 mb-5'>
+            <div className='border-b border-border-primary pb-2 mb-2 lg:pb-5 lg:mb-5'>
                 <h2 className='text-xl font-semibold'>AI Question For Data Scientist </h2>
             </div>
             <div className='space-y-2 border-b border-border-primary pb-5 mb-5'>
                 {questions.map((question, index) => (
-                    <label key={index} className='flex space-x-5 space-y-6'>
+                    <label key={index} className='flex space-x-5 space-y-1 lg:space-y-6'>
                         <div className='w-fit'>
                             <input
                                 type='checkbox'
-                                className='h-5 w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
+                                className='lg:h-5 lg:w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
                                 checked={selectedQuestions.includes(question)}
                                 onChange={() => handleSelect(question)}
                             />
                         </div>
                         <div>
-                            <h6 className='para text-[16px]'>{question}</h6>
+                            <h6 className='para text-xs lg:text-[16px]'>{question}</h6>
                         </div>
                     </label>
                 ))}
@@ -401,7 +402,7 @@ const ImportedQuestions = ({ onClose }) => {
             <div className='text-end'>
                 <button
                     onClick={handleImport}
-                    className={`btn-fill text-sm  ${
+                    className={`lg:btn-fill text-xs lg:text-sm  ${
                         selectedQuestions.length === 0 ? 'btn-disabled' : 'btn-fill'
                     }`}
                     disabled={selectedQuestions.length === 0}

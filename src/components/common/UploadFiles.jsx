@@ -69,7 +69,7 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                                 </h6>
                             </div>
                         </div>
-                        <div className='px-5 mt-5'>
+                        <div className='p-0 lg:px-5 mt-5'>
                             {selectedFile && (
                                 <div>
                                     <div className='mt-2 gap-3 py-2 px-4 w-full bg-white rounded-lg shadow'>

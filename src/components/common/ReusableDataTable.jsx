@@ -33,11 +33,9 @@ const customStyles = {
 
 const ReusableDataTable = ({ columns = [], data = [] }) => {
     if (!Array.isArray(data) || data.length === 0) {
-        console.error("🚨 DataTable Error: 'data' is empty or not an array", data);
     }
 
     if (!Array.isArray(columns) || columns.length === 0) {
-        console.error("🚨 DataTable Error: 'columns' is empty or not an array", columns);
     }
 
     return (

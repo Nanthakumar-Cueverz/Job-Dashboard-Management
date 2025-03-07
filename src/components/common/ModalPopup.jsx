@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 
-// Custom Styles for Modal
-
 Modal.setAppElement('#root'); // Accessibility
 
-const ModalPopup = ({ isOpen, onClose, title, children, width }) => {
+const ModalPopup = ({ isOpen, onClose, title, children }) => {
+    const [modalWidth, setModalWidth] = useState(window.innerWidth <= 768 ? '400px' : '600px');
+
+    useEffect(() => {
+        const handleResize = () => {
+            setModalWidth(window.innerWidth <= 768 ? '400px' : '600px');
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     const customStyles = {
         content: {
             top: '50%',
@@ -14,7 +23,7 @@ const ModalPopup = ({ isOpen, onClose, title, children, width }) => {
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: width,
+            width: modalWidth,
             padding: '20px',
             borderRadius: '23px',
         },
@@ -23,6 +32,7 @@ const ModalPopup = ({ isOpen, onClose, title, children, width }) => {
             zIndex: 1000, // Ensure it appears on top
         },
     };
+
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose} style={customStyles} contentLabel={title}>
             <div>{children}</div>
