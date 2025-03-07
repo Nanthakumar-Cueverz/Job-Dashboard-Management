@@ -7,30 +7,30 @@ import 'react-calendar/dist/Calendar.css';
 import CloseIcon from '@icons/x.svg?react';
 
 const ScheduleCall = ({ selectedCandidate, onClose }) => {
-    const [selectedDate, setSelectedDate] = useState(null); // Default null to disable time slots initially
+    const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState('');
 
     const timeSlots = ['08:30 AM', '09:30 AM', '10:00 AM', '10:30 AM', '11:00 AM'];
 
     const handleTimeSelect = (time) => {
-        if (!selectedDate) return; // Prevent selecting time without a date
+        if (!selectedDate) return;
         setSelectedTime(time);
     };
 
     const handleDateChange = (newDate) => {
         setSelectedDate(newDate);
-        setSelectedTime(''); // Reset selected time when date changes
+        setSelectedTime('');
     };
 
     const handleSchedule = () => {
-        if (!selectedDate || !selectedTime) return; // Ensure both date and time are selected
+        if (!selectedDate || !selectedTime) return;
         if (selectedCandidate) {
             sessionStorage.setItem(
                 `scheduled_${selectedCandidate.email}`,
                 JSON.stringify({ status: 'Scheduled', date: selectedDate, time: selectedTime }),
             );
         }
-        onClose(); // Close the modal
+        onClose();
     };
 
     return (
@@ -47,7 +47,7 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
 
             <div className='w-full border-b border-border-secondary pb-4'>
                 <div className='flex space-x-3'>
-                    <CircleDot className='bg-black p-1 rounded-md text-white h-8 w-8' />
+                    <CircleDot className='bg-black p-1 rounded-md text-white w-14 h-10 lg:h-8 lg:w-8' />
                     <div>
                         <h2 className='text-text-gray font-semibold text-sm'>Teerq</h2>
                         <p className='para'>
@@ -59,17 +59,16 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
 
             <div className='grid grid-cols-12 gap-4'>
                 {/* Date Picker */}
-                <div className='col-span-12 lg:col-span-6 pt-5 border-r border-e-border-secondary pr-5'>
+                <div className='col-span-12 lg:col-span-6 pt-5 border-r-0 lg:border-r border-e-border-secondary pr-0 lg:pr-5'>
                     <Calendar
                         onChange={handleDateChange}
                         value={selectedDate}
                         className='px-5 lg:px-0'
                     />
                 </div>
-
                 {/* Time Slot Selection */}
-                <div className='col-span-12 lg:col-span-6 pt-5'>
-                    <div className='flex lg:block justify-between py-2'>
+                <div className='col-span-12 lg:col-span-6 pt-0 md:pt-5'>
+                    <div className='flex lg:block justify-start space-x-5 lg:justify-between py-2'>
                         <h6 className='fill-white text-neutral font-medium flex align-middle items-center text-xs mb-3'>
                             <Clock className='mr-5 h-6 w-6' />
                             <span>30 min</span>
@@ -103,7 +102,7 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
                         ))}
                     </div>
                     {/* Submit Button */}
-                    <div className='pt-5 text-end absolute bottom-5 right-5'>
+                    <div className='pt-5 text-end relative mt-5 lg:mt-0 border-t border-border-primary lg:border-t-0 lg:absolute right-0 lg:bottom-5 lg:right-5'>
                         <button
                             onClick={handleSchedule}
                             className={`btn-fill py-2 ${

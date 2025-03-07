@@ -17,7 +17,7 @@ import CloseIcon from '@icons/x.svg?react';
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(1);
     return (
-        <div className='py-5 lg:py-10'>
+        <div className='py-0 lg:py-10'>
             <Steps currentStep={currentStep} />
             <StepContent currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </div>

@@ -3,17 +3,26 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Accessibility
 
-const ModalPopup = ({ isOpen, onClose, title, children }) => {
-    const [modalWidth, setModalWidth] = useState(window.innerWidth <= 768 ? '400px' : '600px');
+const ModalPopup = ({
+    isOpen,
+    onClose,
+    title,
+    children,
+    mobileWidth = '400px',
+    desktopWidth = '600px',
+}) => {
+    const [modalWidth, setModalWidth] = useState(
+        window.innerWidth <= 768 ? mobileWidth : desktopWidth,
+    );
 
     useEffect(() => {
         const handleResize = () => {
-            setModalWidth(window.innerWidth <= 768 ? '400px' : '600px');
+            setModalWidth(window.innerWidth <= 768 ? mobileWidth : desktopWidth);
         };
 
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [mobileWidth, desktopWidth]);
 
     const customStyles = {
         content: {
