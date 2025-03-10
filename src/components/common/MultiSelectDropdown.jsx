@@ -54,7 +54,7 @@ const MultiSelectDropdown = ({
                         return (
                             <div
                                 key={option.value}
-                                className={`px-6 py-2 m-1 h-fit rounded-full cursor-pointer transition-all ${
+                                className={`px-6 py-2 m-1 h-fit rounded-full bg-table-background border border-border-primary cursor-pointer transition-all ${
                                     isSelected
                                         ? 'text-primary border border-primary'
                                         : 'text-gray-700 hover:bg-blue-50'

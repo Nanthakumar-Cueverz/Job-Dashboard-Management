@@ -10,7 +10,7 @@ const SelectMenu = ({
 }) => {
     return (
         <div className={`relative  max-w-full ${className}`}>
-            <label className='mb-2 block text-base font-medium text-black'>Assigned to</label>
+            <label className='mb-2 block text-base font-medium text-black'>Job Type</label>
             <select
                 className='w-full bg-transparent border-border-primary rounded-md border border-stroke  py-[10px] px-5  outline-none transition'
                 value={value}

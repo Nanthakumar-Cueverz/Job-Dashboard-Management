@@ -14,10 +14,10 @@ const JobDetailsForm = ({ formData, setFormData }) => {
         { value: 'nextjs', label: 'Next.js' },
     ];
     const jobRoles = [
-        { value: 'project_manager', label: 'Project Manager' },
-        { value: 'software_engineer', label: 'Software Engineer' },
-        { value: 'it_manager', label: 'IT Manager' },
-        { value: 'ui_ux_designer', label: 'UI/UX Designer' },
+        { value: 'full-time', label: 'Full Time' },
+        { value: 'part-time', label: 'Part Time' },
+        { value: 'remote', label: 'Remote' },
+        { value: 'hybrid', label: 'Hybrid' },
     ];
     return (
         <div>
