@@ -72,28 +72,36 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                         <div className='p-0 lg:px-5 mt-5'>
                             {selectedFile && (
                                 <div>
-                                    <div className='mt-2 gap-3 py-2 px-4 w-full bg-white rounded-lg shadow'>
-                                        <div className='flex items-center justify-between'>
-                                            <div className='flex align-middle items-center gap-x-3'>
-                                                <div>{selectedFile.icon}</div>
-                                                <div>
-                                                    <span className='text-xs text-gray-700 block font-semibold'>
-                                                        {selectedFile.file.name}
-                                                    </span>
-                                                    <span className='text-xs text-gray-500'>
-                                                        {selectedFile.size}
-                                                    </span>
+                                    <div className='flex justify-between items-center space-x-5'>
+                                        <div className='mt-2 gap-3 py-2 px-4 w-full bg-white rounded-lg shadow'>
+                                            <div className='flex items-center justify-between'>
+                                                <div className='flex align-middle items-center gap-x-3'>
+                                                    <div>{selectedFile.icon}</div>
+                                                    <div>
+                                                        <span className='text-xs text-gray-700 block font-semibold'>
+                                                            {selectedFile.file.name}
+                                                        </span>
+                                                        <span className='text-xs text-gray-500'>
+                                                            {selectedFile.size}
+                                                        </span>
+                                                    </div>
                                                 </div>
+
+                                                <button
+                                                    onClick={() => setSelectedFile(null)}
+                                                    className='text-black text-xs font-semibold ml-auto'
+                                                >
+                                                    <Cancel className='text-black w-4 h-4 stroke-2' />
+                                                </button>
                                             </div>
-                                            <button
-                                                onClick={() => setSelectedFile(null)}
-                                                className='text-black text-xs font-semibold ml-auto'
-                                            >
-                                                <Cancel className='text-black w-4 h-4 stroke-2' />
-                                            </button>
+                                            <div className='bg-stroke dark:bg-dark-3 relative h-1.5 w-full rounded-2xl bg-[#3E9FFB4D]'>
+                                                <div className='bg-primary absolute top-0 left-0 h-full w-1/2 rounded-2xl'></div>
+                                            </div>
                                         </div>
-                                        <div className='bg-stroke dark:bg-dark-3 relative h-1.5 w-full rounded-2xl bg-[#3E9FFB4D]'>
-                                            <div className='bg-primary absolute top-0 left-0 h-full w-1/2 rounded-2xl'></div>
+                                        <div className='text-center'>
+                                            <button className='btn-fill px-10 py-2 items-center text-center'>
+                                                Apply
+                                            </button>
                                         </div>
                                     </div>
                                     <div className={` ${style}`}>
@@ -105,17 +113,36 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                                                 <p className='text-red-500 text-sm mt-2'>{error}</p>
                                             )}
                                         </div>
-                                        <div className='text-center'>
-                                            <button className='btn-fill px-10 py-2 items-center text-center'>
-                                                Apply
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
                             )}
                         </div>
                     </div>
                 </label>
+                <div className='updated-document'>
+                    <div className='mt-2 gap-3 py-2 px-4 w-full bg-white rounded-lg shadow'>
+                        <div className='flex items-center justify-between'>
+                            <div className='flex align-middle items-center gap-x-3'>
+                                <div>{selectedFile.icon}</div>
+                                <div>
+                                    <span className='text-xs text-gray-700 block font-semibold'>
+                                        {selectedFile.file.name}
+                                    </span>
+                                    <span className='text-xs text-gray-500'>
+                                        {selectedFile.size}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <button
+                                onClick={() => setSelectedFile(null)}
+                                className='text-black text-xs font-semibold ml-auto'
+                            >
+                                <Cancel className='text-black w-4 h-4 stroke-2' />
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </>
     );

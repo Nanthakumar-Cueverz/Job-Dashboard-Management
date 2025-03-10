@@ -7,6 +7,7 @@ import ReusableDataTable from '../components/common/ReusableDataTable';
 import { data, getStatusClass } from '../Content';
 import ModalPopup from '../components/common/ModalPopup';
 import ScheduleCall from '../components/ui/ScheduleCall';
+import { OptionsButton } from './Jobs';
 
 const JobDetail = () => {
     const [scheduleCall, setScheduleCall] = useState(false);
@@ -87,9 +88,9 @@ const JobDetail = () => {
                         <div className='block lg:flex items-start lg:items-center gap-x-4'>
                             <div className='w-full lg:w-fit inline-flex justify-between lg:hidden'>
                                 <CircleDot className='bg-black text-white p-2 rounded-sm w-12 h-12 mt-1 lg:mt-0' />
-                                <button className=''>
-                                    <DotIcon />
-                                </button>
+                                <div className='block lg:hidden'>
+                                    <OptionsButton />
+                                </div>
                             </div>
                             <CircleDot className='bg-black text-white p-2 rounded-sm w-12 h-12 mt-1 lg:mt-0 hidden lg:block' />
                             <div>
@@ -129,6 +130,9 @@ const JobDetail = () => {
                                 <p className='text-text-neutral font-medium text-sm lg:block hidden'>
                                     5 hours ago
                                 </p>
+                            </div>
+                            <div className='hidden lg:block'>
+                                <OptionsButton />
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,73 @@
+import React, { useState, useEffect } from 'react';
+import Input from '../common/Input';
+import TextArea from '../common/TextArea';
+import MultiSelectDropdown from '../common/MultiSelectDropdown';
+import SelectMenu from '../common/SelectMenu';
+
+const JobDetailsForm = ({ formData, setFormData }) => {
+    const [selectedRole, setSelectedRole] = useState('');
+    const options = [
+        { value: 'react', label: 'React' },
+        { value: 'vue', label: 'Vue' },
+        { value: 'angular', label: 'Angular' },
+        { value: 'svelte', label: 'Svelte' },
+        { value: 'nextjs', label: 'Next.js' },
+    ];
+    const jobRoles = [
+        { value: 'project_manager', label: 'Project Manager' },
+        { value: 'software_engineer', label: 'Software Engineer' },
+        { value: 'it_manager', label: 'IT Manager' },
+        { value: 'ui_ux_designer', label: 'UI/UX Designer' },
+    ];
+    return (
+        <div>
+            <h1 className='mb-2 block text-base font-medium text-black'>Upload Job Details</h1>
+            <div className='grid grid-cols-2 gap-4 border border-border-primary rounded-md p-5 '>
+                <Input
+                    label='Job Title'
+                    value={formData.title}
+                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                    placeholder='Enter Job Title'
+                />
+                <Input
+                    label='Company Name'
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                    placeholder='Enter Company Name'
+                />
+                <Input
+                    label='Location'
+                    value={formData.location}
+                    onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                    placeholder='Select Location'
+                />
+                <SelectMenu
+                    options={jobRoles}
+                    value={selectedRole}
+                    onChange={(e) => setSelectedRole(e.target.value)}
+                    placeholder='Choose a role...'
+                />
+                <div className='col-span-2'>
+                    <MultiSelectDropdown
+                        options={options}
+                        selectedOptions={formData.selectedOptions}
+                        onChange={(selected) =>
+                            setFormData({ ...formData, selectedOptions: selected })
+                        }
+                        placeholder='Choose a framework...'
+                    />
+                </div>
+                <div className='col-span-2'>
+                    <TextArea
+                        label='Job Description'
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        placeholder='Enter Job Description'
+                    />
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default JobDetailsForm;

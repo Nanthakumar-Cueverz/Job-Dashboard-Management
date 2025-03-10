@@ -13,6 +13,7 @@ import Loader from '../components/common/Loader';
 import { data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '@icons/x.svg?react';
+import JobDetailsForm from '../components/ui/JobDetailsForm';
 
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(1);
@@ -26,7 +27,7 @@ const Dashboard = () => {
 
 export default Dashboard;
 
-// 📌 Step Indicator Component
+//  Step Indicator Component
 const Steps = ({ currentStep }) => {
     const stepsItems = ['Job Info', 'Questions', 'Candidates'];
     return (
@@ -74,7 +75,7 @@ const Steps = ({ currentStep }) => {
     );
 };
 
-// 📌 Step Content Component (Renders Step 1, 2, 3)
+//  Step Content Component (Renders Step 1, 2, 3)
 const StepContent = ({ currentStep, setCurrentStep }) => {
     const [isNextDisabled, setIsNextDisabled] = useState(true);
     return (
@@ -106,15 +107,20 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
         </div>
     );
 };
-// 📌 Step  1
+//  Step  1
 const JobInfo = ({ setIsNextDisabled }) => {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
+    const [formData, setFormData] = useState({
+        title: '',
+        company: '',
+        location: '',
+        description: '',
+        selectedOptions: [],
+    });
 
     useEffect(() => {
-        const isDisabled = !(title.trim() && description.trim());
+        const isDisabled = !(formData.title.trim() && formData.description.trim());
         setIsNextDisabled(isDisabled);
-    }, [title, description]);
+    }, [formData, setIsNextDisabled]);
 
     return (
         <div>
@@ -124,18 +130,13 @@ const JobInfo = ({ setIsNextDisabled }) => {
                 title='Upload a Job Requirement'
             />
             <div className='py-5 space-y-5'>
-                <Input label='Job Title' value={title} onChange={(e) => setTitle(e.target.value)} />
-                <TextArea
-                    label='Job Description'
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                />
+                <JobDetailsForm formData={formData} setFormData={setFormData} />
             </div>
         </div>
     );
 };
 
-// 📌 Step  2
+//  Step  2
 const Questions = ({ setIsNextDisabled }) => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
     const [uploadQuestion, setUploadQuestions] = useState(false);
@@ -291,7 +292,7 @@ const Questions = ({ setIsNextDisabled }) => {
         </div>
     );
 };
-// 📌 Step  3
+//  Step  3
 const Candidates = () => {
     const [createCandidate, setCreateCandidate] = useState(false);
     return (
@@ -343,7 +344,7 @@ const Candidates = () => {
         </div>
     );
 };
-// 📌 Reusable component for Questions
+//  Reusable component for Questions
 const ImportedQuestions = ({ onClose }) => {
     const questions = [
         'What is the difference between supervised and unsupervised learning?',

@@ -140,7 +140,7 @@ const JobDescription = ({ job }) => {
     );
 };
 
-const OptionsButton = ({ onEdit, onDelete }) => {
+export const OptionsButton = ({ onEdit }) => {
     const [deleteJobsConfirm, setDeleteJobsConfirm] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -193,7 +193,7 @@ const OptionsButton = ({ onEdit, onDelete }) => {
                                 setDeleteJobsConfirm(false);
                                 toast.custom(
                                     (t) => (
-                                        <div className='bg-green-200 text-primary-green px-5 flex items-center rounded-md whitespace-nowrap text-xs py-3'>
+                                        <div className='bg-green-200 text-primary-green px-5 flex font-semibold items-center rounded-md whitespace-nowrap text-xs py-3'>
                                             <CheckIcon className='bg-primary-green text-white rounded-full p-0.5 mr-2 h-4 w-4 stroke-3' />
                                             The job has been deleted successfully.
                                         </div>

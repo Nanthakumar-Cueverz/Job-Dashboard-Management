@@ -4,8 +4,9 @@ import Googlemeet from '@icons/googlemeet.svg?react';
 import Calendar from 'react-calendar';
 import CircleDot from '@icons/circle-dot.svg?react';
 import 'react-calendar/dist/Calendar.css';
+import CheckIcon from '@icons/check.svg?react';
 import CloseIcon from '@icons/x.svg?react';
-
+import { toast } from 'react-hot-toast';
 const ScheduleCall = ({ selectedCandidate, onClose }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState('');
@@ -30,6 +31,17 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
                 JSON.stringify({ status: 'Scheduled', date: selectedDate, time: selectedTime }),
             );
         }
+        toast.custom(
+            (t) => (
+                <div className='bg-green-200 text-primary-green px-5 flex items-center rounded-md whitespace-nowrap text-xs py-3 font-semibold '>
+                    <CheckIcon className='bg-primary-green  text-white rounded-full p-0.5 mr-2 h-4 w-4 stroke-3' />
+                    Interview has been scheduled successfully
+                </div>
+            ),
+            {
+                duration: 5000,
+            },
+        );
         onClose();
     };
 
@@ -108,7 +120,7 @@ const ScheduleCall = ({ selectedCandidate, onClose }) => {
                             className={`btn-fill py-2 ${
                                 selectedDate && selectedTime ? '' : 'opacity-50 cursor-not-allowed'
                             }`}
-                            disabled={!selectedDate || !selectedTime} // Disable until both date and time are selected
+                            disabled={!selectedDate || !selectedTime}
                         >
                             Send
                         </button>
