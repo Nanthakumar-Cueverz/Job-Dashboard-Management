@@ -1,85 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import DotIcon from '../assets/icons/ellipsis-vertical.svg?react';
+import React from 'react';
 import CircleDot from '../assets/icons/circle-dot.svg?react';
 import Location from '../assets/icons/map-pin.svg?react';
-import ReusableDataTable from '../components/common/ReusableDataTable';
 import { data, getStatusClass } from '../Content';
-import ModalPopup from '../components/common/ModalPopup';
-import ScheduleCall from '../components/ui/ScheduleCall';
 import { OptionsButton } from './Jobs';
+import CommonTabs from '../components/common/CommonTabs';
+import CandidateTables from '../components/ui/CandidateTables';
 
 const JobDetail = () => {
-    const [scheduleCall, setScheduleCall] = useState(false);
-    const [selectedCandidate, setSelectedCandidate] = useState(null);
-    const [scheduledStatus, setScheduledStatus] = useState({});
-
-    useEffect(() => {
-        // Load scheduled status from sessionStorage on component mount
-        const updatedStatus = {};
-        data.forEach((candidate) => {
-            const storedSchedule = sessionStorage.getItem(`scheduled_${candidate.email}`);
-            if (storedSchedule) {
-                updatedStatus[candidate.email] = JSON.parse(storedSchedule);
-            }
-        });
-        setScheduledStatus(updatedStatus);
-    }, []);
-
-    const handleScheduleClick = (candidate) => {
-        setSelectedCandidate(candidate);
-        setScheduleCall(true);
-    };
-
-    const handleCloseModal = () => {
-        setScheduleCall(false);
-
-        // Refresh button status after scheduling
-        const updatedStatus = {};
-        data.forEach((candidate) => {
-            const storedSchedule = sessionStorage.getItem(`scheduled_${candidate.email}`);
-            if (storedSchedule) {
-                updatedStatus[candidate.email] = JSON.parse(storedSchedule);
-            }
-        });
-        setScheduledStatus(updatedStatus);
-    };
-
-    const columns = [
-        { name: 'Candidate Name', selector: (row) => row.name, sortable: true },
-        { name: 'Email', selector: (row) => row.email, sortable: true },
-        { name: 'Phone Number', selector: (row) => row.phone, sortable: true },
+    const tabData = [
         {
-            name: 'Status',
-            selector: (row) => row.status,
-            cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
-        },
-        { name: 'Score', selector: (row) => row.score, sortable: true },
-        {
-            name: 'Action',
-            cell: (row) => (
-                <button className='p-2 rounded-md hover:bg-gray-100'>
-                    <DotIcon className='w-5 h-5 text-gray-600' />
-                </button>
-            ),
+            id: 'candidates',
+            label: 'Candidates',
+            content: <CandidateTables />,
         },
         {
-            name: 'Schedule',
-            cell: (row) => {
-                const isScheduled = scheduledStatus[row.email];
-                return (
-                    <button
-                        className={`px-4 py-2 rounded-md whitespace-nowrap ${
-                            isScheduled ? 'bg-green-500 text-white' : 'bg-primary text-white'
-                        }`}
-                        onClick={() => handleScheduleClick(row)}
-                    >
-                        {isScheduled ? 'Reschedule' : 'Schedule'}
-                    </button>
-                );
-            },
+            id: 'candidates-questions',
+            label: 'Candidates Questions',
+            content: 'This is the About Us content.',
         },
     ];
-
     return (
         <div className='p-0 lg:p-10'>
             <div className=''>
@@ -162,20 +101,10 @@ const JobDetail = () => {
                     </div>
                 </div>
             </div>
-
-            {/* Data Table */}
-            <div className='pt-10'>
-                <h2 className='text-xl font-semibold mb-4'>Matching Candidates</h2>
-                <ReusableDataTable columns={columns} data={data} />
-                <ModalPopup width='700px' isOpen={scheduleCall} onClose={handleCloseModal}>
-                    {selectedCandidate && (
-                        <ScheduleCall
-                            selectedCandidate={selectedCandidate}
-                            onClose={handleCloseModal}
-                        />
-                    )}
-                </ModalPopup>
+            <div>
+                <CommonTabs tabs={tabData} />
             </div>
+            {/* Data Table */}
         </div>
     );
 };
