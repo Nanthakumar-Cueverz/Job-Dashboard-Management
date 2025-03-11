@@ -3,14 +3,7 @@ import Modal from 'react-modal';
 
 Modal.setAppElement('#root'); // Accessibility
 
-const ModalPopup = ({
-    isOpen,
-    onClose,
-    title,
-    children,
-    mobileWidth = '400px',
-    desktopWidth = '600px',
-}) => {
+const ModalPopup = ({ isOpen, onClose, title, children, mobileWidth, desktopWidth }) => {
     const [modalWidth, setModalWidth] = useState(
         window.innerWidth <= 768 ? mobileWidth : desktopWidth,
     );

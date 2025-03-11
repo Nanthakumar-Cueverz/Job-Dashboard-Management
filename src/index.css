@@ -1,6 +1,9 @@
 @import 'tailwindcss';
 
 @theme {
+    /* Important */
+    --color-primary-background: #f6f6f6;
+    /* end */
     --color-primary: #3e9ffb;
     --color-secondary: #3e9ffb36;
     --color-primary-gray: #1e1e1e;
@@ -288,4 +291,10 @@
 }
 .audio-wave span:nth-child(5) {
     animation-delay: 0.8s;
+}
+
+.card-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #5c5c5c;
 }

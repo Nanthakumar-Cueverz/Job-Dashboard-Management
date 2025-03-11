@@ -3,7 +3,7 @@ import Check from '@icons/check.svg?react';
 import AddIcon from '@icons/plus.svg?react';
 import UploadFiles from '../components/common/UploadFiles';
 import Input from '../components/common/Input';
-import TextArea from '../components/common/TextArea';
+import { Plus, Minus, Clock } from 'lucide-react';
 import UploadBlack from '@icons/monitor-up.svg?react';
 import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
@@ -14,9 +14,10 @@ import { data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '@icons/x.svg?react';
 import JobDetailsForm from '../components/ui/JobDetailsForm';
+import RadioGroup from '../components/common/RadioGroup';
 
 const Dashboard = () => {
-    const [currentStep, setCurrentStep] = useState(1);
+    const [currentStep, setCurrentStep] = useState(2);
     return (
         <div className='py-0 lg:py-10'>
             <Steps currentStep={currentStep} />
@@ -107,6 +108,7 @@ const StepContent = ({ currentStep, setCurrentStep }) => {
         </div>
     );
 };
+
 //  Step  1
 const JobInfo = ({ setIsNextDisabled }) => {
     const [formData, setFormData] = useState({
@@ -136,13 +138,14 @@ const JobInfo = ({ setIsNextDisabled }) => {
     );
 };
 
-//  Step  2
+// Step  2
 const Questions = ({ setIsNextDisabled }) => {
     const [generateQuestionsModal, setGenerateQuestionsModal] = useState(false);
     const [uploadQuestion, setUploadQuestions] = useState(false);
     const [selectedQuestions, setSelectedQuestions] = useState([]);
     const [isQuestionsImported, setIsQuestionsImported] = useState(false);
     const [isLoading, setIsLoading] = useState(false); // Initially false
+    const [expandedQuestions, setExpandedQuestions] = useState([]);
     useEffect(() => {
         const storedQuestions = sessionStorage.getItem('selectedQuestions');
         if (storedQuestions) {
@@ -160,6 +163,14 @@ const Questions = ({ setIsNextDisabled }) => {
         }
     }, [generateQuestionsModal]);
 
+    const handleExpand = (selectedQuestions) => {
+        setExpandedQuestions(
+            (prev) =>
+                prev.includes(selectedQuestions)
+                    ? prev.filter((q) => q !== selectedQuestions)
+                    : [...prev, selectedQuestions], // Expand if not expanded
+        );
+    };
     return (
         <div>
             {!isQuestionsImported && (
@@ -190,7 +201,6 @@ const Questions = ({ setIsNextDisabled }) => {
                 </div>
             )}
 
-            {/* Display imported questions */}
             {isQuestionsImported && (
                 <div>
                     <div>
@@ -200,12 +210,29 @@ const Questions = ({ setIsNextDisabled }) => {
                         <div>
                             <ul className='list-decimal pl-5 space-y-0 lg:space-y-2 mt-3'>
                                 {selectedQuestions.map((question, index) => (
-                                    <li
-                                        key={index}
-                                        className='text-xs lg:text-sm text-paragraph pb-3 last:pb-0'
-                                    >
-                                        {question}
-                                    </li>
+                                    <div>
+                                        <div className='flex justify-between'>
+                                            <li
+                                                key={index}
+                                                className='text-xs lg:text-sm text-paragraph pb-5 last:pb-0 '
+                                            >
+                                                {question}
+                                            </li>
+                                            <button
+                                                onClick={() => handleExpand(question)}
+                                                className='text-xs lg:text-sm text-table-text bg-neutral-200 rounded-full h-fit p-1'
+                                            >
+                                                {expandedQuestions.includes(question) ? (
+                                                    <Minus className='w-5 h-5' />
+                                                ) : (
+                                                    <Plus className='w-5 h-5' />
+                                                )}
+                                            </button>
+                                        </div>
+                                        {expandedQuestions.includes(question) && (
+                                            <ExpandSectionDetail classname='bg-white mt-2 -ml-5' />
+                                        )}
+                                    </div>
                                 ))}
                             </ul>
                         </div>
@@ -242,7 +269,8 @@ const Questions = ({ setIsNextDisabled }) => {
 
             {/* Modal Popup */}
             <ModalPopup
-                width='600px'
+                mobileWidth='350px'
+                desktopWidth='700px'
                 isOpen={generateQuestionsModal}
                 onClose={() => setGenerateQuestionsModal(false)}
             >
@@ -263,7 +291,8 @@ const Questions = ({ setIsNextDisabled }) => {
                 )}
             </ModalPopup>
             <ModalPopup
-                width='500px'
+                mobileWidth='600px'
+                desktopWidth='600px'
                 isOpen={uploadQuestion}
                 onClose={() => setUploadQuestions(false)}
             >
@@ -310,7 +339,8 @@ const Candidates = () => {
             <ModalPopup
                 isOpen={createCandidate}
                 onClose={() => setCreateCandidate(false)}
-                width='400px'
+                mobileWidth='400px'
+                desktopWidth='400px'
             >
                 <div>
                     <div className='border-b border-border-primary flex align-middle justify-between pb-3 mb-3 '>
@@ -358,20 +388,28 @@ const ImportedQuestions = ({ onClose }) => {
     ];
 
     const [selectedQuestions, setSelectedQuestions] = useState(() => {
-        // Load previously selected questions from sessionStorage
         const storedQuestions = sessionStorage.getItem('selectedQuestions');
         return storedQuestions ? JSON.parse(storedQuestions) : [];
     });
+    const [expandedQuestions, setExpandedQuestions] = useState([]);
 
     const handleSelect = (question) => {
         setSelectedQuestions((prev) => {
             const updatedSelection = prev.includes(question)
-                ? prev.filter((q) => q !== question) // Remove if already selected
-                : [...prev, question]; // Add if not selected
+                ? prev.filter((q) => q !== question)
+                : [...prev, question];
 
             sessionStorage.setItem('selectedQuestions', JSON.stringify(updatedSelection));
             return updatedSelection;
         });
+    };
+    const handleExpand = (question) => {
+        setExpandedQuestions(
+            (prev) =>
+                prev.includes(question)
+                    ? prev.filter((q) => q !== question) // Collapse if already expanded
+                    : [...prev, question], // Expand if not expanded
+        );
     };
 
     const handleImport = () => {
@@ -385,19 +423,36 @@ const ImportedQuestions = ({ onClose }) => {
             </div>
             <div className='space-y-2 border-b border-border-primary pb-5 mb-5'>
                 {questions.map((question, index) => (
-                    <label key={index} className='flex space-x-5 space-y-1 lg:space-y-6'>
-                        <div className='w-fit'>
-                            <input
-                                type='checkbox'
-                                className='lg:h-5 lg:w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
-                                checked={selectedQuestions.includes(question)}
-                                onChange={() => handleSelect(question)}
-                            />
-                        </div>
-                        <div>
-                            <h6 className='para text-xs lg:text-[16px]'>{question}</h6>
-                        </div>
-                    </label>
+                    <div>
+                        <label key={index} className='flex justify-between '>
+                            <div className='flex space-x-5 space-y-1 lg:space-y-6'>
+                                <div className='w-fit'>
+                                    <input
+                                        type='checkbox'
+                                        className='lg:h-5 lg:w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
+                                        checked={selectedQuestions.includes(question)}
+                                        onChange={() => handleSelect(question)}
+                                    />
+                                </div>
+                                <div>
+                                    <h6 className='para text-xs lg:text-[16px]'>{question}</h6>
+                                </div>
+                            </div>
+                            <div className='text-end w-10'>
+                                <button
+                                    onClick={() => handleExpand(question)}
+                                    className='text-xs lg:text-sm text-subtext-primary bg-primary-background rounded-full p-1'
+                                >
+                                    {expandedQuestions.includes(question) ? (
+                                        <Minus className='w-5 h-5' />
+                                    ) : (
+                                        <Plus className='w-5 h-5' />
+                                    )}
+                                </button>
+                            </div>
+                        </label>
+                        {expandedQuestions.includes(question) && <ExpandSectionDetail />}
+                    </div>
                 ))}
             </div>
             <div className='text-end'>
@@ -410,6 +465,62 @@ const ImportedQuestions = ({ onClose }) => {
                 >
                     Import
                 </button>
+            </div>
+        </div>
+    );
+};
+
+const ExpandSectionDetail = ({ classname }) => {
+    const [selectedOption, setSelectedOption] = useState('Audio');
+    const [selectCategory, setSelectCategory] = useState('Tech');
+    const questionMode = ['Multiple choice', 'Audio'];
+    const questionCategory = ['Tech', 'HR'];
+    return (
+        <div className={`mb-5 bg-primary-background p-3 rounded-lg ${classname}`}>
+            <div>
+                <h1 className='card-title pb-2'>Possible answers</h1>
+                <Input
+                    placeholder='Enter Job Title'
+                    className='bg-white text-table-text text-xs'
+                    value='Data Analyst, Data Scientist, Data Engineer, Data Science Consultant, Data Mining Specialist'
+                />
+                <div className='grid grid-cols-12 gap-4 py-2'>
+                    <div className='col-span-5'>
+                        <h1 className='card-title pb-2'>Question Mode</h1>
+                        <RadioGroup
+                            options={questionMode}
+                            name='question-type'
+                            selectedValue={selectedOption}
+                            onChange={setSelectedOption}
+                        />
+                    </div>
+                    <div className='col-span-5'>
+                        <h1 className='card-title pb-2'>Question Category</h1>
+                        <RadioGroup
+                            options={questionCategory}
+                            selectedValue={selectCategory}
+                            onChange={setSelectCategory}
+                        />
+                    </div>
+                    <div className='col-span-2'>
+                        <h1 className='card-title pb-2'>Timer</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>
+                            <Clock className='w-4 h-4 mr-1' /> <span>2 Min</span>
+                        </h6>
+                    </div>
+                    <div className='col-span-5 pt-4'>
+                        <h1 className='card-title pb-2'>Complexity level</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>3</h6>
+                    </div>
+                    <div className='col-span-5 pt-4'>
+                        <h1 className='card-title pb-2'>Metadata</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>ML</h6>
+                    </div>
+                    <div className='col-span-2 pt-4'>
+                        <h1 className='card-title pb-2'>Priority</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>High</h6>
+                    </div>
+                </div>
             </div>
         </div>
     );
