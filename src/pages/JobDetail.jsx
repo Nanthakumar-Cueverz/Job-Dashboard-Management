@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DotIcon from '../assets/icons/ellipsis-vertical.svg?react';
-import PostJobCommon from '../components/common/PostJobCommon';
-import CircleDot from '../assets/icons/circle-dot.svg?react'; // Ensure the path is correct
+import CircleDot from '../assets/icons/circle-dot.svg?react';
 import Location from '../assets/icons/map-pin.svg?react';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import { data, getStatusClass } from '../Content';
@@ -54,6 +53,7 @@ const JobDetail = () => {
             selector: (row) => row.status,
             cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
         },
+        { name: 'Score', selector: (row) => row.score, sortable: true },
         {
             name: 'Action',
             cell: (row) => (

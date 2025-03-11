@@ -111,36 +111,62 @@ export const columns = [
     },
 ];
 
-// Helper function for status colors
 export const getStatusClass = (status) => {
-    if (status === 'In Progress') return 'text-yellow-500';
-    if (status === 'Completed') return 'text-green-500';
-    if (status === 'Invited') return 'text-primary';
+    if (status === 'Cancelled') return 'text-yellow-500';
+    if (status === 'New') return 'text-gray-500';
+    if (status === 'Interview Completed') return 'text-green-500';
+    if (status === 'Interview Scheduled') return 'text-primary';
     return 'text-gray-500';
 };
 
 export const data = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', phone: '9876543210', status: 'Invited' },
+    {
+        id: 1,
+        name: 'John Doe',
+        email: 'john@example.com',
+        phone: '9876543210',
+        score: '-',
+        status: 'Cancelled',
+    },
     {
         id: 2,
         name: 'Jane Smith',
         email: 'jane@example.com',
         phone: '9876543220',
-        status: 'In Progress',
+        score: '-',
+        status: 'Interview Scheduled',
     },
     {
         id: 3,
         name: 'Alice Brown',
         email: 'alice@example.com',
         phone: '9876543230',
-        status: 'Completed',
+        score: '68%',
+        status: 'Interview Completed',
     },
     {
         id: 4,
         name: 'Bob Williams',
         email: 'bob@example.com',
         phone: '9876543240',
-        status: 'Available',
+        score: '90%',
+        status: 'Interview Completed',
+    },
+    {
+        id: 5,
+        name: 'Bob Williams',
+        email: 'bob@example.com',
+        phone: '9876543240',
+        score: '-',
+        status: 'Interview Scheduled',
+    },
+    {
+        id: 6,
+        name: 'Bob Williams',
+        email: 'bob@example.com',
+        phone: '9876543240',
+        score: '-',
+        status: 'New',
     },
 ];
 
