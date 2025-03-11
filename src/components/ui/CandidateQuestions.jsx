@@ -1,6 +1,8 @@
-import React from 'react';
-
-const CandidateQuestions = ({ onClose }) => {
+import React, { useState } from 'react';
+import { Plus, Minus, Clock } from 'lucide-react';
+import Input from '../common/Input';
+import RadioGroup from '../common/RadioGroup';
+const CandidateQuestions = ({ className, classNameInner, checkBox, ListNumbers, title }) => {
     const questions = [
         'What is the difference between supervised and unsupervised learning?',
         'What is feature engineering and why is it important?',
@@ -29,29 +31,20 @@ const CandidateQuestions = ({ onClose }) => {
         });
     };
     const handleExpand = (question) => {
-        setExpandedQuestions(
-            (prev) =>
-                prev.includes(question)
-                    ? prev.filter((q) => q !== question) // Collapse if already expanded
-                    : [...prev, question], // Expand if not expanded
+        setExpandedQuestions((prev) =>
+            prev.includes(question) ? prev.filter((q) => q !== question) : [...prev, question],
         );
     };
 
-    const handleImport = () => {
-        onClose(); // Close modal
-    };
-
     return (
-        <div className='spave-y-10'>
-            <div className='border-b border-border-primary pb-2 mb-2 lg:pb-5 lg:mb-5'>
-                <h2 className='text-xl font-semibold'>AI Question For Data Scientist </h2>
-            </div>
-            <div className='space-y-2 border-b border-border-primary pb-5 mb-5'>
+        <div>
+            <h2 className='text-xl font-semibold mb-4'>{title}</h2>
+            <div className={`space-y-2 p-5 rounded-lg mb-5 ${className}`}>
                 {questions.map((question, index) => (
                     <div>
                         <label key={index} className='flex justify-between '>
                             <div className='flex space-x-5 space-y-1 lg:space-y-6'>
-                                <div className='w-fit'>
+                                <div className={`w-fit ${checkBox}`}>
                                     <input
                                         type='checkbox'
                                         className='lg:h-5 lg:w-5 whitespace-normal text-blue-600 border border-gray-600 shadow active:border-0  outline-0 rounded'
@@ -59,14 +52,19 @@ const CandidateQuestions = ({ onClose }) => {
                                         onChange={() => handleSelect(question)}
                                     />
                                 </div>
+                                <div className={`w-fit ${ListNumbers}`}>
+                                    <span className='font-normal text-table-text'>
+                                        {index + 1}.
+                                    </span>
+                                </div>
                                 <div>
-                                    <h6 className='para text-xs lg:text-[16px]'>{question}</h6>
+                                    <h6 className='para text-xs lg:text-[14px]'>{question}</h6>
                                 </div>
                             </div>
                             <div className='text-end w-10'>
                                 <button
                                     onClick={() => handleExpand(question)}
-                                    className='text-xs lg:text-sm text-subtext-primary bg-primary-background rounded-full p-1'
+                                    className='text-xs lg:text-sm text-table-text bg-neutral-200 rounded-full p-1'
                                 >
                                     {expandedQuestions.includes(question) ? (
                                         <Minus className='w-5 h-5' />
@@ -76,23 +74,70 @@ const CandidateQuestions = ({ onClose }) => {
                                 </button>
                             </div>
                         </label>
-                        {expandedQuestions.includes(question) && <ExpandSectionDetail />}
+                        {expandedQuestions.includes(question) && (
+                            <ExpandSectionDetail classname={classNameInner} />
+                        )}
                     </div>
                 ))}
-            </div>
-            <div className='text-end'>
-                <button
-                    onClick={handleImport}
-                    className={`lg:btn-fill text-xs lg:text-sm  ${
-                        selectedQuestions.length === 0 ? 'btn-disabled' : 'btn-fill'
-                    }`}
-                    disabled={selectedQuestions.length === 0}
-                >
-                    Import
-                </button>
             </div>
         </div>
     );
 };
 
 export default CandidateQuestions;
+
+export const ExpandSectionDetail = ({ classname }) => {
+    const [selectedOption, setSelectedOption] = useState('Audio');
+    const [selectCategory, setSelectCategory] = useState('Tech');
+    const questionMode = ['Multiple choice', 'Audio'];
+    const questionCategory = ['Tech', 'HR'];
+    return (
+        <div className={`mb-5 bg-primary-background p-3 rounded-lg ${classname}`}>
+            <div>
+                <h1 className='card-title pb-2'>Possible answers</h1>
+                <Input
+                    placeholder='Enter Job Title'
+                    className='bg-white text-table-text text-xs'
+                    value='Data Analyst, Data Scientist, Data Engineer, Data Science Consultant, Data Mining Specialist'
+                />
+                <div className='grid grid-cols-12 gap-4 py-2'>
+                    <div className='col-span-5'>
+                        <h1 className='card-title pb-2'>Question Mode</h1>
+                        <RadioGroup
+                            options={questionMode}
+                            name='question-type'
+                            selectedValue={selectedOption}
+                            onChange={setSelectedOption}
+                        />
+                    </div>
+                    <div className='col-span-5'>
+                        <h1 className='card-title pb-2'>Question Category</h1>
+                        <RadioGroup
+                            options={questionCategory}
+                            selectedValue={selectCategory}
+                            onChange={setSelectCategory}
+                        />
+                    </div>
+                    <div className='col-span-2'>
+                        <h1 className='card-title pb-2'>Timer</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>
+                            <Clock className='w-4 h-4 mr-1' /> <span>2 Min</span>
+                        </h6>
+                    </div>
+                    <div className='col-span-5 pt-4'>
+                        <h1 className='card-title pb-2'>Complexity level</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>3</h6>
+                    </div>
+                    <div className='col-span-5 pt-4'>
+                        <h1 className='card-title pb-2'>Metadata</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>ML</h6>
+                    </div>
+                    <div className='col-span-2 pt-4'>
+                        <h1 className='card-title pb-2'>Priority</h1>
+                        <h6 className='flex items-center text-table-text text-sm'>High</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};

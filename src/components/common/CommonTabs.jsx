@@ -26,9 +26,7 @@ const CommonTabs = ({ tabs, className = '' }) => {
             <div className='mt-4'>
                 {tabs.map((tab) => (
                     <div key={tab.id} className={activeTab === tab.id ? 'block' : 'hidden'}>
-                        <div className='p-6 text-base leading-relaxed text-body-color dark:text-dark-6'>
-                            {tab.content}
-                        </div>
+                        <div className=''>{tab.content}</div>
                     </div>
                 ))}
             </div>

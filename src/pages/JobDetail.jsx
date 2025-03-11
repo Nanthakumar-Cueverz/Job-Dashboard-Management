@@ -5,6 +5,7 @@ import { data, getStatusClass } from '../Content';
 import { OptionsButton } from './Jobs';
 import CommonTabs from '../components/common/CommonTabs';
 import CandidateTables from '../components/ui/CandidateTables';
+import CandidateQuestions from '../components/ui/CandidateQuestions';
 
 const JobDetail = () => {
     const tabData = [
@@ -16,11 +17,19 @@ const JobDetail = () => {
         {
             id: 'candidates-questions',
             label: 'Candidates Questions',
-            content: 'This is the About Us content.',
+            content: (
+                <CandidateQuestions
+                    className='bg-primary-background'
+                    classNameInner='bg-white'
+                    checkBox='hidden'
+                    ListNumbers='block'
+                    title='Candidates Questions'
+                />
+            ),
         },
     ];
     return (
-        <div className='p-0 lg:p-10'>
+        <div className='p-0 lg:p-10 max-w-6xl mx-auto'>
             <div className=''>
                 <div className='p-5 lg:p-10 shadow rounded-md mb-5 last:mb-0'>
                     <div className='p-0 lg:pb-4 border-b pb-4 lg:border-b border-border-primary block lg:flex justify-between align-middle'>
@@ -104,7 +113,6 @@ const JobDetail = () => {
             <div>
                 <CommonTabs tabs={tabData} />
             </div>
-            {/* Data Table */}
         </div>
     );
 };
