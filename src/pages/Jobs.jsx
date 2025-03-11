@@ -143,7 +143,7 @@ const JobDescription = ({ job }) => {
 export const OptionsButton = ({ onEdit }) => {
     const [deleteJobsConfirm, setDeleteJobsConfirm] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
-
+    const navigate = useNavigate();
     return (
         <>
             <div className='relative inline-block'>
@@ -153,10 +153,7 @@ export const OptionsButton = ({ onEdit }) => {
                 {isOpen && (
                     <div className='absolute text-start right-0  w-32 bg-white border border-border-primary  rounded-md shadow-lg z-10 px-3'>
                         <button
-                            onClick={() => {
-                                setIsOpen(false);
-                                onEdit && onEdit();
-                            }}
+                            onClick={() => navigate('/edit-job-detail')}
                             className='flex items-center w-full py-3 text-sm text-start text-primary font-medium border-b border-border-primary'
                         >
                             <EditIcon className='mr-2 w-4 h-4 stroke-2 ' /> Edit

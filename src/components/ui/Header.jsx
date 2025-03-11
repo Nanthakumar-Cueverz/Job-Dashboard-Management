@@ -11,6 +11,7 @@ const Header = ({ setIsOpen }) => {
         '/candidates': 'Candidates',
         '/job-detail': 'Job Detail',
         '/create-job': 'Create Job',
+        '/edit-job-detail': 'Edit Job Detail',
     };
 
     const title = pageTitles[location.pathname] || 'Dashboard';

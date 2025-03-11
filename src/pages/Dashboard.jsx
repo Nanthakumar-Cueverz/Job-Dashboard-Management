@@ -132,7 +132,11 @@ const JobInfo = ({ setIsNextDisabled }) => {
                 title='Upload a Job Requirement'
             />
             <div className='py-5 space-y-5'>
-                <JobDetailsForm formData={formData} setFormData={setFormData} />
+                <JobDetailsForm
+                    formData={formData}
+                    setFormData={setFormData}
+                    title='Upload Job Details'
+                />
             </div>
         </div>
     );

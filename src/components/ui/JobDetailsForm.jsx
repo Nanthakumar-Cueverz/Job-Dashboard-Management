@@ -4,7 +4,7 @@ import TextArea from '../common/TextArea';
 import MultiSelectDropdown from '../common/MultiSelectDropdown';
 import SelectMenu from '../common/SelectMenu';
 
-const JobDetailsForm = ({ formData, setFormData }) => {
+const JobDetailsForm = ({ formData, setFormData , title}) => {
     const [selectedRole, setSelectedRole] = useState('');
     const options = [
         { value: 'react', label: 'React' },
@@ -21,7 +21,7 @@ const JobDetailsForm = ({ formData, setFormData }) => {
     ];
     return (
         <div>
-            <h1 className='mb-2 block text-base font-medium text-black'>Upload Job Details</h1>
+            <h1 className='mb-2 block text-base font-medium text-black'>{title}</h1>
             <div className='grid grid-cols-2 gap-4 border border-border-primary rounded-md p-5 '>
                 <Input
                     label='Job Title'

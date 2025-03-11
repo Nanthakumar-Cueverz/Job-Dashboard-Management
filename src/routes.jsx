@@ -4,6 +4,7 @@ import JobDetail from './pages/JobDetail.jsx';
 import InterviewPage from './pages/InterviewPage.jsx';
 import Candidates from './pages/Candidates.jsx';
 import Questions from './pages/Questions.jsx';
+import EditJobDetails from './pages/EditJobDetails.jsx';
 const Jobs = lazy(() => import('./pages/Jobs.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const Login = lazy(() => import('./pages/Login.jsx'));
@@ -46,6 +47,14 @@ const routes = [
         element: (
             <DashboardLayout>
                 <Questions />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: '/edit-job-detail',
+        element: (
+            <DashboardLayout>
+                <EditJobDetails />
             </DashboardLayout>
         ),
     },
