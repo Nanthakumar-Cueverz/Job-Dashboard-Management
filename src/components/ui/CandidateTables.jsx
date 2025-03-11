@@ -3,8 +3,10 @@ import { data, getStatusClass } from '../../Content';
 import ReusableDataTable from '../common/ReusableDataTable';
 import ModalPopup from '../common/ModalPopup';
 import ScheduleCall from './ScheduleCall';
-import { EllipsisVertical } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { EllipsisVertical, ChevronRight } from 'lucide-react';
 const CandidateTables = () => {
+    const navigate = useNavigate();
     const [scheduleCall, setScheduleCall] = useState(false);
     const [selectedCandidate, setSelectedCandidate] = useState(null);
     const [scheduledStatus, setScheduledStatus] = useState({});
@@ -43,7 +45,18 @@ const CandidateTables = () => {
             selector: (row) => row.status,
             cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
         },
-        { name: 'Score', selector: (row) => row.score, sortable: true },
+        {
+            name: 'Score',
+            selector: (row) => (
+                <button
+                    className='p-2 rounded-md  flex items-center'
+                    onClick={() => navigate('/candidate-score-card')}
+                >
+                    {row.score}
+                    <ChevronRight className='w-5 h-5 bg-green-100 text-primary-green rounded-full p-0.5 ml-1' />
+                </button>
+            ),
+        },
         {
             name: 'Action',
             cell: (row) => (

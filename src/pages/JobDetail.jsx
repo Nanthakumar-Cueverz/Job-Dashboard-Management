@@ -1,7 +1,6 @@
 import React from 'react';
 import CircleDot from '../assets/icons/circle-dot.svg?react';
 import Location from '../assets/icons/map-pin.svg?react';
-import { data, getStatusClass } from '../Content';
 import { OptionsButton } from './Jobs';
 import CommonTabs from '../components/common/CommonTabs';
 import CandidateTables from '../components/ui/CandidateTables';

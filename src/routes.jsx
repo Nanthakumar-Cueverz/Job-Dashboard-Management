@@ -5,6 +5,7 @@ import InterviewPage from './pages/InterviewPage.jsx';
 import Candidates from './pages/Candidates.jsx';
 import Questions from './pages/Questions.jsx';
 import EditJobDetails from './pages/EditJobDetails.jsx';
+import CandidateScoreCard from './pages/CandidateScoreCard.jsx';
 const Jobs = lazy(() => import('./pages/Jobs.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const Login = lazy(() => import('./pages/Login.jsx'));
@@ -55,6 +56,14 @@ const routes = [
         element: (
             <DashboardLayout>
                 <EditJobDetails />
+            </DashboardLayout>
+        ),
+    },
+    {
+        path: '/candidate-score-card',
+        element: (
+            <DashboardLayout>
+                <CandidateScoreCard />
             </DashboardLayout>
         ),
     },

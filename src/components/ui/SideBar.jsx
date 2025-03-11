@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useLocation, useNavigate } from 'react-router-dom';
 import X from '@icons/x.svg?react';
 import Jobs from '@icons/briefcase-business.svg?react';
 import Questions from '@icons/circle-help.svg?react';
@@ -9,6 +9,7 @@ import Logout from '@icons/log-out.svg?react';
 import profile from '@images/profile.jpg';
 
 const menuItems = [
+    { name: 'Post a Job', icon: Jobs, path: '/create-job' },
     { name: 'Jobs', icon: Jobs, path: '/' },
     { name: 'Questions', icon: Questions, path: '/questions' },
     { name: 'Candidates', icon: Candidates, path: '/candidates' },
@@ -18,7 +19,6 @@ const menuItems = [
 const SideBar = ({ isOpen, setIsOpen }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    // const [isOpen, setIsOpen] = useState(false);
 
     const handleLogout = () => {
         sessionStorage.clear();
@@ -50,7 +50,6 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             <nav className='p-4 space-y-4'>
                 {menuItems.map((item, index) => {
                     const isActive = location.pathname === item.path;
-
                     return (
                         <button
                             key={index}
