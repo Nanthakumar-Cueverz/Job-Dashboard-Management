@@ -50,7 +50,13 @@ const CandidateScoreCard = () => {
                 </div>
                 {/* section right */}
                 <div className='col-span-8 '>
-                    <img src={aipersion} alt='' className='rounded-md' />
+                    <div className='relative'>
+                        <img src={aipersion} alt='' className='rounded-md' />
+                        <div className='absolute inset-0 flex justify-center items-center bg-black/30 rounded-md'>
+                            <Play className='fill-white bg-primary text-white p-4 rounded-full w-12 h-12' />
+                        </div>
+                    </div>
+
                     <div className='bg-table-background rounded-t-md'>
                         <div className='grid grid-cols-12 space-x-4 bg-secondary/70 text-subtext-primary rounded-t-md mt-5 font-semibold'>
                             <div className='col-span-5 p-5'>
@@ -71,7 +77,7 @@ const CandidateScoreCard = () => {
                                 <div className='col-span-5 p-5 border-r border-b border-border-primary'>
                                     <div className='bg-white rounded-full py-2 px-2 flex items-center space-x-3'>
                                         <div className='w-fit whitespace-nowrap border-r border-border-primary pr-3'>
-                                            <Play className='fill-white bg-primary text-white p-2 rounded-full w-10 h-10' />
+                                            <Play className='fill-white bg-primary text-white p-3 rounded-full w-10 h-10' />
                                         </div>
                                         <div>
                                             <p className='para text-subtext-primary text-[9px]'>
@@ -116,7 +122,7 @@ const CandidateScoreCard = () => {
                                 <div className='col-span-5 p-5 border-r border-border-primary'>
                                     <div className='bg-white rounded-full py-2 px-2 flex items-center space-x-3'>
                                         <div className='w-fit whitespace-nowrap border-r border-border-primary pr-3'>
-                                            <Play className='fill-white bg-primary text-white p-2 rounded-full w-10 h-10' />
+                                            <Play className='fill-white bg-primary text-white p-3 rounded-full w-10 h-10' />
                                         </div>
                                         <div>
                                             <p className='para text-subtext-primary text-[9px]'>
