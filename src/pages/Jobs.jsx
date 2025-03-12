@@ -140,7 +140,7 @@ const JobDescription = ({ job }) => {
     );
 };
 
-export const OptionsButton = ({ onEdit }) => {
+export const OptionsButton = () => {
     const [deleteJobsConfirm, setDeleteJobsConfirm] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();

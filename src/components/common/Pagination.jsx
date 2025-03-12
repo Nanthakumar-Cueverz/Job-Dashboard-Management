@@ -48,7 +48,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
                         disabled={currentPage === totalPages}
                         className={`flex h-10 min-w-10 items-center justify-center rounded-full border px-2 text-base font-medium ${
                             currentPage === totalPages
-                                ? 'text-gray-400 cursor-none'
+                                ? 'text-gray-400 cursor-not-allowed'
                                 : 'text-text-neutral border-gray-300'
                         }`}
                     >
