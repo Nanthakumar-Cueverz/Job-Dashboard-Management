@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Check from '@icons/check.svg?react';
-import AddIcon from '@icons/plus.svg?react';
 import UploadFiles from '../components/common/UploadFiles';
 import Input from '../components/common/Input';
-import { Plus, Minus, Clock } from 'lucide-react';
+import { Plus, Minus, Clock, Check, Eye } from 'lucide-react';
 import UploadBlack from '@icons/monitor-up.svg?react';
 import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
-import Eye from '@icons/eye.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
 import Loader from '../components/common/Loader';
 import { data, Sectioncolumns } from '../Content';
@@ -327,13 +324,14 @@ const Questions = ({ setIsNextDisabled }) => {
 };
 //  Step  3
 const Candidates = () => {
+    const data = [];
     const [createCandidate, setCreateCandidate] = useState(false);
     return (
         <div>
             <div className='flex justify-between items-center pb-5'>
                 <h1 className='text-md font-semibold'>Candidates List</h1>
                 <button className='outline-button px-3' onClick={() => setCreateCandidate(true)}>
-                    <AddIcon className='h-4 w-4 mr-1' />
+                    <Plus className='h-4 w-4 mr-1' />
                     Add Candidates
                 </button>
             </div>
