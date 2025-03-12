@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import AiElement from '../assets/images/ai-icon.png';
 import ModalPopup from '../components/common/ModalPopup';
 import session from '../assets/images/screening.jpg';
+import { Check } from 'lucide-react';
 import Mic from '../assets/icons/mic.svg?react';
 import StopIcon from '../assets/icons/circle-stop.svg?react';
 import profile from '../assets/images/profile.jpg';
 import aiicon from '../assets/images/ai-icon.png';
-import Check from '../assets/icons/check.svg?react';
 import { useNavigate } from 'react-router-dom';
 const content = [
     'Test Equipment: Ensure camera, mic, and internet work.',
@@ -58,7 +58,7 @@ const InterviewPage = () => {
     }
 
     return (
-        <div className='h-screen w-full flex items-center justify-center'>
+        <div className='h-[80vh] w-full flex items-center justify-center'>
             <div className='max-w-5xl text-center space-y-4 flex flex-col items-center'>
                 <img src={AiElement} alt='AI Icon' className='w-32 h-32 object-contain' />
                 <h1 className='text-3xl font-semibold'>Welcome Joseph</h1>
@@ -123,13 +123,19 @@ const InterviewPage = () => {
 
 const ScreeningSession = () => {
     return (
-        <div className='h-screen w-full flex items-center justify-center'>
+        <div className='w-full flex items-center justify-center'>
             <div className='max-w-lg text-center'>
                 <h1 className='text-sm lg:text-lg font-bold pb-5 lg:px-0 px-5 '>
                     Hi Joseph, Welcome to screening session - I
                 </h1>
                 <div className='border rounded-md border-border-primary p-2'>
-                    <img src={session} alt='' className='rounded-md' />
+                    <div className='relative'>
+                        <img src={session} alt='' className='rounded-md' />
+                        <span className='bg-[#34A85399] absolute bottom-0 w-full flex justify-center items-center text-white text-xs backdrop-blur-sm  py-1.5'>
+                            <Check className='bg-white text-primary-green rounded-full h-5 w-5 mr-2 p-1' />
+                            Recorded audio saved successfully.
+                        </span>
+                    </div>
                     <ChatBot />
                 </div>
             </div>
@@ -237,7 +243,7 @@ const ChatBot = () => {
     return (
         <div className=''>
             <div>
-                <div className='w-full max-w-lg h-[500px] bg-white p-4 flex flex-col overflow-y-auto scrollbar-hide'>
+                <div className='w-full max-w-lg h-[400px] bg-white p-4 flex flex-col overflow-y-auto scrollbar-hide'>
                     {messages.map((msg, index) => (
                         <div
                             key={index}
@@ -316,7 +322,12 @@ const ChatBot = () => {
                     )}
                 </div>
             </div>
-            <ModalPopup width='400px' isOpen={completed} onClose={() => setCompleted(false)}>
+            <ModalPopup
+                mobileWidth='350px'
+                desktopWidth='400px'
+                isOpen={completed}
+                onClose={() => setCompleted(false)}
+            >
                 <div className='p-10 text-center space-y-3 align-middle justify-center flex flex-col'>
                     <Check className='mx-auto text-white stroke-2 mb-5 bg-primary w-20 rounded-full h-20 p-5 shadow-[0_0_15px_theme(colors.secondary)] ring-8 ring-secondary' />
                     <h2 className='text-xl font-semibold'>

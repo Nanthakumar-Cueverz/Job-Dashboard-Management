@@ -7,6 +7,7 @@ import Questions from './pages/Questions.jsx';
 import EditJobDetails from './pages/EditJobDetails.jsx';
 import CandidateScoreCard from './pages/CandidateScoreCard.jsx';
 import QuestionsEdit from './pages/QuestionsEdit.jsx';
+import InterViewLayout from './components/layout/InterViewLayout.jsx';
 const Jobs = lazy(() => import('./pages/Jobs.jsx'));
 const Dashboard = lazy(() => import('./pages/Dashboard.jsx'));
 const Login = lazy(() => import('./pages/Login.jsx'));
@@ -26,7 +27,11 @@ const routes = [
     },
     {
         path: '/interview',
-        element: <InterviewPage />,
+        element: (
+            <InterViewLayout>
+                <InterviewPage />
+            </InterViewLayout>
+        ),
     },
     {
         path: '/job-detail',
