@@ -7,11 +7,12 @@ import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
 import Loader from '../components/common/Loader';
-import { data, Sectioncolumns } from '../Content';
+import { columns, data, Sectioncolumns } from '../Content';
 import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '@icons/x.svg?react';
 import JobDetailsForm from '../components/ui/JobDetailsForm';
 import RadioGroup from '../components/common/RadioGroup';
+import CandidateTables from '../components/ui/CandidateTables';
 
 const Dashboard = () => {
     const [currentStep, setCurrentStep] = useState(2);
@@ -29,7 +30,7 @@ export default Dashboard;
 const Steps = ({ currentStep }) => {
     const stepsItems = ['Job Info', 'Questions', 'Candidates'];
     return (
-        <div className='max-w-2xl mx-auto lg:px-4 md:px-0 md:bg-white bg-gray-100 rounded-md py-3 px-2'>
+        <div className='max-w-4xl mx-auto lg:px-4 md:px-0 md:bg-white bg-gray-100 rounded-md py-3 px-2'>
             <ul aria-label='Steps' className='flex items-center text-gray-600  font-medium'>
                 {stepsItems.map((item, idx) => {
                     const isCompleted = currentStep > idx + 1;
@@ -77,7 +78,7 @@ const Steps = ({ currentStep }) => {
 const StepContent = ({ currentStep, setCurrentStep }) => {
     const [isNextDisabled, setIsNextDisabled] = useState(true);
     return (
-        <div className='max-w-3xl mx-auto mt-10 rounded-md'>
+        <div className='max-w-4xl mx-auto mt-10 rounded-md'>
             {currentStep === 1 && <JobInfo setIsNextDisabled={setIsNextDisabled} />}
             {currentStep === 2 && <Questions setIsNextDisabled={setIsNextDisabled} />}
             {currentStep === 3 && <Candidates />}
@@ -324,7 +325,7 @@ const Questions = ({ setIsNextDisabled }) => {
 };
 //  Step  3
 const Candidates = () => {
-    const data = [];
+    // const data = [];
     const [createCandidate, setCreateCandidate] = useState(false);
     return (
         <div>
@@ -336,7 +337,7 @@ const Candidates = () => {
                 </button>
             </div>
             <div>
-                <ReusableDataTable columns={Sectioncolumns} data={data} />
+                <CandidateTables />
             </div>
             <ModalPopup
                 isOpen={createCandidate}
@@ -346,7 +347,7 @@ const Candidates = () => {
             >
                 <div>
                     <div className='border-b border-border-primary flex align-middle justify-between pb-3 mb-3 '>
-                        <h2 className='modal-title text-primary '>Add Candidates</h2>
+                        <h2 className='modal-title text-subtext-primary '>Add Candidates</h2>
                         <button className='bg-gray-200 hover:bg-gray-300 rounded-full p-2 flex items-center justify-center transition duration-200'>
                             <CloseIcon
                                 className='w-4 h-4 text-gray-600'
@@ -370,6 +371,10 @@ const Candidates = () => {
                                 <span className='absolute right-4 top-1/2 z-10 mt-[-2px] h-[10px] w-[10px] -translate-y-1/2 rotate-45 border-r-2 border-b-2 border-body-color'></span>
                             </div>
                         </>
+                        <UploadFiles title='Upload Resume' />
+                    </div>
+                    <div className='text-end mt-5'>
+                        <button className='btn-fill py-3'>Save</button>
                     </div>
                 </div>
             </ModalPopup>

@@ -91,6 +91,7 @@ export const columns = [
         selector: (row) => row.status,
         cell: (row) => <span className={getStatusClass(row.status)}>{row.status}</span>,
     },
+    { name: 'Score', selector: (row) => row.score, sortable: true },
     {
         name: 'Action',
         cell: (row) => (

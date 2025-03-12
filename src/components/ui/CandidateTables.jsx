@@ -49,11 +49,13 @@ const CandidateTables = () => {
             name: 'Score',
             selector: (row) => (
                 <button
-                    className='p-2 rounded-md  flex items-center'
+                    className='p-2 rounded-md flex items-center'
                     onClick={() => navigate('/candidate-score-card')}
                 >
                     {row.score}
-                    <ChevronRight className='w-5 h-5 bg-green-100 text-primary-green rounded-full p-0.5 ml-1' />
+                    {row.score !== '-' && (
+                        <ChevronRight className='w-5 h-5 bg-green-100 text-primary-green rounded-full p-0.5 ml-1' />
+                    )}
                 </button>
             ),
         },

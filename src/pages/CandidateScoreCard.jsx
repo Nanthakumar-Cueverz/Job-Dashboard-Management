@@ -27,15 +27,15 @@ const CandidateScoreCard = () => {
                     {/* Contact details */}
                     <div className='space-y-5 py-5 border-b border-border-primary'>
                         <button className='text-paragraph text-sm flex items-center'>
-                            <MapPin className='mr-2' />
+                            <MapPin className='mr-2 w-5 h-5' />
                             Marina East, Singapore
                         </button>
                         <button className='text-paragraph text-sm flex items-center'>
-                            <MessageSquareText className='mr-2' />
+                            <MessageSquareText className='mr-2 w-5 h-5' />
                             Jhon snow@gmail.com
                         </button>
                         <button className='text-paragraph text-sm flex items-center'>
-                            <Phone className='mr-2' />+ 91 467 (5463) 657
+                            <Phone className='mr-2 w-5 h-5' />+ 91 467 (5463) 657
                         </button>
                     </div>
                     {/* Score */}
