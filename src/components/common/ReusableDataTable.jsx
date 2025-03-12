@@ -44,9 +44,9 @@ const ReusableDataTable = ({ columns = [], data = [] }) => {
                 <DataTable
                     customStyles={customStyles}
                     data={data}
-                    // pagination
-                    // paginationPerPage={5}
-                    // paginationRowsPerPageOptions={[5, 10, 15, 20]}
+                    pagination
+                    paginationPerPage={5}
+                    paginationRowsPerPageOptions={[5, 10, 15, 20]}
                     columns={columns}
                     striped={false}
                     highlightOnHover
