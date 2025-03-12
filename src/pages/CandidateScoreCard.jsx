@@ -15,7 +15,7 @@ const CandidateScoreCard = () => {
                     <div className='flex items-center space-x-3 pb-10 border-b border-border-primary'>
                         <img src={profile} alt='' className='w-20 h-20 rounded-md' />
                         <div className='space-y-2'>
-                            <h2 className='text-subtext-primary pb-0 mb-0 font-normal text-lg'>
+                            <h2 className='text-subtext-primary pb-0 mb-0 font-semibold text-lg'>
                                 John Snow
                             </h2>
                             <p className='para'>Data scientist</p>
@@ -69,9 +69,9 @@ const CandidateScoreCard = () => {
                                 <h2>Results</h2>
                             </div>
                         </div>
-                        <div className='mt-2'>
+                        <div className='mt-2 rounded-b-md'>
                             <div className='grid grid-cols-12 '>
-                                <div className='col-span-5 p-5 border-r border-b border-border-primary'>
+                                <div className='col-span-5 p-5 border-r border-b border-border-primary rounded-b-md'>
                                     <h2>1. Tell me about an Array?</h2>
                                 </div>
                                 <div className='col-span-5 p-5 border-r border-b border-border-primary'>
@@ -91,7 +91,7 @@ const CandidateScoreCard = () => {
                                     </div>
                                 </div>
                                 <div className='col-span-2 p-5 border-b border-border-primary flex justify-center items-center'>
-                                    <Check className='text-white bg-primary-green rounded-full p-3 w-12 h-12' />
+                                    <Check className='text-white bg-primary-green rounded-full p-3 w-10 h-10' />
                                 </div>
                                 <div className='col-span-5 border-r border-b p-5 border-border-primary'>
                                     <h2>2. Preferred Python library for data manipulation?</h2>
@@ -114,7 +114,7 @@ const CandidateScoreCard = () => {
                                     />
                                 </div>
                                 <div className='col-span-2 border-b border-border-primary p-5 flex justify-center items-center'>
-                                    <X className='text-white bg-red-600 rounded-full p-3 w-12 h-12' />
+                                    <X className='text-white bg-red-600 rounded-full p-3 w-10 h-10' />
                                 </div>
                                 <div className='col-span-5 p-5 border-r border-border-primary'>
                                     <h2>3. Tell me about an Database?</h2>
@@ -136,7 +136,7 @@ const CandidateScoreCard = () => {
                                     </div>
                                 </div>
                                 <div className='col-span-2 p-5  border-border-primary flex justify-center items-center'>
-                                    <Check className='text-white bg-primary-green rounded-full p-3 w-12 h-12' />
+                                    <Check className='text-white bg-primary-green rounded-full p-3 w-10 h-10' />
                                 </div>
                             </div>
                         </div>
