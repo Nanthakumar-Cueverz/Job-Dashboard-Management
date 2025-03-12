@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Plus } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import X from '@icons/x.svg?react';
 import Jobs from '@icons/briefcase-business.svg?react';
@@ -9,7 +10,6 @@ import Logout from '@icons/log-out.svg?react';
 import profile from '@images/profile.jpg';
 
 const menuItems = [
-    { name: 'Post a Job', icon: Jobs, path: '/create-job' },
     { name: 'Jobs', icon: Jobs, path: '/' },
     { name: 'Questions', icon: Questions, path: '/questions' },
     { name: 'Candidates', icon: Candidates, path: '/candidates' },
@@ -26,7 +26,7 @@ const SideBar = ({ isOpen, setIsOpen }) => {
         navigate('/login');
         setIsOpen(false);
     };
-
+    const isActivePostJob = location.pathname === '/create-job';
     return (
         <div
             className={`fixed inset-y-0 z-50 left-0 w-64 bg-white border-r border-neutral-200 h-screen transition-transform duration-300 ease-in-out lg:relative lg:translate-x-0 
@@ -47,27 +47,46 @@ const SideBar = ({ isOpen, setIsOpen }) => {
             </div>
 
             {/* Sidebar Links */}
-            <nav className='p-4 space-y-4'>
-                {menuItems.map((item, index) => {
-                    const isActive = location.pathname === item.path;
-                    return (
-                        <button
-                            key={index}
-                            onClick={() => {
-                                navigate(item.path);
-                                setIsOpen(false);
-                            }}
-                            className={`flex items-center border-l-4 space-x-5 p-3 transition-colors border-y-transparent hover:border-y-transparent w-full  ${
-                                isActive
-                                    ? 'bg-blue-background text-primary border-y-2 border-y-white'
-                                    : 'text-primary-gray hover:bg-blue-background border-y-2 hover:text-primary border-transparent hover:border-l-primary'
-                            }`}
-                        >
-                            <item.icon size={20} className='stroke-1' />
-                            <span>{item.name}</span>
-                        </button>
-                    );
-                })}
+            <nav className='space-y-4'>
+                <button
+                    onClick={() => {
+                        navigate('/create-job');
+                        setIsOpen(false);
+                    }}
+                    className={`flex items-center gap-x-3 py-5 px-5 border-b w-full border-border-primary transition-colors 
+                        ${
+                            isActivePostJob
+                                ? ' text-primary font-medium'
+                                : 'hover:bg-gray-100 text-gray-600'
+                        }`}
+                >
+                    <Plus className={`rounded-full h-10 w-10 p-2 bg-primary text-white`} />
+                    <span className={`${isActivePostJob ? 'text-primary' : 'text-gray-600'}`}>
+                        Post a Job
+                    </span>
+                </button>
+                <div className='px-5'>
+                    {menuItems.map((item, index) => {
+                        const isActiveInner = location.pathname === item.path;
+                        return (
+                            <button
+                                key={index}
+                                onClick={() => {
+                                    navigate(item.path);
+                                    setIsOpen(false);
+                                }}
+                                className={`flex items-center border-l-4 space-x-5 p-3 transition-colors border-y-transparent hover:border-y-transparent w-full  ${
+                                    isActiveInner
+                                        ? 'bg-blue-background text-primary border-y-2 border-y-white'
+                                        : 'text-primary-gray hover:bg-blue-background border-y-2 hover:text-primary border-transparent hover:border-l-primary'
+                                }`}
+                            >
+                                <item.icon size={20} className='stroke-1' />
+                                <span>{item.name}</span>
+                            </button>
+                        );
+                    })}
+                </div>
             </nav>
 
             {/* Logout Button */}
