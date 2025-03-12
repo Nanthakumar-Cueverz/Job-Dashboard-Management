@@ -1,9 +1,9 @@
 import React from 'react';
 
-const RadioGroup = ({ label, options = [], name, selectedValue, onChange }) => {
+const RadioGroup = ({ label, options = [], name, selectedValue, onChange, className }) => {
     return (
         <div>
-            <ul className=' space-y-3 flex space-x-5'>
+            <ul className={`space-y-3 flex space-x-5 ${className}`}>
                 {options.map((item, idx) => {
                     const id = `${name}-${idx}`;
                     return (
