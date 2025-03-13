@@ -11,8 +11,9 @@ const EditJobDetails = () => {
         selectedOptions: [],
     });
     return (
-        <div className='max-w-3xl mx-auto py-5 md:py-10'>
-            <JobDetailsForm formData={formData} setFormData={setFormData} title='Edit Job' />
+        <div className='max-w-3xl mx-auto py-5 md:py-5'>
+            <h2 className='text-subtext-primary text-lg font-semibold pb-5'>Software Engineer</h2>
+            <JobDetailsForm formData={formData} setFormData={setFormData} />
             <div className='py-10 text-end'>
                 <button className='modal-btn-outline border-0 px-16'>Cancel</button>
                 <button

@@ -328,7 +328,7 @@ const ChatBot = () => {
                 isOpen={completed}
                 onClose={() => setCompleted(false)}
             >
-                <div className='p-10 text-center space-y-3 align-middle justify-center flex flex-col'>
+                <div className='p-5 text-center space-y-3 align-middle justify-center flex flex-col'>
                     <Check className='mx-auto text-white stroke-2 mb-5 bg-primary w-20 rounded-full h-20 p-5 shadow-[0_0_15px_theme(colors.secondary)] ring-8 ring-secondary' />
                     <h2 className='text-xl font-semibold'>
                         Your answers are submitted successfully!

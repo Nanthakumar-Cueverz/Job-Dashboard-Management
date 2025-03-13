@@ -167,11 +167,10 @@ const Questions = ({ setIsNextDisabled }) => {
     }, [generateQuestionsModal]);
 
     const handleExpand = (selectedQuestions) => {
-        setExpandedQuestions(
-            (prev) =>
-                prev.includes(selectedQuestions)
-                    ? prev.filter((q) => q !== selectedQuestions)
-                    : [...prev, selectedQuestions], // Expand if not expanded
+        setExpandedQuestions((prev) =>
+            prev.includes(selectedQuestions)
+                ? prev.filter((q) => q !== selectedQuestions)
+                : [...prev, selectedQuestions],
         );
     };
     return (
@@ -389,7 +388,7 @@ const ImportedQuestions = ({ onClose }) => {
 
     return (
         <div className='spave-y-10'>
-            <div className='border-b border-border-primary pb-2 mb-2 lg:pb-5 lg:mb-5'>
+            <div className='border-b border-border-primary pb-2 mb-2 lg:pb-5 lg:mb-0'>
                 <h2 className='text-xl font-semibold'>AI Question For Data Scientist </h2>
             </div>
             <div className='space-y-2 border-b border-border-primary pb-5 mb-5 h-96 overflow-y-scroll scrollbar-hide'>
