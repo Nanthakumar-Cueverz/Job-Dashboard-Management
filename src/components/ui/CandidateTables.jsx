@@ -5,7 +5,7 @@ import ModalPopup from '../common/ModalPopup';
 import ScheduleCall from './ScheduleCall';
 import { useNavigate } from 'react-router-dom';
 import { EllipsisVertical, ChevronRight } from 'lucide-react';
-const CandidateTables = () => {
+const CandidateTables = ({ title }) => {
     const navigate = useNavigate();
     const [scheduleCall, setScheduleCall] = useState(false);
     const [selectedCandidate, setSelectedCandidate] = useState(null);
@@ -86,9 +86,14 @@ const CandidateTables = () => {
     ];
     return (
         <div className=''>
-            <h2 className='text-xl font-semibold mb-4'>Matching Candidates</h2>
+            <h2 className='text-xl font-semibold mb-4'>{title}</h2>
             <ReusableDataTable columns={columns} data={data} />
-            <ModalPopup width='700px' isOpen={scheduleCall} onClose={handleCloseModal}>
+            <ModalPopup
+                mobileWidth='400px'
+                desktopWidth='700px'
+                isOpen={scheduleCall}
+                onClose={handleCloseModal}
+            >
                 {selectedCandidate && (
                     <ScheduleCall
                         selectedCandidate={selectedCandidate}

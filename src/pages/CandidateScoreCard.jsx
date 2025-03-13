@@ -9,23 +9,33 @@ const CandidateScoreCard = () => {
     const questionMode = ['A. Pandas', 'B. scikit-learn', 'C. TensorFlow'];
     return (
         <div className='max-w-6xl mx-auto'>
-            <div className='grid grid-cols-12 space-x-5'>
-                <div className='col-span-4 bg-table-background rounded-md p-5'>
+            <div className='grid grid-cols-12 space-x-0 md:space-x-5'>
+                <div className='col-span-12 md:col-span-4 bg-table-background rounded-md p-5'>
                     {/* Persional details */}
-                    <div className='flex items-center space-x-3 pb-10 border-b border-border-primary'>
-                        <img src={profile} alt='' className='w-20 h-20 rounded-md' />
-                        <div className='space-y-2'>
-                            <h2 className='text-subtext-primary pb-0 mb-0 font-semibold text-lg'>
-                                John Snow
-                            </h2>
-                            <p className='para'>Data scientist</p>
-                            <span className='bg-blue-background text-text-primary px-3 py-1 text-xs rounded-full font-semibold'>
-                                Full Time
-                            </span>
+                    <div className='flex justify-between w-full border-b border-border-primary'>
+                        <div className='flex items-center w-full space-x-3 pb-5 '>
+                            <img src={profile} alt='' className='w-20 h-20 rounded-md' />
+                            <div className='space-y-2'>
+                                <h2 className='text-subtext-primary pb-0 mb-0 font-semibold text-lg'>
+                                    John Snow
+                                </h2>
+                                <p className='para'>Data scientist</p>
+                                <span className='bg-blue-background text-text-primary px-3 py-1 text-xs rounded-full font-semibold'>
+                                    Full Time
+                                </span>
+                            </div>
+                        </div>
+                        <div className='block md:hidden'>
+                            <div className='bg-secondary/70 text-primary-green font-semibold  text-center py-4 align-middle  px-5 flex items-center justify-center rounded-full'>
+                                <div>
+                                    <span className='text-subtext-primary text-xs'>Score</span>
+                                    <h2 className='text-2xl text-center'>89%</h2>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     {/* Contact details */}
-                    <div className='space-y-5 py-5 border-b border-border-primary'>
+                    <div className='space-y-5 py-5 md:border-b border-border-primary'>
                         <button className='text-paragraph text-sm flex items-center'>
                             <MapPin className='mr-2 w-5 h-5' />
                             Marina East, Singapore
@@ -39,7 +49,7 @@ const CandidateScoreCard = () => {
                         </button>
                     </div>
                     {/* Score */}
-                    <div className='py-5'>
+                    <div className='py-5 hidden md:block'>
                         <div className='bg-secondary/70 rounded-t-md py-3 text-center font-semibold mb-2'>
                             <h2>Score</h2>
                         </div>
@@ -49,7 +59,7 @@ const CandidateScoreCard = () => {
                     </div>
                 </div>
                 {/* section right */}
-                <div className='col-span-8 '>
+                <div className='col-span-12 md:col-span-8 py-5 md:p-0 '>
                     <div className='relative'>
                         <img src={aipersion} alt='' className='rounded-md' />
                         <div className='absolute inset-0 flex justify-center items-center bg-black/30 rounded-md'>
@@ -59,22 +69,22 @@ const CandidateScoreCard = () => {
 
                     <div className='bg-table-background rounded-t-md'>
                         <div className='grid grid-cols-12 space-x-4 bg-secondary/70 text-subtext-primary rounded-t-md mt-5 font-semibold'>
-                            <div className='col-span-5 p-5'>
+                            <div className='col-span-4 md:col-span-5 p-5'>
                                 <h2>Questions</h2>
                             </div>
-                            <div className='col-span-5 p-5'>
+                            <div className='col-span-4 md:col-span-5 p-5'>
                                 <h2>Answer</h2>
                             </div>
-                            <div className='col-span-2 p-5'>
+                            <div className='col-span-4 md:col-span-2 p-5'>
                                 <h2>Results</h2>
                             </div>
                         </div>
-                        <div className='mt-2 rounded-b-md'>
+                        <div className='mt-2 rounded-b-md px-3'>
                             <div className='grid grid-cols-12 '>
-                                <div className='col-span-5 p-5 border-r border-b border-border-primary rounded-b-md'>
+                                <div className='col-span-12 md:col-span-5 p-2 md:p-5 md:border-r md:border-b border-border-primary rounded-b-md'>
                                     <h2>1. Tell me about an Array?</h2>
                                 </div>
-                                <div className='col-span-5 p-5 border-r border-b border-border-primary'>
+                                <div className='col-span-10 md:col-span-5 p-2 pb-5 md:p-5 md:border-r border-b border-border-primary'>
                                     <div className='bg-white rounded-full py-2 px-2 flex items-center space-x-3'>
                                         <div className='w-fit whitespace-nowrap border-r border-border-primary pr-3'>
                                             <Play className='fill-white bg-primary text-white p-3 rounded-full w-10 h-10' />
@@ -90,10 +100,10 @@ const CandidateScoreCard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='col-span-2 p-5 border-b border-border-primary flex justify-center items-center'>
+                                <div className='col-span-2 md:col-span-2 p-2 md:p-5 border-b border-border-primary flex justify-center items-center'>
                                     <Check className='text-white bg-primary-green rounded-full p-3 w-10 h-10' />
                                 </div>
-                                <div className='col-span-5 border-r border-b p-5 border-border-primary'>
+                                <div className='col-span-12 md:col-span-5 md:border-r md:border-b p-2 md:p-5 border-border-primary'>
                                     <h2>2. Preferred Python library for data manipulation?</h2>
                                     <RadioGroup
                                         className='lg:block pt-2'
@@ -103,8 +113,10 @@ const CandidateScoreCard = () => {
                                         onChange={setSelectedOption}
                                     />
                                 </div>
-                                <div className='col-span-5 border-r border-b p-5 border-border-primary'>
-                                    <h2>2. Preferred Python library for data manipulation?</h2>
+                                <div className='col-span-9 md:col-span-5 md:border-r border-b p-2 pb-5 md:p-5 border-border-primary'>
+                                    <h2 className=''>
+                                        2. Preferred Python library for data manipulation?
+                                    </h2>
                                     <RadioGroup
                                         className='lg:block pt-2'
                                         options={questionMode}
@@ -113,14 +125,14 @@ const CandidateScoreCard = () => {
                                         onChange={setSelectAnswer}
                                     />
                                 </div>
-                                <div className='col-span-2 border-b border-border-primary p-5 flex justify-center items-center'>
+                                <div className='col-span-3 md:col-span-2 border-b border-border-primary p-2 md:p-5 flex justify-center items-center'>
                                     <X className='text-white bg-red-600 rounded-full p-3 w-10 h-10' />
                                 </div>
-                                <div className='col-span-5 p-5 border-r border-border-primary'>
+                                <div className='col-span-12 md:col-span-5 p-2 md:p-5 md:border-r border-border-primary'>
                                     <h2>3. Tell me about an Database?</h2>
                                 </div>
-                                <div className='col-span-5 p-5 border-r border-border-primary'>
-                                    <div className='bg-white rounded-full py-2 px-2 flex items-center space-x-3'>
+                                <div className='col-span-9 md:col-span-5 p-2 pb-5 md:p-5 md:border-r border-border-primary'>
+                                    <div className='bg-white rounded-full py-2 px-3 md:px-2 flex items-center space-x-3'>
                                         <div className='w-fit whitespace-nowrap border-r border-border-primary pr-3'>
                                             <Play className='fill-white bg-primary text-white p-3 rounded-full w-10 h-10' />
                                         </div>
@@ -135,7 +147,7 @@ const CandidateScoreCard = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='col-span-2 p-5  border-border-primary flex justify-center items-center'>
+                                <div className='col-span-3 md:col-span-2 p-2 md:p-5  border-border-primary flex justify-center items-center'>
                                     <Check className='text-white bg-primary-green rounded-full p-3 w-10 h-10' />
                                 </div>
                             </div>
