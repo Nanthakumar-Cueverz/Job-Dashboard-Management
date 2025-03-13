@@ -77,30 +77,47 @@ const Candidates = () => {
     return (
         <div className='max-w-6xl mx-auto'>
             {/* Search and Date Filter Section */}
-            <div className='flex justify-between items-center mb-4'>
+            <div className='block md:flex justify-between items-center mb-4'>
                 <div>
-                    <h2>Upcoming Interviews</h2>
+                    <h2 className='font-semibold pb-5 md:pb-0'>Upcoming Interviews</h2>
                 </div>
-                <div className='flex justify-between items-center space-x-5'>
+                <div className='block md:flex justify-between items-center space-x-5'>
                     {/* Search Bar */}
-                    <div className='w-64 relative'>
-                        <input
-                            type='email'
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                            placeholder='info@yourmai.com'
-                            className='w-full bg-transparent rounded-md border border-border-primary py-[10px] pr-3 pl-12 text-text-neutral outline-none '
-                        />
-                        <span className='absolute top-1/2 left-4 -translate-y-1/2'>
-                            <Search className='text-text-neutral w-4 h-4' />
-                        </span>
+                    <div className='w-full md:w-64'>
+                        <label
+                            htmlFor=''
+                            className='text-xs text-subtext-primary font-semibold  pb-2'
+                        >
+                            Search Candidate
+                        </label>
+                        <div className=' relative'>
+                            <input
+                                type='email'
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder='info@yourmai.com'
+                                className='w-full bg-transparent rounded-md border border-border-primary py-[10px] pr-3 pl-12 text-text-neutral outline-none '
+                            />
+                            <span className='absolute top-1/2 left-4 -translate-y-1/2'>
+                                <Search className='text-text-neutral w-4 h-4' />
+                            </span>
+                        </div>
                     </div>
-                    <input
-                        type='date'
-                        value={selectedDate}
-                        onChange={(e) => setSelectedDate(e.target.value)}
-                        className='bg-transparent border-border-primary rounded-md border border-stroke   py-[10px] px-5 text-text-neutral  outline-none transition'
-                    />
+                    <div className='w-full md:w-fit relative pt-3 md:pt-0'>
+                        <label
+                            htmlFor=''
+                            className='text-xs text-subtext-primary font-semibold pb-2'
+                        >
+                            Select Date
+                        </label>
+                        <input
+                            type='date'
+                            placeholder='DD-MM-YYYY'
+                            value={selectedDate}
+                            onChange={(e) => setSelectedDate(e.target.value)}
+                            className='bg-transparent uppercase border-border-primary rounded-md border border-stroke w-full py-[10px] px-5 text-text-neutral  outline-none transition'
+                        />
+                    </div>
                 </div>
             </div>
 
