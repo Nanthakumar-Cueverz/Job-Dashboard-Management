@@ -87,7 +87,7 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                             <div className='p-0 lg:px-5 mt-5'>
                                 {selectedFile && (
                                     <div>
-                                        <div className='flex justify-between items-center space-x-5'>
+                                        <div className='block md:flex justify-between items-center space-x-5'>
                                             <div className='mt-2 gap-3 py-2 px-4 w-full bg-white rounded-lg shadow'>
                                                 <div className='flex items-center justify-between'>
                                                     <div className='flex align-middle items-center gap-x-3'>
@@ -101,7 +101,6 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                                                             </span>
                                                         </div>
                                                     </div>
-
                                                     <button
                                                         onClick={() => setSelectedFile(null)}
                                                         className='text-black text-xs font-semibold ml-auto'
@@ -113,7 +112,7 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
                                                     <div className='bg-primary absolute top-0 left-0 h-full w-1/2 rounded-2xl'></div>
                                                 </div>
                                             </div>
-                                            <div className='text-center'>
+                                            <div className='text-center pt-3 lg:pt-0'>
                                                 <button
                                                     className='btn-fill px-10 py-2 items-center text-center'
                                                     onClick={handleApply} // Apply Button Click

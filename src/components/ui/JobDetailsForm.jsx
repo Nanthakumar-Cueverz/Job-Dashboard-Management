@@ -4,7 +4,7 @@ import TextArea from '../common/TextArea';
 import MultiSelectDropdown from '../common/MultiSelectDropdown';
 import SelectMenu from '../common/SelectMenu';
 
-const JobDetailsForm = ({ formData, setFormData , title}) => {
+const JobDetailsForm = ({ formData, setFormData, title }) => {
     const [selectedRole, setSelectedRole] = useState('');
     const options = [
         { value: 'react', label: 'React' },
@@ -22,7 +22,7 @@ const JobDetailsForm = ({ formData, setFormData , title}) => {
     return (
         <div>
             <h1 className='mb-2 block text-base font-medium text-black'>{title}</h1>
-            <div className='grid grid-cols-2 gap-4 border border-border-primary rounded-md p-5 '>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-4 border border-border-primary rounded-md p-5 '>
                 <Input
                     label='Job Title'
                     value={formData.title}
@@ -47,7 +47,10 @@ const JobDetailsForm = ({ formData, setFormData , title}) => {
                     onChange={(e) => setSelectedRole(e.target.value)}
                     placeholder='Choose a role...'
                 />
-                <div className='col-span-2'>
+                <div className='col-span-1 md:col-span-2'>
+                    <label htmlFor='' className='mb-2 block text-base font-medium text-black'>
+                        Keywords
+                    </label>
                     <MultiSelectDropdown
                         options={options}
                         selectedOptions={formData.selectedOptions}
@@ -57,7 +60,7 @@ const JobDetailsForm = ({ formData, setFormData , title}) => {
                         placeholder='Choose a framework...'
                     />
                 </div>
-                <div className='col-span-2'>
+                <div className='col-span-1 md:col-span-2'>
                     <TextArea
                         label='Job Description'
                         value={formData.description}

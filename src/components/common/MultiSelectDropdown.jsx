@@ -46,7 +46,7 @@ const MultiSelectDropdown = ({
 
             {/* Dropdown Menu */}
             {isOpen && (
-                <div className='absolute left-0 mt-2 flex h-36  w-full shadow bg-white border border-border-primary rounded-lg  z-10 max-h-40 overflow-y-auto p-2'>
+                <div className='absolute left-0 mt-2 w-full max-w-lg md:max-w-full shadow bg-white border border-border-primary rounded-lg z-10 p-2 overflow-y-auto max-h-40 md:max-h-52 flex flex-wrap gap-2'>
                     {options.map((option) => {
                         const isSelected = selectedOptions.find(
                             (item) => item.value === option.value,
@@ -54,10 +54,10 @@ const MultiSelectDropdown = ({
                         return (
                             <div
                                 key={option.value}
-                                className={`px-6 py-2 m-1 h-fit rounded-full bg-table-background border border-border-primary cursor-pointer transition-all ${
+                                className={`px-4 py-2 text-sm md:text-base rounded-full border-border cursor-pointer transition-all border ${
                                     isSelected
-                                        ? 'text-primary border border-primary'
-                                        : 'text-gray-700 hover:bg-blue-50'
+                                        ? 'bg-primary-light text-primary border-primary'
+                                        : 'text-gray-700 bg-gray-100 hover:bg-blue-50'
                                 }`}
                                 onClick={() => handleOptionClick(option)}
                             >

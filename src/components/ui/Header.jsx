@@ -18,13 +18,13 @@ const Header = ({ setIsOpen }) => {
     const title = pageTitles[location.pathname] || 'Dashboard';
 
     return (
-        <header className='flex items-center justify-between px-20 py-5 shadow-md bg-gradient-to-r from-[#184A9D] to-[#3E9FFB]'>
+        <header className='flex items-center justify-start md:justify-between px-5 md:px-20 py-5 shadow-md bg-gradient-to-r from-[#184A9D] to-[#3E9FFB]'>
             <button onClick={() => setIsOpen(true)} className='lg:hidden'>
-                <MenuIcon />
+                <MenuIcon className='text-white h-8 w-8 mr-5' />
             </button>
 
             <div>
-                <h1 className='font-semibold text-white text-3xl'>{title}</h1>
+                <h1 className='font-semibold text-white text-lg md:text-3xl'>{title}</h1>
                 <Breadcrumb />
             </div>
         </header>
@@ -54,7 +54,7 @@ const Breadcrumb = () => {
             {breadcrumbs.map((breadcrumb, index) => (
                 <li key={index} className='flex items-center'>
                     {index !== breadcrumbs.length - 1 ? (
-                        <Link to={breadcrumb.href} className='hover:underline'>
+                        <Link to={breadcrumb.href} className='hover:underline text-sm'>
                             {breadcrumb.name}
                         </Link>
                     ) : (
