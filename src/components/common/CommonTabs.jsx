@@ -11,7 +11,7 @@ const CommonTabs = ({ tabs, className = '' }) => {
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id)}
-                        className={`cursor-pointer border-b-2 ps-2 py-3 text-sm font-medium md:text-base text-left md:pr-10 transition-all ${
+                        className={`cursor-pointer border-b-2 ps-2 py-3 pe-5 md:pe-0  text-sm font-medium md:text-base text-left md:pr-10 transition-all ${
                             activeTab === tab.id
                                 ? 'border-primary text-subtext-primary font-semibold'
                                 : 'text-text-gray border-transparent'

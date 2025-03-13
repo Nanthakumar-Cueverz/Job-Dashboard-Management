@@ -14,25 +14,29 @@ const QuestionsEdit = () => {
                 </div>
                 <div className='bg-table-background rounded-md'>
                     <CandidateQuestions
+                        className=' p-5'
                         classNameInner='bg-white '
                         checkBox='block'
                         ListNumbers='hidden'
                     />
-                    <div className='border-t border-border-primary flex  items-center p-5'>
-                        <button className='btn-primary text-xs font-medium text-center whitespace-nowrap lg:text-sm pl-10'>
+                    <div className='border-t border-border-primary flex justify-between  items-center p-2 md:p-5'>
+                        <button className='btn-primary text-xs font-medium text-center whitespace-nowrap lg:text-sm md:pl-10'>
                             Add more Questions
                         </button>
-                        <hr className='w-0.5 h-6 mx-10 border border-border-primary' />
+                        <hr className='w-0.5 h-6 mx-2 md:mx-10 border border-border-primary' />
                         <button className='flex align-middle items-center space-x-3 text-subtext-primary text-sm font-medium whitespace-nowrap px-5 py-3'>
-                            <Pencil className='mr-2 h-5 w-5' /> Edit
+                            <Pencil className='mr-0 md:mr-2 h-5 w-5' />
+                            <span className='hidden md:block'>Edit</span>
                         </button>
-                        <hr className='w-0.5 h-6 mx-10 border border-border-primary' />
-                        <button className='flex align-middle items-center space-x-3 text-sm font-medium whitespace-nowrap px-5 py-3'>
-                            <HardDriveUpload className='mr-2 h-5 w-5' /> Upload
+                        <hr className='w-0.5 h-6 mx-2 md:mx-10 border border-border-primary' />
+                        <button className='flex align-middle items-center space-x-3 text-sm text-center font-medium whitespace-nowrap px-5 py-3'>
+                            <HardDriveUpload className='mr-0 md:mr-2 h-5 w-5' />
+                            <span className='hidden md:block'>Upload</span>
                         </button>
-                        <hr className='w-0.5 h-6  mx-10 border border-border-primary' />
+                        <hr className='w-0.5 h-6 mx-2 md:mx-10 border border-border-primary' />
                         <button className='flex align-middle items-center space-x-3 text-red-600 text-sm font-normal whitespace-nowrap px-5 py-3'>
-                            <Trash2 className='mr-2 h-5 w-5' /> Delete
+                            <Trash2 className='mr-0 md:mr-2 h-5 w-5' />
+                            <span className='hidden md:block'>Delete</span>
                         </button>
                     </div>
                 </div>

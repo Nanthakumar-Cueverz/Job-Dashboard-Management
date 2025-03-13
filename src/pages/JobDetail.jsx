@@ -18,7 +18,7 @@ const JobDetail = () => {
             label: 'Candidates Questions',
             content: (
                 <CandidateQuestions
-                    className='bg-primary-background'
+                    className='bg-primary-background p-5'
                     classNameInner='bg-white'
                     checkBox='hidden'
                     ListNumbers='block'
