@@ -39,11 +39,11 @@ const CandidateQuestions = ({ className, classNameInner, checkBox, ListNumbers, 
     return (
         <div>
             <h2 className='text-xl font-semibold mb-4'>{title}</h2>
-            <div className={`space-y-2 p-5 rounded-lg mb-5 ${className}`}>
+            <div className={`space-y-2 p-1 md:p-5 rounded-lg mb-5 ${className}`}>
                 {questions.map((question, index) => (
                     <div>
                         <label key={index} className='flex justify-between '>
-                            <div className='flex space-x-5 space-y-1 lg:space-y-6'>
+                            <div className='flex space-x-5 space-y-1 lg:space-y-6 pb-3 md:pb-0'>
                                 <div className={`w-fit ${checkBox}`}>
                                     <input
                                         type='checkbox'
@@ -58,7 +58,9 @@ const CandidateQuestions = ({ className, classNameInner, checkBox, ListNumbers, 
                                     </span>
                                 </div>
                                 <div>
-                                    <h6 className='para text-xs lg:text-[14px]'>{question}</h6>
+                                    <h6 className='para text-xs lg:text-[14px] mr-5 md:mr-0'>
+                                        {question}
+                                    </h6>
                                 </div>
                             </div>
                             <div className='text-end w-10'>
@@ -92,7 +94,7 @@ export const ExpandSectionDetail = ({ classname }) => {
     const questionMode = ['Multiple choice', 'Audio'];
     const questionCategory = ['Tech', 'HR'];
     return (
-        <div className={`mb-5 bg-primary-background p-3 rounded-lg ${classname}`}>
+        <div className={`mb-5 bg-primary-background py-5 px-3 md:p-3 rounded-lg ${classname}`}>
             <div>
                 <h1 className='card-title pb-2'>Possible answers</h1>
                 <Input
@@ -100,9 +102,9 @@ export const ExpandSectionDetail = ({ classname }) => {
                     className='bg-white text-table-text text-xs'
                     value='Data Analyst, Data Scientist, Data Engineer, Data Science Consultant, Data Mining Specialist'
                 />
-                <div className='grid grid-cols-12 gap-4 py-2'>
-                    <div className='col-span-5'>
-                        <h1 className='card-title pb-2'>Question Mode</h1>
+                <div className='grid grid-cols-12 gap-2 md:gap-4  h-full py-2'>
+                    <div className='col-span-6 md:col-span-5 h-full'>
+                        <h1 className='md:card-title pb-2'>Question Mode</h1>
                         <RadioGroup
                             options={questionMode}
                             name='question-type'
@@ -110,7 +112,7 @@ export const ExpandSectionDetail = ({ classname }) => {
                             onChange={setSelectedOption}
                         />
                     </div>
-                    <div className='col-span-5'>
+                    <div className='col-span-6 md:col-span-5  h-full'>
                         <h1 className='card-title pb-2'>Question Category</h1>
                         <RadioGroup
                             options={questionCategory}
@@ -118,21 +120,21 @@ export const ExpandSectionDetail = ({ classname }) => {
                             onChange={setSelectCategory}
                         />
                     </div>
-                    <div className='col-span-2'>
+                    <div className='col-span-6 md:col-span-2  h-full'>
                         <h1 className='card-title pb-2'>Timer</h1>
                         <h6 className='flex items-center text-table-text text-sm'>
                             <Clock className='w-4 h-4 mr-1' /> <span>2 Min</span>
                         </h6>
                     </div>
-                    <div className='col-span-5 pt-4'>
+                    <div className='col-span-6 md:col-span-5 md:pt-4  h-full'>
                         <h1 className='card-title pb-2'>Complexity level</h1>
                         <h6 className='flex items-center text-table-text text-sm'>3</h6>
                     </div>
-                    <div className='col-span-5 pt-4'>
+                    <div className='col-span-6 md:col-span-5  h-full'>
                         <h1 className='card-title pb-2'>Metadata</h1>
                         <h6 className='flex items-center text-table-text text-sm'>ML</h6>
                     </div>
-                    <div className='col-span-2 pt-4'>
+                    <div className='col-span-6 md:col-span-2 md:pt-4  h-full'>
                         <h1 className='card-title pb-2'>Priority</h1>
                         <h6 className='flex items-center text-table-text text-sm'>High</h6>
                     </div>

@@ -30,8 +30,8 @@ const ModalPopup = ({ isOpen, onClose, title, children, mobileWidth, desktopWidt
             borderRadius: '23px',
         },
         overlay: {
-            backgroundColor: '#2C2C2C94', // Black overlay with 70% opacity
-            zIndex: 1000, // Ensure it appears on top
+            backgroundColor: '#2C2C2C94',
+            zIndex: 1000,
         },
     };
 
