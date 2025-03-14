@@ -7,8 +7,6 @@ import Stars from '@icons/stars.svg?react';
 import Aleart from '@icons/circle-alert.svg?react';
 import ModalPopup from '../components/common/ModalPopup';
 import Loader from '../components/common/Loader';
-import { columns, data, Sectioncolumns } from '../Content';
-import ReusableDataTable from '../components/common/ReusableDataTable';
 import CloseIcon from '@icons/x.svg?react';
 import JobDetailsForm from '../components/ui/JobDetailsForm';
 import RadioGroup from '../components/common/RadioGroup';
@@ -16,7 +14,7 @@ import CandidateTables from '../components/ui/CandidateTables';
 import CandidateQuestions from '../components/ui/CandidateQuestions';
 
 const Dashboard = () => {
-    const [currentStep, setCurrentStep] = useState(2);
+    const [currentStep, setCurrentStep] = useState(1);
     return (
         <div className='py-0 lg:py-10'>
             <Steps currentStep={currentStep} />

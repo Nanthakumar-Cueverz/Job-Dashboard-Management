@@ -41,7 +41,7 @@ const QuestionsEdit = () => {
                     </div>
                 </div>
                 <div className='text-end pt-10'>
-                    <button className='back-button' Click={() => navigate('/questions')}>
+                    <button className='back-button' onClick={() => navigate('/questions')}>
                         Back
                     </button>
                     <button

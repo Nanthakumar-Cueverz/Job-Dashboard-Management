@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Upload from '@icons/upload.svg?react';
 import Pdf from '@icons/pdf.svg?react';
 import Cancel from '@icons/x.svg?react';
+import { toast } from 'react-hot-toast';
+import { X } from 'lucide-react';
 
 const UploadFiles = ({ onFileSelect, label, title, style }) => {
     const [selectedFile, setSelectedFile] = useState(null);
@@ -25,6 +27,18 @@ const UploadFiles = ({ onFileSelect, label, title, style }) => {
         };
 
         if (!validTypes[file.type]) {
+            toast.custom(
+                (t) => (
+                    <div className='bg-red-200 text-red-600 px-10 flex font-semibold items-center rounded-md whitespace-nowrap text-sm py-5'>
+                        <X className='bg-red-600 text-white rounded-full p-1 mr-2 h-6 w-6 stroke-3' />
+                        Only PDF or Word files are allowed.
+                    </div>
+                ),
+                {
+                    duration: 3000,
+                },
+            );
+
             setError('Only PDF or Word files are allowed.');
             setSelectedFile(null);
         } else {

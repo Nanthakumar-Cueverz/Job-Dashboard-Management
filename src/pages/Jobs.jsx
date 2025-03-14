@@ -28,7 +28,7 @@ const Jobs = () => {
     const currentJobs = jobListings.slice(indexOfFirstJob, indexOfLastJob);
     const totalPages = Math.ceil(jobListings.length / jobsPerPage);
     return (
-        <div className='p-0 lg:py-10 lg:px-10'>
+        <div className=' max-w-6xl mx-auto'>
             {jobListings.length > 0 ? (
                 <div>
                     <PostJobCommon url='/interviewai/create-job' />
@@ -74,7 +74,7 @@ const JobsCard = ({ jobs }) => {
                                 </a>
                                 <div className='flex align-middle gap-x-3 items-center'>
                                     <h6 className='text-xs text-black lg:text-[#707070] font-medium'>
-                                        Company Name
+                                        Google
                                     </h6>
                                     <span className='text-[10px] px-3 py-[4px] bg-blue-background text-text-primary rounded-full hidden lg:block '>
                                         {job.jobType}
@@ -92,10 +92,10 @@ const JobsCard = ({ jobs }) => {
                                     {job.location}
                                 </h2>
                                 <div className='space-x-2 pt-2'>
-                                    <p className='inline-block py-1 px-2.5 text-[10px] font-medium lg:hidden bg-green-100 text-green-900 rounded-md'>
+                                    <p className='inline-block py-1 px-2.5 text-[10px] font-normal shadow lg:hidden  text-subtext-primary border border-border-primary rounded-md'>
                                         {job.time}
                                     </p>
-                                    <span className='text-[10px] px-3 py-[4px] bg-blue-background lg:hidden inline-block w-fit text-text-primary rounded-md'>
+                                    <span className='text-[10px] px-3 py-[4px]  lg:hidden inline-block w-fit text-subtext-primary border border-border-primary shadow rounded-md'>
                                         {job.jobType}
                                     </span>
                                 </div>

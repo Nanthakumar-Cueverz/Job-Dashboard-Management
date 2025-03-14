@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import EmptySection from '../components/common/EmptySection';
 import { EllipsisVertical, Search } from 'lucide-react';
 import ReusableDataTable from '../components/common/ReusableDataTable';
-import Input from '../components/common/Input';
 
 const Candidates = () => {
     const [searchTerm, setSearchTerm] = useState('');
@@ -84,10 +83,7 @@ const Candidates = () => {
                 <div className='block md:flex justify-between items-center space-x-5'>
                     {/* Search Bar */}
                     <div className='w-full md:w-64'>
-                        <label
-                            htmlFor=''
-                            className='text-xs text-subtext-primary font-semibold  pb-2'
-                        >
+                        <label className='text-xs text-subtext-primary font-semibold  pb-2 md:hidden'>
                             Search Candidate
                         </label>
                         <div className=' relative'>
@@ -104,10 +100,7 @@ const Candidates = () => {
                         </div>
                     </div>
                     <div className='w-full md:w-fit relative pt-3 md:pt-0'>
-                        <label
-                            htmlFor=''
-                            className='text-xs text-subtext-primary font-semibold pb-2'
-                        >
+                        <label className='text-xs text-subtext-primary font-semibold pb-2 lg:hidden'>
                             Select Date
                         </label>
                         <input
